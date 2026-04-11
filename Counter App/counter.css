@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #f5f4f0;
+}
+
+.container {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+  text-align: center;
+  min-width: 280px;
+}
+
+h1 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.counterValue {
+  display: block;
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 1;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.2s;
+  animation: none;
+}
+
+.counterValue.positive {
+  color: #1d9e75;
+}
+
+.counterValue.negative {
+  color: #e24b4a;
+}
+
+.counterValue.bump {
+  animation: bump 0.18s ease;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.status {
+  font-size: 12px;
+  color: #aaa;
+  height: 16px;
+  margin-bottom: 2rem;
+}
+
+.btts {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  background: transparent;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+}
+
+button:hover {
+  background: #f5f4f0;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+#increment {
+  width: 52px;
+  height: 52px;
+  font-size: 22px;
+  color: #1d9e75;
+  border-color: #1d9e75;
+}
+
+#increment:hover {
+  background: #e1f5ee;
+}
+
+#decrement {
+  width: 52px;
+  height: 52px;
+  font-size: 22px;
+  color: #e24b4a;
+  border-color: #e24b4a;
+}
+
+#decrement:hover {
+  background: #fcebeb;
+}
+
+#reset {
+  padding: 0 18px;
+  height: 36px;
+  font-size: 13px;
+  color: #666;
+}

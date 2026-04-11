@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface2: #222222;
+      --border: #2e2e2e;
+      --text: #f0f0f0;
+      --muted: #6b6b6b;
+      --green: #22c55e;
+      --red: #ef4444;
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 24px 32px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      background: #1e1e1e;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .header h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .left-panel {
+      border-right: 1px solid var(--border);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      overflow-y: auto;
+    }
+
+    .balance-section h2 {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .balance-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .total-balance {
+      font-family: 'Space Mono', monospace;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 20px;
+    }
+
+    .balance-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .balance-item label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .balance-item .amount {
+      font-family: 'Space Mono', monospace;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .income .amount {
+      color: var(--green);
+    }
+
+    .expense .amount {
+      color: var(--red);
+    }
+
+    .form-section h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-field label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .form-field input,
+    .form-field select {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus {
+      border-color: #444;
+    }
+
+    .form-field input::placeholder {
+      color: var(--muted);
+    }
+
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-wrapper::after {
+      content: '▾';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+      font-size: 12px;
+    }
+
+    .btn-add {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 13px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-add:hover {
+      background: #2a2a2a;
+      border-color: #444;
+    }
+
+    .btn-add:active {
+      background: #333;
+    }
+
+    .right-panel {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .right-panel h2 {
+      font-size: 16px;
+      font-weight: 600;
+      padding: 28px 28px 20px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .transaction-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .transaction-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .transaction-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .transaction-list::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    .tx-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      transition: border-color 0.2s;
+      animation: slideIn 0.25s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tx-item:hover {
+      border-color: #3a3a3a;
+    }
+
+    .tx-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .tx-icon.income {
+      background: var(--green);
+    }
+
+    .tx-icon.expense {
+      background: var(--red);
+    }
+
+    .tx-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .tx-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .tx-info .tx-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tx-info .tx-date {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .tx-amount {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+      margin-left: auto;
+    }
+
+    .tx-amount.income {
+      color: var(--green);
+    }
+
+    .tx-amount.expense {
+      color: var(--red);
+    }
+
+    .tx-remove {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      line-height: 1;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .tx-remove:hover {
+      color: var(--text);
+      background: var(--border);
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 60px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .empty-state svg {
+      opacity: 0.3;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .footer .logo-small {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer .logo-small .logo {
+      width: 26px;
+      height: 26px;
+      font-size: 11px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-links a {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .social-links a:hover {
+      border-color: #555;
+      color: var(--text);
+    }
+
+    .social-links svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #222;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 13px;
+      color: var(--text);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 100;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+
+      .left-panel {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="logo">ℓ</div>
+    <h1>Expense Tracker</h1>
+  </header>
+
+  <div class="main">
+    <aside class="left-panel">
+      <div class="balance-section">
+        <h2>Balance Summary</h2>
+        <div class="balance-label">Total Balance</div>
+        <div class="total-balance" id="totalBalance">$0.00</div>
+        <div class="divider"></div>
+        <div class="balance-row">
+          <div class="balance-item income">
+            <label>Total Income</label>
+            <div class="amount" id="totalIncome">$0.00</div>
+          </div>
+          <div class="balance-item expense">
+            <label>Total Expense</label>
+            <div class="amount" id="totalExpense">$0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Add New Transaction</h2>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Type</label>
+            <div class="select-wrapper">
+              <select id="txType">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Amount</label>
+            <input type="number" id="txAmount" placeholder="$ 0.00" min="0" step="0.01" />
+          </div>
+          <div class="form-field">
+            <label>Date</label>
+            <input type="date" id="txDate" />
+          </div>
+          <div class="form-field">
+            <label>Category</label>
+            <input type="text" id="txCategory" placeholder="e.g. Salary, Groceries" />
+          </div>
+        </div>
+        <button class="btn-add" onclick="addTransaction()">Add Transaction</button>
+      </div>
+    </aside>
+
+    <section class="right-panel">
+      <h2>Transaction History</h2>
+      <div class="transaction-list" id="txList"></div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="logo-small">
+      <div class="logo">ℓ</div>
+      <span>© 2025 Logicbase Labs. All rights reserved.</span>
+    </div>
+    <div class="social-links">
+      <a href="#" title="GitHub"><svg viewBox="0 0 24 24">
+          <path
+            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+        </svg></a>
+      <a href="#" title="Twitter/X"><svg viewBox="0 0 24 24">
+          <path
+            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg></a>
+      <a href="#" title="LinkedIn"><svg viewBox="0 0 24 24">
+          <path
+            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg></a>
+      <a href="#" title="Instagram"><svg viewBox="0 0 24 24">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg></a>
+      <a href="#" title="YouTube"><svg viewBox="0 0 24 24">
+          <path
+            d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+        </svg></a>
+      <a href="#" title="Facebook"><svg viewBox="0 0 24 24">
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg></a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const transactions = [
+      { id: 1, name: 'Salary', date: 'Oct 25, 2023', amount: 5000, type: 'income' },
+      { id: 2, name: 'Groceries', date: 'Oct 24, 2023', amount: 124.50, type: 'expense' },
+      { id: 3, name: 'Rent', date: 'Oct 22, 2023', amount: 2000, type: 'expense' },
+      { id: 4, name: 'Freelance Project', date: 'Oct 20, 2023', amount: 5000, type: 'income' },
+      { id: 5, name: 'Dinner Out', date: 'Oct 19, 2023', amount: 75, type: 'expense' },
+      { id: 6, name: 'Utilities', date: 'Oct 15, 2023', amount: 2050, type: 'expense' },
+      { id: 7, name: 'Bonus Payment', date: 'Oct 13, 2023', amount: 1500, type: 'income' },
+    ];
+    let nextId = 8;
+
+    document.getElementById('txDate').valueAsDate = new Date();
+
+    function fmt(n) {
+      return '$' + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function fmtDate(dateStr) {
+      const d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function upArrow() {
+      return `<svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>`;
+    }
+    function downArrow() {
+      return `<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`;
+    }
+
+    function updateSummary() {
+      const income = transactions.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0);
+      const expense = transactions.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
+      document.getElementById('totalBalance').textContent = fmt(income - expense);
+      document.getElementById('totalIncome').textContent = fmt(income);
+      document.getElementById('totalExpense').textContent = fmt(expense);
+    }
+
+    function renderList() {
+      const list = document.getElementById('txList');
+      if (!transactions.length) {
+        list.innerHTML = `<div class="empty-state">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <path d="M2 10h20"/>
+        </svg>
+        <span>No transactions yet</span>
+      </div>`;
+        return;
+      }
+      list.innerHTML = transactions.map(t => `
+      <div class="tx-item" id="tx-${t.id}">
+        <div class="tx-icon ${t.type}">${t.type === 'income' ? upArrow() : downArrow()}</div>
+        <div class="tx-info">
+          <div class="tx-name">${t.name}</div>
+          <div class="tx-date">${t.date}</div>
+        </div>
+        <div class="tx-amount ${t.type}">${t.type === 'income' ? '+' : '-'}${fmt(t.amount)}</div>
+        <button class="tx-remove" onclick="removeTransaction(${t.id})">×</button>
+      </div>
+    `).join('');
+    }
+
+    function removeTransaction(id) {
+      const idx = transactions.findIndex(t => t.id === id);
+      if (idx > -1) { transactions.splice(idx, 1); renderList(); updateSummary(); }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function addTransaction() {
+      const type = document.getElementById('txType').value;
+      const amount = parseFloat(document.getElementById('txAmount').value);
+      const date = document.getElementById('txDate').value;
+      const category = document.getElementById('txCategory').value.trim();
+
+      if (!amount || amount <= 0) { showToast('Please enter a valid amount'); return; }
+      if (!date) { showToast('Please select a date'); return; }
+      if (!category) { showToast('Please enter a category'); return; }
+
+      transactions.unshift({ id: nextId++, name: category, date: fmtDate(date), amount, type });
+      document.getElementById('txAmount').value = '';
+      document.getElementById('txCategory').value = '';
+      document.getElementById('txDate').valueAsDate = new Date();
+      renderList(); updateSummary();
+      showToast('Transaction added!');
+    }
+
+    renderList();
+    updateSummary();
+  </script>
+</body>
+
+</html>
