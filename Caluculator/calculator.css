@@ -1,0 +1,160 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #f0ede8;
+  --calc-bg: #1c1917;
+  --display-bg: #141210;
+  --btn-num: #2a2623;
+  --btn-num-h: #333028;
+  --btn-op: #3d3028;
+  --btn-op-h: #4d3c32;
+  --btn-eq: #c8602a;
+  --btn-eq-h: #d97040;
+  --btn-fn: #242120;
+  --btn-fn-h: #2e2b29;
+  --text-num: #f5f0eb;
+  --text-op: #e8a87c;
+  --text-fn: rgba(255, 255, 255, 0.45);
+  --text-eq: #ffffff;
+  --gap: 10px;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "DM Sans", sans-serif;
+}
+
+.calc {
+  background: var(--calc-bg);
+  border-radius: 24px;
+  padding: 20px;
+  width: 320px;
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* ── Display ── */
+.display {
+  background: var(--display-bg);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-height: 100px;
+}
+
+#result {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: "DM Mono", monospace;
+  font-size: 42px;
+  font-weight: 400;
+  color: #ffffff;
+  text-align: right;
+  letter-spacing: -0.02em;
+  caret-color: var(--btn-eq);
+}
+
+#result::placeholder {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+
+/* ── Base button styles ── */
+input[type="button"] {
+  font-family: "DM Mono", monospace;
+  font-size: 18px;
+  font-weight: 400;
+  height: 64px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    background 0.12s,
+    transform 0.08s;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input[type="button"]:active {
+  transform: scale(0.92);
+}
+
+/* number */
+.btn-num {
+  background: var(--btn-num);
+  color: var(--text-num);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
+}
+.btn-num:hover {
+  background: var(--btn-num-h);
+}
+
+/* operator */
+.btn-op {
+  background: var(--btn-op);
+  color: var(--text-op);
+  font-size: 22px;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+}
+.btn-op:hover {
+  background: var(--btn-op-h);
+}
+
+/* function (AC, DE, %) */
+.btn-fn {
+  background: var(--btn-fn);
+  color: var(--text-fn);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+}
+.btn-fn:hover {
+  background: var(--btn-fn-h);
+}
+
+/* equals */
+.btn-eq {
+  background: var(--btn-eq);
+  color: var(--text-eq);
+  font-size: 24px;
+  box-shadow: 0 4px 0 rgba(140, 55, 15, 0.55);
+}
+.btn-eq:hover {
+  background: var(--btn-eq-h);
+}
+
+/* zero — spans 2 columns, text left */
+.btn-zero {
+  grid-column: span 2;
+  text-align: left;
+  padding-left: 24px;
+}
+
+/* dot */
+.btn-dot {
+  font-size: 26px;
+  line-height: 1;
+}
