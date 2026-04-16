@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guess the Number</title>
+    <link rel="stylesheet" href="number.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Guess the number</h1>
+        <p class="subtitle">Range: 1 – 50 · 8 attempts allowed</p>
+
+        <div class="difficulty">
+            <button id="easy">
+                Easy
+                <span>1–10</span>
+            </button>
+            <button id="medium">
+                Medium
+                <span>1–50</span>
+            </button>
+            <button id="hard">
+                Hard
+                <span>1–100</span>
+            </button>
+        </div>
+
+        <div class="stats">
+            <div class="card">
+                <p>Attempts</p>
+                <h2>0</h2>
+            </div>
+            <div class="card">
+                <p>Remaining</p>
+                <h2>8</h2>
+            </div>
+            <div class="card">
+                <p>Best</p>
+                <h2>5</h2>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <input type="text" placeholder="Enter your guess..." id="inpuField" />
+            <button class="guess-btn" id="guessBtn">Guess</button>
+        </div>
+
+        <div class="message">
+            I've picked a number between 1 and <span id="range"></span>. Go!
+        </div>
+
+        <div class="numbers"></div>
+        <button class="new-game">New game</button>
+
+    </div>
+
+    <script src="number.js"></script>
+</body>
+
+</html>
