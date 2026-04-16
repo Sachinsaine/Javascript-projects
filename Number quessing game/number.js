@@ -5,6 +5,12 @@ let guessedNum = document.querySelector(".numbers");
 let easy = document.querySelector("#easy");
 let medium = document.querySelector("#medium");
 let hard = document.querySelector("#hard");
+let feedbackText = document.querySelector("#feedback");
+let newGame = document.querySelector("#newGame");
+let attempt = document.querySelector("#attempts");
+
+let attempts = 0;
+attempt.textContent = attempts;
 
 let maxRange = 10;
 let getRandomNum = Math.floor(Math.random() * maxRange) + 1;
@@ -14,18 +20,21 @@ easy.addEventListener("click", () => {
   maxRange = 10;
   range.textContent = 10;
   getRandomNum = Math.floor(Math.random() * maxRange) + 1;
+  console.log(getRandomNum);
 });
 
 medium.addEventListener("click", () => {
   maxRange = 50;
   range.textContent = 50;
   getRandomNum = Math.floor(Math.random() * maxRange) + 1;
+  console.log(getRandomNum);
 });
 
 hard.addEventListener("click", () => {
   maxRange = 100;
   range.textContent = 100;
   getRandomNum = Math.floor(Math.random() * maxRange) + 1;
+  console.log(getRandomNum);
 });
 
 guess.addEventListener("click", () => {
@@ -41,6 +50,9 @@ guess.addEventListener("click", () => {
     alert(`Enter number between 1 and ${maxRange}`);
     return;
   }
+
+  attempts++;
+  attempt.textContent = attempts;
 
   let createDiv = document.createElement("div");
   createDiv.classList.add("guess-pill");
@@ -58,6 +70,20 @@ guess.addEventListener("click", () => {
 
   createDiv.appendChild(guessText);
   guessedNum.appendChild(createDiv);
-  console.log("User guessed:", guessText);
+
+  if (getRandomNum === inputValue) {
+    feedbackText.classList.add("show");
+    feedbackText.classList.remove("hidden");
+  } else {
+    feedbackText.classList.add("hidden");
+    feedbackText.classList.remove("show");
+  }
+
+  newGame.addEventListener("click", () => {
+    createDiv.remove();
+    feedbackText.classList.add("hidden");
+    feedbackText.classList.remove("show");
+  });
+
   input.value = "";
 });
