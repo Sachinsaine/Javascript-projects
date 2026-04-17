@@ -29,7 +29,7 @@
             </button>
         </div>
 
-        <div class="stats">
+        <!-- <div class="stats">
             <div class="card">
                 <p>Attempts</p>
                 <h2 id="attempts"></h2>
@@ -42,7 +42,7 @@
                 <p>Best</p>
                 <h2>5</h2>
             </div>
-        </div>
+        </div> -->
 
         <div class="input-group">
             <input type="number" placeholder="Enter your guess..." id="inpuField" />
@@ -56,7 +56,8 @@
         <div class="numbers"></div>
         <div class="feedback win" id="feedback">
             <span>🎉</span>
-            <span>You got it! The number was </span>
+            <span>You got it! The number was <b id="winNum"></b>
+                in <span id="numberOfAttempts"></span> attempts. </span>
         </div>
         <button class="new-game" id="newGame">New game</button>
 
