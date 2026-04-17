@@ -1,125 +1,137 @@
-function findEvenOdd(value) {
-  if (value < 0) {
-    console.log("number must be an integer");
-    return;
+function findEvenOdd(arr) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (!Number.isInteger(arr[i])) {
+      result.push("number must be an integer");
+    } else if (arr[i] % 2 === 0) {
+      result.push("Even");
+    } else {
+      result.push("Odd");
+    }
   }
-  if (value % 2 === 0) {
-    console.log("even");
-  } else {
-    console.log("odd");
-  }
+  return result;
 }
-findEvenOdd(-13);
-findEvenOdd(3);
-findEvenOdd(12);
+console.log(findEvenOdd([-13, 3, 12]));
 
-function fingLargestNum(a, b, c) {
-  let largest = a;
-  if (b > largest) {
-    largest = b;
+function findLargestNum(arr) {
+  let large = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    if (large < arr[i]) {
+      large = arr[i];
+    }
   }
-  if (c > largest) {
-    largest = c;
-  }
-  return largest;
+  return large;
 }
-console.log(fingLargestNum(24, 19, 38));
+console.log(findLargestNum([24, 19, 38]));
 
-function reverseStr(str) {
-  str = str.split("").reverse().join("");
-  return str;
+function reverseString(str) {
+  str = str.toString();
+  return str.split("").reverse().join("");
 }
-console.log(reverseStr("hello"));
+console.log(reverseString("hello"));
 
-function countVowels(str) {
-  str = str.toLowerCase();
+function countVowelConsonant(str) {
+  str = str.toLowerCase().trim();
   let vowels = "aeiou";
   let consonants = "bcdfghjklmnpqrstvwxyz";
-  let countVewels = 0;
-  let countConsonants = 0;
+  let countVowel = 0;
+  let countConsonant = 0;
 
   for (let i = 0; i < str.length; i++) {
-    console.log(str[i]);
+    console.log(vowels.includes(str[i]));
     if (vowels.includes(str[i])) {
-      countVewels++;
-    }
-    if (consonants.includes(str[i])) {
-      countConsonants++;
+      countVowel++;
+    } else if (consonants.includes(str[i])) {
+      countConsonant++;
     }
   }
-  return `Number of Vowels ${countVewels}, Number of Consonants ${countConsonants}`;
+  return `Number of Vowels ${countVowel}, Number of Consonants ${countConsonant}`;
 }
-console.log(countVowels("javascript"));
+console.log(countVowelConsonant("javascript"));
 
-function findFactorial(value) {
-  if (value < 0) {
-    console.log("value must be an integer");
-    return 0;
+function findFactorial(num) {
+  let factorial = 1;
+  if (!Number.isInteger(num) || num < 0) {
+    return "number must be an integer";
   }
-  let fact = 1;
-  for (let i = 1; i <= value; i++) {
-    fact *= i;
+  for (let i = 1; i <= num; i++) {
+    factorial *= i;
   }
-  return fact;
+  return factorial;
 }
 console.log(findFactorial(5));
-console.log(findFactorial(6));
-console.log(findFactorial(0));
-console.log(findFactorial(-2));
 
-function findSumOfArr(arr) {
+function findSum(arr) {
   let sum = 0;
   for (let i = 0; i < arr.length; i++) {
-    console.log(arr[i]);
     sum += arr[i];
   }
   return sum;
 }
-console.log(findSumOfArr([1, 2, 3, 4]));
+console.log(findSum([1, 2, 3, 4]));
 
 function findMaxNum(arr) {
-  let maxNum = arr[0];
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] > maxNum) {
-      maxNum = arr[i];
+  // return Math.max(...arr);
+
+  let max = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > max) {
+      max = arr[i];
     }
   }
-  return maxNum;
+  return max;
 }
 console.log(findMaxNum([5, 1, 9, 3]));
 console.log(findMaxNum([58, 61, 90, 113]));
 console.log(findMaxNum([85, 14, 69, 32]));
 
-function removeDuplicates(arr) {
-  //   let unique = [...new Set(arr)];
-  //   return unique;
+function findSecondLargestNum(arr) {
+  let largest = -Infinity;
+  let secondLargest = -Infinity;
 
-  let uniqueNum = [];
   for (let i = 0; i < arr.length; i++) {
-    if (!uniqueNum.includes(arr[i])) {
-      uniqueNum.push(arr[i]);
+    if (arr[i] > largest) {
+      secondLargest = largest;
+      largest = arr[i];
+    } else if (arr[i] > secondLargest && arr[i] !== largest) {
+      secondLargest = arr[i];
     }
   }
-  return uniqueNum;
+  return secondLargest;
+}
+console.log(findSecondLargestNum([5, 1, 9, 3]));
+console.log(findSecondLargestNum([58, 61, 90, 113]));
+console.log(findSecondLargestNum([85, 14, 69, 32]));
+
+function removeDuplicates(arr) {
+  let unique = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (!unique.includes(arr[i])) {
+      unique.push(arr[i]);
+    }
+  }
+  return unique;
 }
 console.log(removeDuplicates([1, 2, 2, 3, 4, 4]));
 
 function checkPalindrome(str) {
-  let findPldrm = str.split("").reverse().join("");
-  return str === findPldrm ? "true" : "false";
+  str = str.toString().trim();
+  let result = str.split("").reverse().join("");
+  return str === result ? true : false;
 }
 console.log(checkPalindrome("madam"));
 console.log(checkPalindrome("car"));
-console.log(checkPalindrome("racecar"));
+console.log(checkPalindrome("reacecar"));
 
 function findSecondLargestNum(arr) {
   let largest = -Infinity;
   let secondLargest = -Infinity;
+
   for (let i = 0; i < arr.length; i++) {
-    if (largest < arr[i]) {
+    if (arr[i] > largest) {
       secondLargest = largest;
       largest = arr[i];
-    } else if (secondLargest < arr[i] && arr[i] !== largest) {
+    } else if (arr[i] > secondLargest && arr[i] !== largest) {
       secondLargest = arr[i];
     }
   }
@@ -127,8 +139,8 @@ function findSecondLargestNum(arr) {
 }
 console.log(findSecondLargestNum([10, 5, 8, 20]));
 
-function FizzBuzz(value) {
-  for (let i = 0; i <= value; i++) {
+function FizzBuzz(num) {
+  for (let i = 1; i <= num; i++) {
     if (i % 3 === 0 && i % 5 === 0) {
       console.log("FizzBuzz");
     } else if (i % 3 === 0) {
@@ -136,7 +148,7 @@ function FizzBuzz(value) {
     } else if (i % 5 === 0) {
       console.log("Buzz");
     } else {
-      i;
+      console.log(i);
     }
   }
 }
@@ -156,30 +168,21 @@ function countFrequency(arr) {
 console.log(countFrequency([1, 2, 2, 3, 1, 1]));
 
 function findMissingNum(arr) {
-  let max = arr[arr.length - 1];
-  console.log(max);
-  for (let i = 1; i <= max; i++) {
+  let lengthArr = arr.length + 1;
+
+  for (let i = 1; i <= lengthArr; i++) {
     if (!arr.includes(i)) {
       return i;
     }
   }
 }
-console.log(findMissingNum([1, 2, 2, 4, 4, 5]));
+console.log(findMissingNum([1, 2, 3, 4, 6]));
 
-function removeDuplicates(arr) {
-  let unique = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (!unique.includes(arr[i])) {
-      unique.push(arr[i]);
-    }
-  }
-  return unique;
-}
-console.log(removeDuplicates([1, 2, 2, 3, 4, 4]));
-
-function capitalizeFirstLetter(arr) {
-  let splitArr = arr.split(" ");
-  let result = splitArr.map((word) => word[0].toUpperCase() + word.slice(1));
+function capitalizeFirstLetter(str) {
+  let splitStr = str.split(" ");
+  let result = splitStr.map(
+    (word) => word[0].toUpperCase() + word.slice(1).toLowerCase(),
+  );
   return result.join(" ");
 }
 console.log(capitalizeFirstLetter("hello world"));
