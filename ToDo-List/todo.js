@@ -1,6 +1,16 @@
 let input = document.querySelector("#todo");
 let button = document.querySelector("#addtodo");
 let todolist = document.querySelector(".lists");
+let totalSpan = document.querySelector("#total");
+let completedSpan = document.querySelector("#completed");
+
+function updateCount() {
+  let allTodos = document.querySelectorAll(".todo-item");
+  let completedTodos = document.querySelectorAll(".completed");
+
+  totalSpan.textContent = allTodos.length;
+  completedSpan.textContent = completedTodos.length;
+}
 
 button.addEventListener("click", () => {
   let value = input.value.trim();
@@ -14,8 +24,6 @@ button.addEventListener("click", () => {
   createtodo.classList = "todo-item";
 
   const text = document.createElement("span");
-  text.classList.add("todo-item");
-
   text.innerText = value;
 
   const complete = document.createElement("button");
@@ -31,11 +39,15 @@ button.addEventListener("click", () => {
   todolist.appendChild(createtodo);
   input.value = "";
 
+  updateCount();
+
   complete.addEventListener("click", () => {
     text.classList.toggle("completed");
+    updateCount();
   });
 
   remove.addEventListener("click", () => {
     createtodo.remove();
+    updateCount();
   });
 });
