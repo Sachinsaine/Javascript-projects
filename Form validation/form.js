@@ -1,4 +1,6 @@
 let submitBtn = document.querySelector("#submit");
+let clearBtn = document.querySelector("#clear");
+
 let firstname = document.querySelector("#firstname");
 let lastname = document.querySelector("#lastname");
 let email = document.querySelector("#email");
@@ -12,23 +14,65 @@ let userCity = document.querySelector(".city");
 let userState = document.querySelector(".state");
 
 let display = document.querySelector(".userdata");
+let form = document.querySelector("#form");
 
-let form = document.querySelector("form");
+function formChecker() {
+  let inputs = [firstname, lastname, email, city, state];
+  let isEmpty = inputs.some((input) => input.value.trim() === "");
+  submitBtn.disabled = isEmpty;
+}
+
+[firstname, lastname, email, city, state].forEach((input) => {
+  input.addEventListener("input", formChecker);
+});
+
+submitBtn.disabled = true;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  firstName.innerHTML = firstname.value;
-  lastName.innerHTML = lastname.value;
-  userEmail.innerHTML = email.value;
-  userCity.innerHTML = city.value;
-  userState.innerHTML = state.value;
 
-  // if (firstname.value === "" || lastname.value === "" || email.value === ""
-  //     || city.value === "" || state.value === "") {
-  //     submitBtn.style.display = "none"
-  // } else {
-  //     submitBtn.style.display = "block"
-  // }
+  let userData = {
+    firstname: firstname.value,
+    lastname: lastname.value,
+    email: email.value,
+    city: city.value,
+    state: state.value,
+  };
+
+  localStorage.setItem("user", JSON.stringify(userData));
+  displayData(userData);
+});
+
+function displayData(data) {
+  firstName.textContent = data.firstname;
+  lastName.textContent = data.lastname;
+  userEmail.textContent = data.email;
+  userCity.textContent = data.city;
+  userState.textContent = data.state;
 
   display.style.display = "block";
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  let saved = localStorage.getItem("user");
+
+  if (saved) {
+    let data = JSON.parse(saved);
+
+    firstname.value = data.firstname;
+    lastname.value = data.lastname;
+    email.value = data.email;
+    city.value = data.city;
+    state.value = data.state;
+
+    displayData(data);
+    formChecker();
+  }
+});
+
+clearBtn.addEventListener("click", () => {
+  localStorage.removeItem("user");
+  form.reset();
+  display.style.display = "none";
+  submitBtn.disabled = true;
 });
