@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            background: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            width: 260px;
+        }
+
+        .display {
+            width: 90%;
+            height: 50px;
+            margin-bottom: 15px;
+            font-size: 24px;
+            text-align: right;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #fff;
+        }
+
+        .inputs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .inputs input {
+            height: 50px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #444;
+            color: #fff;
+            transition: 0.2s;
+        }
+
+        .inputs input:hover {
+            background: #666;
+        }
+
+        .inputs input:active {
+            transform: scale(0.95);
+        }
+
+        .colorChange {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .colorChange span {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .colorChange button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background: #444;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .colorChange button:hover {
+            background: #666;
+        }
+
+        .digital {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        #timer {
+            font-size: 48px;
+            font-weight: bold;
+            background: #222;
+            color: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            letter-spacing: 3px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #timer span {
+            display: inline-block;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .counterApp {
+            background: #222;
+            padding: 25px 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .counterApp h1 {
+            font-size: 50px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .counterApp button {
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #fff;
+            transition: 0.2s;
+        }
+
+        /* Button colors */
+        .counterApp button:nth-child(2) {
+            background: #e74c3c;
+        }
+
+        .counterApp button:nth-child(3) {
+            background: #3498db;
+        }
+
+        .counterApp button:nth-child(4) {
+            background: #2ecc71;
+        }
+
+        .counterApp button:hover {
+            opacity: 0.8;
+        }
+
+        .counterApp button:active {
+            transform: scale(0.95);
+        }
+
+        /* ToDo Container */
+        .todolist {
+            background: #222;
+            padding: 25px 30px;
+            border-radius: 12px;
+            width: 260px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Title */
+        .todolist h1 {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        /* Input + Button Row */
+        .todo-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Input */
+        .todo-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        /* Button */
+        .todo-input button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            background: #2ecc71;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .todo-input button:hover {
+            background: #27ae60;
+        }
+
+        .todo-input button:active {
+            transform: scale(0.95);
+        }
+
+        .todoContainer {
+            display: flex;
+            align-items: center;
+            color: white;
+            border: 1px solid white;
+            border-radius: 6px;
+            padding: 5px;
+            margin: 10px 0px;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gainsboro;
+        }
+
+        .all {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator">
+        <div>
+            <input type="text" id="input" class="display" placeholder="0">
+        </div>
+        <div class="inputs">
+            <input type="button" value="C" onclick="display.value = '' ">
+            <input type="button" value="/" onclick="display.value += '/' ">
+            <input type="button" value="*" onclick="display.value += '*' ">
+            <input type="button" value="-" onclick="display.value += '-' ">
+
+            <input type="button" value="7" onclick="display.value += '7' ">
+            <input type="button" value="8" onclick="display.value += '8' ">
+            <input type="button" value="9" onclick="display.value += '9' ">
+            <input type="button" value="+" onclick="display.value += '+' ">
+
+            <input type="button" value="4" onclick="display.value += '4' ">
+            <input type="button" value="5" onclick="display.value += '5' ">
+            <input type="button" value="6" onclick="display.value += '6' ">
+            <input type="button" value="=" onclick="display.value = eval(display.value) ">
+
+            <input type="button" value="1" onclick="display.value += '1' ">
+            <input type="button" value="2" onclick="display.value += '2' ">
+            <input type="button" value="3" onclick="display.value += '3' ">
+            <input type="button" value="0" onclick="display.value += '0' ">
+
+            <input type="button" value="." onclick="display.value += '.' ">
+        </div>
+    </div>
+
+    <div class="colorChange">
+        <span id="colorName">Hex color name</span>
+        <button id="colorChange">Change background color</button>
+    </div>
+
+    <div class="digital">
+        <h1 id="timer">
+            <span id="hour"></span>:
+            <span id="min"></span>:
+            <span id="sec"></span>
+        </h1>
+    </div>
+
+    <div class="counterApp">
+        <h1 id="count">0</h1>
+        <button id="decrement">decrement</button>
+        <button id="reset">reset</button>
+        <button id="increment">increment</button>
+    </div>
+
+    <div class="todolist">
+        <h1>ToDo list</h1>
+        <div class="all"><span id="completed">0</span>/<span id="total">0</span></div>
+        <div class="todo-input">
+            <input type="text" id="inputValue" placeholder="Enter task...">
+            <button id="addBtn">add</button>
+        </div>
+        <div class="todoList"></div>
+    </div>
+
+    <!-- ToDo list js -->
+    <script>
+        let inputt = document.querySelector("#inputValue");
+        let addBtn = document.querySelector("#addBtn");
+        let todos = document.querySelector(".todoList");
+        let allTodos = document.querySelector("#total");
+        let completedTodos = document.querySelector("#completed");
+
+        function countTodos() {
+            let total = document.querySelectorAll(".todoContainer");
+            let completedAll = document.querySelectorAll(".completed");
+
+            allTodos.textContent = total.length;
+            completedTodos.textContent = completedAll.length;
+        }
+
+        addBtn.addEventListener('click', () => {
+            let inputText = inputt.value;
+
+            if (!inputText) {
+                alert("please add task!")
+                return;
+            }
+
+            let createDiv = document.createElement("div");
+            createDiv.classList.add("todoContainer");
+
+            let todoName = document.createElement("span");
+            todoName.innerText = inputText;
+
+            let complete = document.createElement("span");
+            complete.innerText = "✅"
+
+            let remove = document.createElement("span");
+            remove.innerText = "❌"
+
+            createDiv.appendChild(todoName);
+            createDiv.appendChild(complete);
+            createDiv.appendChild(remove);
+
+            todos.appendChild(createDiv);
+
+            inputt.value = ''
+            countTodos()
+
+            complete.addEventListener("click", () => {
+                todoName.classList.toggle("completed");
+                countTodos()
+            })
+
+            remove.addEventListener("click", () => {
+                createDiv.remove();
+                countTodos()
+            })
+
+        })
+    </script>
+
+    <!-- Calculator Js-->
+    <script>
+        let display = document.querySelector("#input");
+    </script>
+
+    <!-- change background color -->
+    <script>
+        let bodycolor = document.querySelector("body");
+        let colorBtn = document.querySelector("#colorChange");
+        let colourName = document.querySelector("#colorName")
+        colorBtn.addEventListener("click", () => {
+            let hexcolor = "0123456789ABCDEF";
+            let start = "#";
+
+            for (let i = 0; i < 6; i++) {
+                start += hexcolor[Math.floor(Math.random() * 15)]
+            }
+
+            bodycolor.style.backgroundColor = start
+            colourName.innerHTML = start
+            // getRGB()
+        })
+        // function getRGB() {
+        //     let r = Math.floor(Math.random() * 256);
+        //     let g = Math.floor(Math.random() * 256);
+        //     let b = Math.floor(Math.random() * 256);
+
+        //     bodycolor.style.backgroundColor = `rgb(${r},${g},${b})`
+        //     colourName.innerHTML = `rgb(${r},${g},${b})`
+        //     console.log(`rgb(${r},${g},${b})`);
+        // }
+        // console.log(getRGB());
+
+    </script>
+
+    <!-- Digital clock -->
+    <script>
+        let getHour = document.querySelector("#hour");
+        let getMin = document.querySelector("#min")
+        let getSec = document.querySelector("#sec")
+
+        setInterval(() => {
+            let getTime = new Date()
+            let hours = getTime.getHours()
+            let minutes = getTime.getMinutes()
+            let seconds = getTime.getSeconds()
+
+            getHour.textContent = hours
+            getMin.textContent = minutes
+            getSec.textContent = seconds
+        }, 1000)
+
+
+    </script>
+
+    <!-- counter app -->
+    <script>
+        let decrement = document.querySelector("#decrement");
+        let countText = document.querySelector("#count")
+        let count = 0;
+        decrement.addEventListener("click", () => {
+            if (count > 0) {
+                count--
+                countText.innerHTML = count
+            }
+            console.log(count);
+
+        })
+        let increment = document.querySelector("#increment");
+        increment.addEventListener("click", () => {
+            count++
+            countText.innerHTML = count
+
+            console.log(count);
+
+        })
+        let reset = document.querySelector("#reset");
+        reset.addEventListener("click", () => {
+            count = 0
+            countText.innerHTML = count
+
+            console.log(count);
+
+        })
+
+    </script>
+
+</body>
+
+</html>

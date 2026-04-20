@@ -1,12 +1,12 @@
-function findPowerWithoutPow(a, b) {
-  let sum = 1;
-  if (!Number.isInteger(a, b)) {
-    return "please enter valid integer";
+function onlyDigits(str) {
+  if (!str.trim()) return "";
+  let numbers = "0123456789";
+  for (let i = 0; i < str.length; i++) {
+    if (!numbers.includes(str[i])) {
+      return false;
+    }
   }
-  for (let i = 1; i <= b; i++) {
-    sum *= a;
-  }
-  return sum;
+  return true;
 }
-console.log(findPowerWithoutPow(2, 10));
-console.log(findPowerWithoutPow(3, 4));
+console.log(onlyDigits("12345"));
+console.log(onlyDigits("123abc"));
