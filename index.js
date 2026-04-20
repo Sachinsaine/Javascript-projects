@@ -1,12 +1,12 @@
-function onlyDigits(str) {
-  if (!str.trim()) return "";
-  let numbers = "0123456789";
-  for (let i = 0; i < str.length; i++) {
-    if (!numbers.includes(str[i])) {
-      return false;
+function sumTarget(arr, n) {
+  let sum = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === n) {
+        sum.push([arr[i], arr[j]]);
+      }
     }
   }
-  return true;
+  return sum;
 }
-console.log(onlyDigits("12345"));
-console.log(onlyDigits("123abc"));
+console.log(sumTarget([1, 2, 3, 4, 5], 5));
