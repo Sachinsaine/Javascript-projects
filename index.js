@@ -1,12 +1,22 @@
-function sumTarget(arr, n) {
-  let sum = [];
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[i] + arr[j] === n) {
-        sum.push([arr[i], arr[j]]);
-      }
+function checkPrimeNum(num) {
+  for (let i = 2; i < num; i++) {
+    if (num % i === 0) {
+      return false;
     }
   }
-  return sum;
+  return true;
 }
-console.log(sumTarget([1, 2, 3, 4, 5], 5));
+console.log(checkPrimeNum(7));
+console.log(checkPrimeNum(10));
+
+function findFactors(num) {
+  let result = [];
+  for (let i = 1; i <= num; i++) {
+    if (num % i === 0) {
+      result.push(i);
+    }
+  }
+  return result;
+}
+console.log(findFactors(12));
+console.log(findFactors(16));

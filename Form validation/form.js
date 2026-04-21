@@ -41,6 +41,8 @@ form.addEventListener("submit", (e) => {
 
   localStorage.setItem("user", JSON.stringify(userData));
   displayData(userData);
+  alert("your data has been sent successfully");
+  form.reset();
 });
 
 function displayData(data) {
