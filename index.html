@@ -4,126 +4,965 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>QuizMaster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
-        .container {
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0e0e14;
+            --card: #16161f;
+            --border: #2a2a3a;
+            --accent: #f0e040;
+            --accent2: #ff5e5b;
+            --accent3: #5bf5c5;
+            --text: #f0eff5;
+            --muted: #7a7990;
+            --correct: #5bf5c5;
+            --wrong: #ff5e5b;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Decorative background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(240, 224, 64, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(91, 245, 197, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 640px;
+            position: relative;
+        }
+
+        /* ---- SCREENS ---- */
+        .screen {
+            display: none;
+            animation: fadeUp 0.4s ease forwards;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---- START SCREEN ---- */
+        .start-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 52px 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .start-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text) 40%, var(--muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .start-sub {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .btn-start {
+            background: var(--accent);
+            color: #0e0e14;
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 48px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            letter-spacing: 1px;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(240, 224, 64, 0.3);
+        }
+
+        .btn-start:active {
+            transform: translateY(0);
+        }
+
+        /* ---- QUIZ SCREEN ---- */
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .q-counter {
+            font-family: 'Syne', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .q-counter span {
+            color: var(--accent);
+        }
+
+        .score-badge {
+            background: rgba(240, 224, 64, 0.1);
+            border: 1px solid rgba(240, 224, 64, 0.2);
+            color: var(--accent);
+            font-family: 'Syne', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 50px;
+            letter-spacing: 1px;
+        }
+
+        /* Progress bar */
+        .progress-wrap {
+            height: 4px;
+            background: var(--border);
+            border-radius: 4px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 4px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Timer */
+        .timer-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .timer-track {
+            flex: 1;
+            height: 6px;
+            background: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .timer-fill {
+            height: 100%;
+            background: var(--accent3);
+            border-radius: 6px;
+            transition: width 1s linear, background 0.3s;
+        }
+
+        .timer-fill.urgent {
+            background: var(--accent2);
+        }
+
+        .timer-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent3);
+            min-width: 24px;
+            text-align: right;
+        }
+
+        .timer-num.urgent {
+            color: var(--accent2);
+        }
+
+        /* Question card */
+        .question-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .q-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: rgba(240, 224, 64, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text);
+        }
+
+        /* Options */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .option-btn {
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 18px 20px;
+            border-radius: 14px;
+            cursor: pointer;
+            text-align: left;
+            transition: border-color 0.15s, background 0.15s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-letter {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+            transition: background 0.15s, color 0.15s;
+            color: var(--muted);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .option-btn:hover:not(:disabled) .option-letter {
+            background: var(--accent);
+            color: #0e0e14;
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background: rgba(91, 245, 197, 0.08);
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--correct);
+            color: #0e0e14;
+        }
+
+        .option-btn.wrong {
+            border-color: var(--wrong);
+            background: rgba(255, 94, 91, 0.08);
+        }
+
+        .option-btn.wrong .option-letter {
+            background: var(--wrong);
+            color: #fff;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        /* Feedback */
+        .feedback-bar {
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feedback-bar.show {
+            opacity: 1;
+        }
+
+        .feedback-bar.correct-fb {
+            background: rgba(91, 245, 197, 0.1);
+            border: 1px solid rgba(91, 245, 197, 0.3);
+            color: var(--correct);
+        }
+
+        .feedback-bar.wrong-fb {
+            background: rgba(255, 94, 91, 0.1);
+            border: 1px solid rgba(255, 94, 91, 0.3);
+            color: var(--wrong);
+        }
+
+        .feedback-bar.timeout-fb {
+            background: rgba(122, 121, 144, 0.1);
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        .btn-next {
+            width: 100%;
+            background: transparent;
+            border: 1.5px solid var(--accent);
+            color: var(--accent);
+            font-family: 'Syne', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: background 0.15s, color 0.15s;
+            display: none;
+        }
+
+        .btn-next.show {
+            display: block;
+        }
+
+        .btn-next:hover {
+            background: var(--accent);
+            color: #0e0e14;
+        }
+
+        /* ---- RESULT SCREEN ---- */
+        .result-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 52px 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent3), var(--accent), var(--accent2));
+        }
+
+        .result-emoji {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .result-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .result-sub {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 40px;
+        }
+
+        .score-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
-            gap: 10px;
-            max-width: 300px;
+            margin: 0 auto 40px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(240, 224, 64, 0.15);
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            border: 1px solid rgba(240, 224, 64, 0.15);
+        }
+
+        .score-big {
+            font-family: 'Syne', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .score-total {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .r-stat {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 10px;
+        }
+
+        .r-stat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .r-stat-num.green {
+            color: var(--correct);
+        }
+
+        .r-stat-num.red {
+            color: var(--wrong);
+        }
+
+        .r-stat-num.yellow {
+            color: var(--accent);
+        }
+
+        .r-stat-label {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .btn-restart {
+            background: var(--accent);
+            color: #0e0e14;
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 48px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            letter-spacing: 1px;
+        }
+
+        .btn-restart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(240, 224, 64, 0.3);
+        }
+
+        @media (max-width: 500px) {
+
+            .start-card,
+            .result-card {
+                padding: 36px 24px;
+            }
+
+            .start-title {
+                font-size: 38px;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .question-card {
+                padding: 24px;
+            }
+
+            .result-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div>
-        <form action="" id="form" class="container">
-            <input type="text" id="fName" placeholder="Firstname">
-            <input type="text" id="lName" placeholder="Lastname">
-            <input type="text" id="email" placeholder="Email">
-            <input type="text" id="city" placeholder="City">
-            <select name="" id="state">
-                <option value="">Select state</option>
-                <option value="karnataka">karnataka</option>
-                <option value="mumbai">mumbai</option>
-                <option value="telangana">telangana</option>
-            </select>
-            <button type="submit" id="submitBttn">Submit</button>
-            <button type="button" id="remove">Clear</button>
 
-        </form>
-        <div class="display">
-            <div>Firstname: <span class="dfname"></span></div>
-            <div>Lastname: <span class="dlname"></span></div>
-            <div>Email: <span class="demail"></span></div>
-            <div>City: <span class="dcity"></span></div>
-            <div>State: <span class="dstate"></span></div>
+    <div class="app">
+
+        <!-- START SCREEN -->
+        <div class="screen active" id="startScreen">
+            <div class="start-card">
+                <div class="logo">⚡ QuizMaster</div>
+                <h1 class="start-title">Test Your<br>JS Knowledge</h1>
+                <p class="start-sub">10 questions · 15 seconds each<br>How well do you know JavaScript?</p>
+                <div class="stats-row">
+                    <div class="stat">
+                        <div class="stat-num">10</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">15s</div>
+                        <div class="stat-label">Per Q</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">+10</div>
+                        <div class="stat-label">Per Point</div>
+                    </div>
+                </div>
+                <button class="btn-start" onclick="startQuiz()">Start Quiz →</button>
+            </div>
         </div>
+
+        <!-- QUIZ SCREEN -->
+        <div class="screen" id="quizScreen">
+            <div class="quiz-header">
+                <div class="q-counter">Question <span id="qNum">1</span> / 10</div>
+                <div class="score-badge">Score: <span id="scoreDisplay">0</span></div>
+            </div>
+            <div class="progress-wrap">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="timer-row">
+                <div class="timer-track">
+                    <div class="timer-fill" id="timerFill"></div>
+                </div>
+                <div class="timer-num" id="timerNum">15</div>
+            </div>
+            <div class="question-card">
+                <div class="q-tag" id="qTag">JavaScript</div>
+                <div class="question-text" id="questionText"></div>
+            </div>
+            <div class="options-grid" id="optionsGrid"></div>
+            <div class="feedback-bar" id="feedbackBar"></div>
+            <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div class="screen" id="resultScreen">
+            <div class="result-card">
+                <span class="result-emoji" id="resultEmoji">🏆</span>
+                <h2 class="result-title" id="resultTitle">Excellent!</h2>
+                <p class="result-sub" id="resultSub">You really know your JavaScript!</p>
+                <div class="score-circle">
+                    <div class="score-big" id="finalScore">0</div>
+                    <div class="score-total">out of 100</div>
+                </div>
+                <div class="result-stats">
+                    <div class="r-stat">
+                        <div class="r-stat-num green" id="correctCount">0</div>
+                        <div class="r-stat-label">Correct</div>
+                    </div>
+                    <div class="r-stat">
+                        <div class="r-stat-num red" id="wrongCount">0</div>
+                        <div class="r-stat-label">Wrong</div>
+                    </div>
+                    <div class="r-stat">
+                        <div class="r-stat-num yellow" id="accuracy">0%</div>
+                        <div class="r-stat-label">Accuracy</div>
+                    </div>
+                </div>
+                <button class="btn-restart" onclick="restartQuiz()">Play Again →</button>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        let firstname = document.querySelector("#fName");
-        let lastname = document.querySelector("#lName");
-        let email = document.querySelector("#email");
-        let city = document.querySelector("#city");
-        let state = document.querySelector("#state");
+        const questions = [
+            {
+                category: "Basics",
+                question: "Which keyword is used to declare a variable that cannot be reassigned?",
+                options: ["var", "let", "const", "static"],
+                answer: 2
+            },
+            {
+                category: "Data Types",
+                question: "What does typeof null return in JavaScript?",
+                options: ["null", "undefined", "object", "string"],
+                answer: 2
+            },
+            {
+                category: "Functions",
+                question: "What is a closure in JavaScript?",
+                options: [
+                    "A loop that closes itself",
+                    "A function with access to its outer scope",
+                    "A way to close the browser",
+                    "A method to end a program"
+                ],
+                answer: 1
+            },
+            {
+                category: "Arrays",
+                question: "Which array method returns a new array with transformed elements?",
+                options: ["filter()", "forEach()", "map()", "reduce()"],
+                answer: 2
+            },
+            {
+                category: "DOM",
+                question: "Which method selects an element by its ID?",
+                options: ["querySelector()", "getElementById()", "getElement()", "selectById()"],
+                answer: 1
+            },
+            {
+                category: "Async",
+                question: "What does async/await help you avoid?",
+                options: ["Syntax errors", "Callback hell", "Memory leaks", "Type errors"],
+                answer: 1
+            },
+            {
+                category: "Objects",
+                question: "How do you create a copy of an object without reference?",
+                options: [
+                    "let b = a",
+                    "let b = Object.copy(a)",
+                    "let b = {...a}",
+                    "let b = a.copy()"
+                ],
+                answer: 2
+            },
+            {
+                category: "ES6+",
+                question: "What does the spread operator (...) do?",
+                options: [
+                    "Multiplies values",
+                    "Expands an iterable into individual elements",
+                    "Creates a new function",
+                    "Declares a variable"
+                ],
+                answer: 1
+            },
+            {
+                category: "Events",
+                question: "Which method prevents the default browser action on an event?",
+                options: [
+                    "event.stop()",
+                    "event.cancel()",
+                    "event.preventDefault()",
+                    "event.block()"
+                ],
+                answer: 2
+            },
+            {
+                category: "Storage",
+                question: "Which localStorage method converts an object to a string for storage?",
+                options: ["localStorage.save()", "JSON.stringify()", "JSON.parse()", "object.toString()"],
+                answer: 1
+            }
+        ];
 
-        let dfName = document.querySelector(".dfname")
-        let dlName = document.querySelector(".dlname")
-        let dEmail = document.querySelector(".demail")
-        let dCity = document.querySelector(".dcity")
-        let dState = document.querySelector(".dstate")
+        const LETTERS = ['A', 'B', 'C', 'D'];
+        const TIME_PER_Q = 15;
 
-        let submitBtn = document.querySelector("#submitBttn");
-        let form = document.querySelector("#form");
-        let display = document.querySelector(".display");
-        let remove = document.querySelector("#remove")
-        display.style.display = "none"
+        let currentQ = 0;
+        let score = 0;
+        let correct = 0;
+        let wrong = 0;
+        let answered = false;
+        let timerInterval = null;
+        let timeLeft = TIME_PER_Q;
 
-        function inputCheck() {
-            let inputs = [firstname, lastname, email, city, state]
-            let emptyInput = inputs.some((input) => input.value.trim() === "");
-            submitBtn.disabled = emptyInput;
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            const screen = document.getElementById(id);
+            screen.classList.add('active');
+            // re-trigger animation
+            screen.style.animation = 'none';
+            screen.offsetHeight;
+            screen.style.animation = '';
         }
 
-
-        [firstname, lastname, email, city, state].forEach((input) => {
-            input.addEventListener("input", inputCheck)
-        })
-
-        submitBtn.disabled = true
-
-        form.addEventListener("submit", (e) => {
-            e.preventDefault()
-
-            let userdata = {
-                firstname: firstname.value,
-                lastname: lastname.value,
-                email: email.value,
-                city: city.value,
-                state: state.value
-            }
-
-            localStorage.setItem("userdata", JSON.stringify(userdata))
-            // console.log(userdata);
-            displayData(userdata)
-            alert("Your form has been submitted successfully")
-        })
-
-        window.addEventListener("DOMContentLoaded", () => {
-            let saved = localStorage.getItem("userdata")
-
-            if (saved) {
-                let data = JSON.parse(saved)
-
-                firstname.value = data.firstname
-                lastname.value = data.lastname
-                email.value = data.email
-                city.value = data.city
-                state.value = data.state
-
-                displayData(data)
-                inputCheck()
-            }
-
-        })
-        function displayData(data) {
-            dfName.textContent = data.firstname
-            dlName.textContent = data.lastname
-            dEmail.textContent = data.email
-            dCity.textContent = data.city
-            dState.textContent = data.state
-            display.style.display = "block"
-
+        function startQuiz() {
+            currentQ = 0;
+            score = 0;
+            correct = 0;
+            wrong = 0;
+            showScreen('quizScreen');
+            loadQuestion();
         }
-        remove.addEventListener("click", () => {
-            localStorage.clear("userdata");
-            display.style.display = "none"
-            form.reset();
-            submitBtn.disabled = true
-        })
 
+        function loadQuestion() {
+            answered = false;
+            timeLeft = TIME_PER_Q;
+
+            const q = questions[currentQ];
+            document.getElementById('qNum').textContent = currentQ + 1;
+            document.getElementById('scoreDisplay').textContent = score;
+            document.getElementById('qTag').textContent = q.category;
+            document.getElementById('questionText').textContent = q.question;
+
+            // Progress bar
+            const pct = (currentQ / questions.length) * 100;
+            document.getElementById('progressBar').style.width = pct + '%';
+
+            // Options
+            const grid = document.getElementById('optionsGrid');
+            grid.innerHTML = '';
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<span class="option-letter">${LETTERS[i]}</span>${opt}`;
+                btn.onclick = () => selectAnswer(i, btn);
+                grid.appendChild(btn);
+            });
+
+            // Feedback + next btn
+            const fb = document.getElementById('feedbackBar');
+            fb.className = 'feedback-bar';
+            fb.textContent = '';
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.className = 'btn-next';
+
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            updateTimerUI();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerUI();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timeOut();
+                }
+            }, 1000);
+        }
+
+        function updateTimerUI() {
+            const pct = (timeLeft / TIME_PER_Q) * 100;
+            const fill = document.getElementById('timerFill');
+            const num = document.getElementById('timerNum');
+            fill.style.width = pct + '%';
+            num.textContent = timeLeft;
+            const urgent = timeLeft <= 5;
+            fill.classList.toggle('urgent', urgent);
+            num.classList.toggle('urgent', urgent);
+        }
+
+        function timeOut() {
+            if (answered) return;
+            answered = true;
+            wrong++;
+            disableOptions();
+            highlightCorrect();
+            showFeedback('timeout-fb', '⏰ Time\'s up! Moving on...');
+            document.getElementById('nextBtn').className = 'btn-next show';
+        }
+
+        function selectAnswer(index, btn) {
+            if (answered) return;
+            answered = true;
+            clearInterval(timerInterval);
+
+            const correct_idx = questions[currentQ].answer;
+            disableOptions();
+
+            if (index === correct_idx) {
+                btn.classList.add('correct');
+                score += 10;
+                correct++;
+                document.getElementById('scoreDisplay').textContent = score;
+                showFeedback('correct-fb', '✓ Correct! +10 points');
+            } else {
+                btn.classList.add('wrong');
+                wrong++;
+                highlightCorrect();
+                showFeedback('wrong-fb', '✗ Wrong! See the correct answer above');
+            }
+
+            document.getElementById('nextBtn').className = 'btn-next show';
+        }
+
+        function disableOptions() {
+            document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+        }
+
+        function highlightCorrect() {
+            const btns = document.querySelectorAll('.option-btn');
+            btns[questions[currentQ].answer].classList.add('correct');
+        }
+
+        function showFeedback(cls, msg) {
+            const fb = document.getElementById('feedbackBar');
+            fb.className = `feedback-bar ${cls} show`;
+            fb.textContent = msg;
+        }
+
+        function nextQuestion() {
+            currentQ++;
+            if (currentQ >= questions.length) {
+                showResult();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function showResult() {
+            showScreen('resultScreen');
+            const pct = Math.round((correct / questions.length) * 100);
+
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('wrongCount').textContent = wrong;
+            document.getElementById('accuracy').textContent = pct + '%';
+            document.getElementById('progressBar').style.width = '100%';
+
+            let emoji, title, sub;
+            if (pct === 100) { emoji = '🏆'; title = 'Perfect Score!'; sub = 'You aced every single question!'; }
+            else if (pct >= 80) { emoji = '🎉'; title = 'Excellent!'; sub = 'You really know your JavaScript!'; }
+            else if (pct >= 60) { emoji = '👍'; title = 'Good Job!'; sub = 'Keep practicing, you\'re getting there!'; }
+            else if (pct >= 40) { emoji = '📚'; title = 'Keep Learning!'; sub = 'Review the basics and try again.'; }
+            else { emoji = '💪'; title = 'Don\'t Give Up!'; sub = 'Practice more and you\'ll improve!'; }
+
+            document.getElementById('resultEmoji').textContent = emoji;
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultSub').textContent = sub;
+        }
+
+        function restartQuiz() {
+            showScreen('startScreen');
+        }
     </script>
 </body>
 

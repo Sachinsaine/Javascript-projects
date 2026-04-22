@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Question</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #0b0c18;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        /* Main container */
+        .wrapper {
+            width: 700px;
+            margin: 50px auto;
+        }
+
+        /* Top bar */
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .top p {
+            color: #9aa0b5;
+            letter-spacing: 2px;
+        }
+
+        .score {
+            background: rgba(255, 255, 0, 0.1);
+            color: #f9d923;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* Progress bar */
+        .progress {
+            height: 6px;
+            background: #1a1c2c;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            width: 30%;
+            height: 100%;
+            background: #3a3d5c;
+            border-radius: 10px;
+        }
+
+        .timer-bar {
+            height: 6px;
+            background: #1a1c2c;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timer-fill {
+            width: 90%;
+            height: 100%;
+            background: #3a3d5c;
+            border-radius: 10px;
+        }
+
+        .timer-dot {
+            width: 10px;
+            height: 10px;
+            background: red;
+            border-radius: 50%;
+            position: absolute;
+            right: 5%;
+            top: -2px;
+        }
+
+        /* Question card */
+        .card {
+            background: linear-gradient(145deg, #111324, #0b0c18);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 0, 0.1);
+            color: #f9d923;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            font-size: 22px;
+            line-height: 1.4;
+            color: #d1d1d1;
+        }
+
+        /* Options */
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .option {
+            background: #111324;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #1a1c2c;
+        }
+
+        .option span {
+            background: #1f2135;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        /* Correct selected */
+        .correct {
+            border: 1px solid #00ffc8;
+            background: rgba(0, 255, 200, 0.1);
+        }
+
+        /* Time message */
+        .message {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 12px;
+            background: #111324;
+            text-align: center;
+            color: #9aa0b5;
+        }
+
+        /* Button */
+        button {
+            width: 100%;
+            padding: 15px;
+            border-radius: 30px;
+            border: 1px solid #f9d923;
+            background: transparent;
+            color: #f9d923;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #f9d923;
+            color: black;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="top">
+            <p>QUESTION 1 / 10</p>
+            <div class="score">Score: 0</div>
+        </div>
+
+        <div class="progress">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="timer-bar">
+            <div class="timer-fill"></div>
+            <div class="timer-dot"></div>
+        </div>
+
+        <div class="card">
+            <div class="tag">BASICS</div>
+            <div class="question">
+                Which keyword is used to declare a variable that cannot be reassigned?
+            </div>
+        </div>
+
+        <div class="options">
+            <div class="option"><span>A</span> var</div>
+            <div class="option"><span>B</span> let</div>
+            <div class="option correct"><span>C</span> const</div>
+            <div class="option"><span>D</span> static</div>
+        </div>
+
+        <div class="message">⏰ Time's up! Moving on...</div>
+
+        <button>Next Question →</button>
+
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

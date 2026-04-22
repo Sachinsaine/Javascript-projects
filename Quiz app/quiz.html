@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz UI</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0b0c18;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 500px;
+            padding: 40px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #111324, #0b0c18);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        /* Gradient top border effect */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: 20px;
+            right: 20px;
+            height: 4px;
+            border-radius: 50px;
+            background: linear-gradient(to right, yellow, orange, red, cyan);
+        }
+
+        .logo {
+            color: #f9d923;
+            letter-spacing: 3px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin: 0;
+            font-weight: bold;
+            color: #d1d1d1;
+        }
+
+        .subtext {
+            margin-top: 20px;
+            color: #9aa0b5;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat h2 {
+            color: #f9d923;
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .stat p {
+            margin: 5px 0 0;
+            font-size: 12px;
+            color: #9aa0b5;
+        }
+
+        button {
+            padding: 15px 40px;
+            border-radius: 30px;
+            border: none;
+            background: #f9d923;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button a {
+            color: black;
+            text-decoration: none;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="logo">⚡ QUIZMASTER</div>
+
+        <h1>Test Your<br>JS<br>Knowledge</h1>
+
+        <div class="subtext">
+            10 questions · 15 seconds each<br>
+            How well do you know JavaScript?
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <h2>10</h2>
+                <p>QUESTIONS</p>
+            </div>
+            <div class="stat">
+                <h2>15s</h2>
+                <p>PER Q</p>
+            </div>
+            <div class="stat">
+                <h2>+10</h2>
+                <p>PER POINT</p>
+            </div>
+        </div>
+
+        <button><a href="main.html">Start Quiz →</a></button>
+    </div>
+
+</body>
+
+</html>
