@@ -4,50 +4,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .bttns {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-    </style>
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="form.css">
 </head>
 
 <body>
-    <div class="container">
-        <div>
-            <div id="display"></div>
-            <div class="bttns">
-                <div id="hour"></div>:
-                <div id="min"></div>:
-                <div id="sec"></div>
-            </div>
+
+    <div class="form-validation">
+        <h2>Form Validation</h2>
+
+        <form id="form">
+            <input type="text" id="firstname" placeholder="First name">
+            <input type="text" id="lastname" placeholder="Last name">
+            <input type="email" id="email" placeholder="Email">
+            <input type="text" id="city" placeholder="City">
+            <select id="state">
+                <option value="">Select state</option>
+                <option value="karnataka">Karnataka</option>
+                <option value="telangana">Telangana</option>
+                <option value="mumbai">Mumbai</option>
+            </select>
+            <button type="submit" id="submit">Submit</button>
+            <button type="button" id="clear">Clear Data</button>
+        </form>
+
+        <div class="userdata">
+            <p>First name: <span class="firstname"></span></p>
+            <p>Last name: <span class="lastname"></span></p>
+            <p>Email: <span class="email"></span></p>
+            <p>City: <span class="city"></span></p>
+            <p>State: <span class="state"></span></p>
         </div>
     </div>
 
+
     <script>
-        let hour = document.querySelector("#hour");
-        let minute = document.querySelector("#min");
-        let second = document.querySelector("#sec");
+        let firstname = document.querySelector("#firstname")
+        let lastname = document.querySelector("#lastname")
+        let email = document.querySelector("#email")
+        let city = document.querySelector("#city")
+        let state = document.querySelector("#state")
+        let submitBtn = document.querySelector("#submit")
+        let cancelBtn = document.querySelector("#clear")
+
+        let firstName = document.querySelector(".firstname")
+        let lastName = document.querySelector(".lastname")
+        let Email = document.querySelector(".email")
+        let City = document.querySelector(".city")
+        let State = document.querySelector(".state")
+
+        let display = document.querySelector(".userdata")
+        let form = document.querySelector("#form")
+
+        function formChecker() {
+            let inputs = [firstname, lastname, email, city, state];
+            let emptyInput = inputs.some((input) => input.value.trim() === "");
+            submitBtn.disabled = emptyInput;
+        }
+
+        [firstname, lastname, email, city, state].forEach((input) => {
+            input.addEventListener("input", formChecker)
+        })
+
+        submitBtn.disabled = true;
 
 
-        setInterval(() => {
-            let getData = new Date();
-            hour.textContent = (getData.getHours() < 10 ? "0" : "") + getData.getHours();
-            minute.textContent = (getData.getMinutes() < 10 ? "0" : "") + getData.getMinutes();
-            second.textContent = (getData.getSeconds() < 10 ? "0" : "") + getData.getSeconds();
+        form.addEventListener("submit", (e) => {
+            e.preventDefault()
 
-        }, 1000)
+            let userdata = {
+                firstname: firstname.value,
+                lastname: lastname.value,
+                email: email.value,
+                city: city.value,
+                state: state.value,
+            }
+            console.log(userdata);
 
+            localStorage.setItem("user", JSON.stringify(userdata));
+            displayData(userdata)
+        })
+
+        function displayData(data) {
+            firstName.textContent = data.firstname
+            lastName.textContent = data.lastname
+            Email.textContent = data.email
+            City.textContent = data.city
+            State.textContent = data.state
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            let saveData = localStorage.getItem("user");
+
+            if (saveData) {
+                let data = JSON.parse(saveData)
+
+                firstname.value = data.firstname
+                lastname.value = data.lastname
+                email.value = data.email
+                city.value = data.city
+                state.value = data.state
+            }
+
+            displayData(data)
+            formChecker()
+        })
+        cancelBtn.addEventListener("click", () => {
+            localStorage.removeItem("user");
+            form.reset();
+            display.style.display = "none";
+            submitBtn.disabled = true
+        })
 
     </script>
 </body>

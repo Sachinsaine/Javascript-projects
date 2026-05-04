@@ -160,3 +160,85 @@ function findFactors(num) {
   return factors;
 }
 console.log(findFactors(12));
+
+function countWords(str) {
+  let count = str.trim().split(/\s+/);
+  return count.length;
+}
+console.log(countWords("hello world how are you"));
+
+function removeSpaces(str) {
+  let result = str.split(/\s+/).join("");
+  return result;
+}
+console.log(removeSpaces("hello world"));
+
+function isAnagram(a, b) {
+  a = a.toLowerCase().replace(/\s+/g, "").split("").sort().join("");
+  b = b.toLowerCase().replace(/\s+/g, "").split("").sort().join("");
+
+  return a === b;
+}
+console.log(isAnagram("listen", "silent"));
+console.log(isAnagram("hello", "wolrd"));
+
+function mostRepeatedChar(str) {
+  let maxCount = 0;
+  let fre = {};
+  let word = "";
+
+  for (let char of str) {
+    fre[char] = (fre[char] || 0) + 1;
+    if (fre[char] > maxCount) {
+      maxCount = fre[char];
+      word = char;
+    }
+  }
+  return word;
+}
+console.log(mostRepeatedChar("javascript"));
+
+function removeDuplicates(str) {
+  // return [...new Set(str)].join("");
+  let seen = {};
+  let word = "";
+  for (let char of str) {
+    if (!seen[char]) {
+      seen[char] = true;
+      word += char;
+    }
+  }
+  return word;
+}
+console.log(removeDuplicates("javascript"));
+
+function countCharacters(str) {
+  return str.trim().length;
+}
+
+// Expose globally for HTML use
+window.countCharacters = countCharacters;
+
+
+function longestWord(str) {
+  let longest = "";
+  let temp = str.toString().split(" ");
+
+  for (let word of temp) {
+    if (word.length > longest.length) {
+      longest = word;
+    }
+  }
+  return longest;
+}
+console.log(longestWord("hello world javascript"));
+
+function countChar(str, a) {
+  let freq = {};
+  let count = 0;
+  let temp = str;
+  for (let char of temp) {
+    
+  }
+}
+console.log(countChar("javascript", " a"));
