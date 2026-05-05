@@ -217,8 +217,7 @@ function countCharacters(str) {
 }
 
 // Expose globally for HTML use
-window.countCharacters = countCharacters;
-
+// window.countCharacters = countCharacters;
 
 function longestWord(str) {
   let longest = "";
@@ -234,11 +233,85 @@ function longestWord(str) {
 console.log(longestWord("hello world javascript"));
 
 function countChar(str, a) {
-  let freq = {};
+  if (str.length < 0) return 0;
   let count = 0;
-  let temp = str;
-  for (let char of temp) {
-    
+  for (let char of str) {
+    if (char === a) {
+      count++;
+    }
   }
+  return count;
 }
-console.log(countChar("javascript", " a"));
+console.log(countChar("helloworld", "l"));
+
+function truncate(str, max) {
+  if (str.length <= max) return str;
+  return str.slice(0, max) + "...";
+}
+console.log(truncate("hello world", 5));
+
+function replaceVowels(str) {
+  let result = "";
+  let vowels = "aeiou";
+  for (let i = 0; i < str.length; i++) {
+    if (vowels.includes(str[i])) {
+      result += "*";
+    } else {
+      result += str[i];
+    }
+  }
+  return result;
+}
+console.log(replaceVowels("javascript"));
+
+function onlyDigits(num) {
+  for (let char of num) {
+    if (char < "0" || char > "9") {
+      return false;
+    }
+  }
+  return true;
+}
+console.log(onlyDigits("1234"));
+console.log(onlyDigits("1234fasda"));
+
+function findLongestWord(word) {
+  let longWord = "";
+  let splitWorld = word.split(" ");
+  console.log(splitWorld);
+  for (let word of splitWorld) {
+    if (word.length > longWord.length) {
+      longWord = word;
+    }
+  }
+  return longWord;
+}
+console.log(findLongestWord("Hello wolrd javascript sachinsaine"));
+
+function removeDuplicate(word) {
+  let freq = {};
+  let result = "";
+  for (let char of word) {
+    if (!freq[char]) {
+      freq[char] = true;
+      result += char;
+    }
+  }
+  return result;
+}
+console.log(removeDuplicate("javascript"));
+
+function mostRepeated(str) {
+  let result = "";
+  let max = 0;
+  let freq = {};
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+    if (freq[char] > max) {
+      max = freq[char];
+      result = char;
+    }
+  }
+  return result;
+}
+console.log(mostRepeated("javascript"));
