@@ -1,317 +1,347 @@
-// function armstrongNum(num) {
-//   if (!Number.isInteger(num)) return "invalid input";
-//   let getNum = num.toString().split("");
-//   let power = getNum.length;
-//   let sum = 0;
+// // function armstrongNum(num) {
+// //   if (!Number.isInteger(num)) return "invalid input";
+// //   let getNum = num.toString().split("");
+// //   let power = getNum.length;
+// //   let sum = 0;
 
-//   for (let i = 0; i < getNum.length; i++) {
-//     sum += parseInt(getNum[i]) ** power;
+// //   for (let i = 0; i < getNum.length; i++) {
+// //     sum += parseInt(getNum[i]) ** power;
+// //   }
+// //   return sum === num ? true : false;
+// // }
+// // console.log(armstrongNum(153));
+
+// function armstrongNum(num) {
+//   if (!Number.isInteger(num) || num < 0) return "invalid input";
+
+//   let sum = 0;
+//   let digits = 0;
+//   let temp = num;
+
+//   let n = num;
+//   while (n > 0) {
+//     digits++;
+//     n = Math.floor(n / 10);
 //   }
-//   return sum === num ? true : false;
+
+//   while (temp > 0) {
+//     let digit = temp % 10;
+//     sum += digit ** digits;
+//     temp = Math.floor(temp / 10);
+//   }
+//   return sum === num;
 // }
+
 // console.log(armstrongNum(153));
 
-function armstrongNum(num) {
-  if (!Number.isInteger(num) || num < 0) return "invalid input";
+// function findPerfectNum(num) {
+//   let sum = 0;
+//   for (let i = 1; i < num; i++) {
+//     if (num % i === 0) {
+//       sum += i;
+//     }
+//   }
+//   return num === sum ? "Perfect number" : "Not a perfect number";
+// }
+// console.log(findPerfectNum(6));
+// console.log(findPerfectNum(10));
 
-  let sum = 0;
-  let digits = 0;
-  let temp = num;
+// function findSumOfDigits(num) {
+//   if (!Number.isInteger(num)) return "invalid input";
+//   let sum = 0;
+//   let temp = num;
+//   while (temp > 0) {
+//     let digit = temp % 10;
+//     sum += digit;
+//     temp = Math.floor(temp / 10);
+//   }
+//   return sum;
+// }
+// console.log(findSumOfDigits(1234));
 
-  let n = num;
-  while (n > 0) {
-    digits++;
-    n = Math.floor(n / 10);
-  }
+// function reverseNum(num) {
+//   if (!Number.isInteger(num)) return "invalid input";
 
-  while (temp > 0) {
-    let digit = temp % 10;
-    sum += digit ** digits;
-    temp = Math.floor(temp / 10);
-  }
-  return sum === num;
-}
+//   let reverse = 0;
+//   let temp = Math.abs(num);
 
-console.log(armstrongNum(153));
+//   while (temp > 0) {
+//     let digit = temp % 10;
+//     reverse = reverse * 10 + digit;
+//     temp = Math.floor(temp / 10);
+//   }
+//   return reverse;
+// }
+// console.log(reverseNum(1234));
 
-function findPerfectNum(num) {
-  let sum = 0;
-  for (let i = 1; i < num; i++) {
-    if (num % i === 0) {
-      sum += i;
-    }
-  }
-  return num === sum ? "Perfect number" : "Not a perfect number";
-}
-console.log(findPerfectNum(6));
-console.log(findPerfectNum(10));
+// function checkPalindrome(num) {
+//   if (!Number.isInteger(num)) return "invalid input";
+//   let reverse = 0;
+//   let temp = num;
+//   while (temp > 0) {
+//     let digit = temp % 10;
+//     reverse = reverse * 10 + digit;
+//     temp = Math.floor(temp / 10);
+//   }
+//   return reverse === num;
+// }
+// console.log(checkPalindrome(121));
+// console.log(checkPalindrome(123));
 
-function findSumOfDigits(num) {
-  if (!Number.isInteger(num)) return "invalid input";
-  let sum = 0;
-  let temp = num;
-  while (temp > 0) {
-    let digit = temp % 10;
-    sum += digit;
-    temp = Math.floor(temp / 10);
-  }
-  return sum;
-}
-console.log(findSumOfDigits(1234));
+// function findGCD(a, b) {
+//   if (!Number.isInteger(a) || !Number.isInteger(b)) return "invalid input";
 
-function reverseNum(num) {
-  if (!Number.isInteger(num)) return "invalid input";
+//   a = Math.abs(a);
+//   b = Math.abs(b);
+//   while (b !== 0) {
+//     let temp = b;
+//     b = a % b;
+//     a = temp;
+//   }
+//   return a;
+// }
+// console.log(findGCD(3, 5));
 
-  let reverse = 0;
-  let temp = Math.abs(num);
+// function findLCM(a, b) {
+//   if (!Number.isInteger(a) || !Number.isInteger(b)) return "invalid input";
+//   if (a === 0 || b === 0) return 0;
+//   a = Math.abs(a);
+//   b = Math.abs(b);
+//   return (a * b) / findGCD(a, b);
+// }
+// console.log(findLCM(3, 5));
 
-  while (temp > 0) {
-    let digit = temp % 10;
-    reverse = reverse * 10 + digit;
-    temp = Math.floor(temp / 10);
-  }
-  return reverse;
-}
-console.log(reverseNum(1234));
+// function countDigits(num) {
+//   if (!Number.isInteger(num) || num < 0) return "invalid input";
+//   let count = 0;
+//   if (num === 0) return 0;
+//   while (num > 0) {
+//     let digit = num % 10;
+//     count++;
+//     num = Math.floor(num / 10);
+//   }
+//   return count;
+// }
+// console.log(countDigits(1234));
 
-function checkPalindrome(num) {
-  if (!Number.isInteger(num)) return "invalid input";
-  let reverse = 0;
-  let temp = num;
-  while (temp > 0) {
-    let digit = temp % 10;
-    reverse = reverse * 10 + digit;
-    temp = Math.floor(temp / 10);
-  }
-  return reverse === num;
-}
-console.log(checkPalindrome(121));
-console.log(checkPalindrome(123));
+// function findPower(num, power) {
+//   if (!Number.isInteger(num) || !Number.isInteger(power))
+//     return "invalid input";
+//   // return num ** power;
 
-function findGCD(a, b) {
-  if (!Number.isInteger(a) || !Number.isInteger(b)) return "invalid input";
+//   let result = 1;
+//   for (let i = 1; i <= power; i++) {
+//     result *= num;
+//   }
+//   return result;
+// }
+// console.log(findPower(2, 10));
 
-  a = Math.abs(a);
-  b = Math.abs(b);
-  while (b !== 0) {
-    let temp = b;
-    b = a % b;
-    a = temp;
-  }
-  return a;
-}
-console.log(findGCD(3, 5));
+// function checkPrime(num) {
+//   if (!Number.isInteger(num) || num < 2) return false;
+//   for (let i = 2; i <= Math.sqrt(num); i++) {
+//     if (num % i === 0) {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
+// console.log(checkPrime(7));
+// console.log(checkPrime(10));
 
-function findLCM(a, b) {
-  if (!Number.isInteger(a) || !Number.isInteger(b)) return "invalid input";
-  if (a === 0 || b === 0) return 0;
-  a = Math.abs(a);
-  b = Math.abs(b);
-  return (a * b) / findGCD(a, b);
-}
-console.log(findLCM(3, 5));
+// function findFactors(num) {
+//   if (!Number.isInteger(num) || num < 0) return "invalid input";
+//   let factors = [];
+//   for (let i = 1; i <= num; i++) {
+//     if (num % i === 0) {
+//       factors.push(i);
+//     }
+//   }
+//   return factors;
+// }
+// console.log(findFactors(12));
 
-function countDigits(num) {
-  if (!Number.isInteger(num) || num < 0) return "invalid input";
-  let count = 0;
-  if (num === 0) return 0;
-  while (num > 0) {
-    let digit = num % 10;
-    count++;
-    num = Math.floor(num / 10);
-  }
-  return count;
-}
-console.log(countDigits(1234));
+// function countWords(str) {
+//   let count = str.trim().split(/\s+/);
+//   return count.length;
+// }
+// console.log(countWords("hello world how are you"));
 
-function findPower(num, power) {
-  if (!Number.isInteger(num) || !Number.isInteger(power))
-    return "invalid input";
-  // return num ** power;
+// function removeSpaces(str) {
+//   let result = str.split(/\s+/).join("");
+//   return result;
+// }
+// console.log(removeSpaces("hello world"));
 
-  let result = 1;
-  for (let i = 1; i <= power; i++) {
-    result *= num;
-  }
-  return result;
-}
-console.log(findPower(2, 10));
+// function isAnagram(a, b) {
+//   a = a.toLowerCase().replace(/\s+/g, "").split("").sort().join("");
+//   b = b.toLowerCase().replace(/\s+/g, "").split("").sort().join("");
 
-function checkPrime(num) {
-  if (!Number.isInteger(num) || num < 2) return false;
-  for (let i = 2; i <= Math.sqrt(num); i++) {
-    if (num % i === 0) {
-      return false;
-    }
-  }
-  return true;
-}
-console.log(checkPrime(7));
-console.log(checkPrime(10));
+//   return a === b;
+// }
+// console.log(isAnagram("listen", "silent"));
+// console.log(isAnagram("hello", "wolrd"));
 
-function findFactors(num) {
-  if (!Number.isInteger(num) || num < 0) return "invalid input";
-  let factors = [];
-  for (let i = 1; i <= num; i++) {
-    if (num % i === 0) {
-      factors.push(i);
-    }
-  }
-  return factors;
-}
-console.log(findFactors(12));
+// function mostRepeatedChar(str) {
+//   let maxCount = 0;
+//   let fre = {};
+//   let word = "";
 
-function countWords(str) {
-  let count = str.trim().split(/\s+/);
-  return count.length;
-}
-console.log(countWords("hello world how are you"));
+//   for (let char of str) {
+//     fre[char] = (fre[char] || 0) + 1;
+//     if (fre[char] > maxCount) {
+//       maxCount = fre[char];
+//       word = char;
+//     }
+//   }
+//   return word;
+// }
+// console.log(mostRepeatedChar("javascript"));
 
-function removeSpaces(str) {
-  let result = str.split(/\s+/).join("");
-  return result;
-}
-console.log(removeSpaces("hello world"));
+// function removeDuplicates(str) {
+//   // return [...new Set(str)].join("");
+//   let seen = {};
+//   let word = "";
+//   for (let char of str) {
+//     if (!seen[char]) {
+//       seen[char] = true;
+//       word += char;
+//     }
+//   }
+//   return word;
+// }
+// console.log(removeDuplicates("javascript"));
 
-function isAnagram(a, b) {
-  a = a.toLowerCase().replace(/\s+/g, "").split("").sort().join("");
-  b = b.toLowerCase().replace(/\s+/g, "").split("").sort().join("");
+// function countCharacters(str) {
+//   return str.trim().length;
+// }
 
-  return a === b;
-}
-console.log(isAnagram("listen", "silent"));
-console.log(isAnagram("hello", "wolrd"));
+// // Expose globally for HTML use
+// // window.countCharacters = countCharacters;
 
-function mostRepeatedChar(str) {
-  let maxCount = 0;
-  let fre = {};
-  let word = "";
+// function longestWord(str) {
+//   let longest = "";
+//   let temp = str.toString().split(" ");
 
-  for (let char of str) {
-    fre[char] = (fre[char] || 0) + 1;
-    if (fre[char] > maxCount) {
-      maxCount = fre[char];
-      word = char;
-    }
-  }
-  return word;
-}
-console.log(mostRepeatedChar("javascript"));
+//   for (let word of temp) {
+//     if (word.length > longest.length) {
+//       longest = word;
+//     }
+//   }
+//   return longest;
+// }
+// console.log(longestWord("hello world javascript"));
 
-function removeDuplicates(str) {
-  // return [...new Set(str)].join("");
-  let seen = {};
-  let word = "";
-  for (let char of str) {
-    if (!seen[char]) {
-      seen[char] = true;
-      word += char;
-    }
-  }
-  return word;
-}
-console.log(removeDuplicates("javascript"));
+// function countChar(str, a) {
+//   if (str.length < 0) return 0;
+//   let count = 0;
+//   for (let char of str) {
+//     if (char === a) {
+//       count++;
+//     }
+//   }
+//   return count;
+// }
+// console.log(countChar("helloworld", "l"));
 
-function countCharacters(str) {
-  return str.trim().length;
-}
+// function truncate(str, max) {
+//   if (str.length <= max) return str;
+//   return str.slice(0, max) + "...";
+// }
+// console.log(truncate("hello world", 5));
 
-// Expose globally for HTML use
-// window.countCharacters = countCharacters;
+// function replaceVowels(str) {
+//   let result = "";
+//   let vowels = "aeiou";
+//   for (let i = 0; i < str.length; i++) {
+//     if (vowels.includes(str[i])) {
+//       result += "*";
+//     } else {
+//       result += str[i];
+//     }
+//   }
+//   return result;
+// }
+// console.log(replaceVowels("javascript"));
 
-function longestWord(str) {
-  let longest = "";
-  let temp = str.toString().split(" ");
+// function onlyDigits(num) {
+//   for (let char of num) {
+//     if (char < "0" || char > "9") {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
+// console.log(onlyDigits("1234"));
+// console.log(onlyDigits("1234fasda"));
 
-  for (let word of temp) {
-    if (word.length > longest.length) {
-      longest = word;
-    }
-  }
-  return longest;
-}
-console.log(longestWord("hello world javascript"));
+// function findLongestWord(word) {
+//   let longWord = "";
+//   let splitWorld = word.split(" ");
+//   console.log(splitWorld);
+//   for (let word of splitWorld) {
+//     if (word.length > longWord.length) {
+//       longWord = word;
+//     }
+//   }
+//   return longWord;
+// }
+// console.log(findLongestWord("Hello wolrd javascript sachinsaine"));
 
-function countChar(str, a) {
-  if (str.length < 0) return 0;
-  let count = 0;
-  for (let char of str) {
-    if (char === a) {
-      count++;
-    }
-  }
-  return count;
-}
-console.log(countChar("helloworld", "l"));
+// function removeDuplicate(word) {
+//   let freq = {};
+//   let result = "";
+//   for (let char of word) {
+//     if (!freq[char]) {
+//       freq[char] = true;
+//       result += char;
+//     }
+//   }
+//   return result;
+// }
+// console.log(removeDuplicate("javascript"));
 
-function truncate(str, max) {
-  if (str.length <= max) return str;
-  return str.slice(0, max) + "...";
-}
-console.log(truncate("hello world", 5));
+// function mostRepeated(str) {
+//   let result = "";
+//   let max = 0;
+//   let freq = {};
+//   for (let char of str) {
+//     freq[char] = (freq[char] || 0) + 1;
+//     if (freq[char] > max) {
+//       max = freq[char];
+//       result = char;
+//     }
+//   }
+//   return result;
+// }
+// console.log(mostRepeated("javascript"));
 
-function replaceVowels(str) {
-  let result = "";
-  let vowels = "aeiou";
-  for (let i = 0; i < str.length; i++) {
-    if (vowels.includes(str[i])) {
-      result += "*";
-    } else {
-      result += str[i];
-    }
-  }
-  return result;
-}
-console.log(replaceVowels("javascript"));
+const user = {
+  name: "Sachin",
+  age: 25,
+};
 
-function onlyDigits(num) {
-  for (let char of num) {
-    if (char < "0" || char > "9") {
-      return false;
-    }
-  }
-  return true;
-}
-console.log(onlyDigits("1234"));
-console.log(onlyDigits("1234fasda"));
+let userr = { ...user, age: 26 };
+console.log(userr);
 
-function findLongestWord(word) {
-  let longWord = "";
-  let splitWorld = word.split(" ");
-  console.log(splitWorld);
-  for (let word of splitWorld) {
-    if (word.length > longWord.length) {
-      longWord = word;
-    }
-  }
-  return longWord;
-}
-console.log(findLongestWord("Hello wolrd javascript sachinsaine"));
+const arr = [
+  [1, 2],
+  [3, 4],
+];
+let arrr = [...arr];
+console.log(arrr);
 
-function removeDuplicate(word) {
-  let freq = {};
-  let result = "";
-  for (let char of word) {
-    if (!freq[char]) {
-      freq[char] = true;
-      result += char;
-    }
-  }
-  return result;
-}
-console.log(removeDuplicate("javascript"));
+const obj1 = {
+  a: 1,
+};
 
-function mostRepeated(str) {
-  let result = "";
-  let max = 0;
-  let freq = {};
-  for (let char of str) {
-    freq[char] = (freq[char] || 0) + 1;
-    if (freq[char] > max) {
-      max = freq[char];
-      result = char;
-    }
-  }
-  return result;
-}
-console.log(mostRepeated("javascript"));
+const obj2 = {
+  b: 2,
+};
+
+const merge = { ...obj1, ...obj2 };
+console.log(merge);
+
+const cart = ["Shoes", "Watch"];
+const add = ["Laptop", ...cart, "phone"];
+console.log(add);
