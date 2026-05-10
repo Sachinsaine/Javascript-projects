@@ -30,3 +30,26 @@ function armstrongNum(num) {
   return sum;
 }
 console.log(armstrongNum(153));
+
+function greet(name) {
+  return function () {
+    console.log("Hello javascript I'm" + " " + name);
+  };
+}
+let user = greet("sachin");
+user();
+
+function createCounter() {
+  let count = 0;
+
+  return function () {
+    count++;
+    return count;
+  };
+}
+
+const counter = createCounter();
+
+console.log(counter()); // 1
+console.log(counter()); // 2
+console.log(counter()); // 3
