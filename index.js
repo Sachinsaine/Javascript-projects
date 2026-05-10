@@ -316,32 +316,32 @@
 // }
 // console.log(mostRepeated("javascript"));
 
-const user = {
-  name: "Sachin",
-  age: 25,
-};
+// let name = "John";
+// let city = "Mumbai";
 
-let userr = { ...user, age: 26 };
-console.log(userr);
+// console.log(`Hello ${name} form ${city}`);
 
-const arr = [
-  [1, 2],
-  [3, 4],
-];
-let arrr = [...arr];
-console.log(arrr);
+// let a = 5;
+// let b = 10;
 
-const obj1 = {
-  a: 1,
-};
+// console.log(`The product is ${a * b}`);
 
-const obj2 = {
-  b: 2,
-};
+// const user = {
+//   name: "Sachin",
+//   age: 25,
+// };
 
-const merge = { ...obj1, ...obj2 };
-console.log(merge);
+// const { name: username, age } = user;
 
-const cart = ["Shoes", "Watch"];
-const add = ["Laptop", ...cart, "phone"];
-console.log(add);
+// console.log(`My name is ${username} and I am ${age} years old`);
+
+// function test(...nums) {
+//   console.log(nums);
+// }
+
+// test(1, 2, 3);
+
+// function multiply(a = 1, b = 1) {
+//   console.log(`${a * b}`);
+// }
+// multiply();
