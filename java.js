@@ -105,3 +105,119 @@ function findFactors(num) {
 }
 console.log(findFactors(12));
 console.log(findFactors(16));
+
+function countWords(str) {
+  let splitStr = str.toString().trim().split(" ");
+  return splitStr.length;
+}
+console.log(countWords("hello world how are you"));
+console.log(countWords("javascript is fun"));
+
+function removeSpaces(str) {
+  let removeSpace = str.toString().split(" ").join("");
+  return removeSpace;
+}
+console.log(removeSpaces("Hello wolrd!"));
+
+function checkAnagrams(a, b) {
+  a = a.replace(/\s/g, "");
+  b = b.replace(/\s/g, "");
+
+  let str1 = a.toString().split("").sort().join("");
+  let str2 = b.toString().split("").sort().join("");
+
+  return str1 === str2;
+}
+console.log(checkAnagrams("listen", "silent"));
+
+function mostRepeatedChar(str) {
+  let obj = {};
+  let max = 0;
+  let result = "";
+
+  for (let char of str) {
+    obj[char] = (obj[char] || 0) + 1;
+
+    if (obj[char] > max) {
+      max = obj[char];
+      result = char;
+    }
+  }
+  return result;
+}
+console.log(mostRepeatedChar("javascript"));
+
+function removeDuplicate(str) {
+  let obj = {};
+  let result = "";
+  for (let char of str) {
+    if (!obj[char]) {
+      obj[char] = true;
+      result += char;
+    }
+  }
+  return result;
+}
+console.log(removeDuplicate("preeti"));
+
+function findLongestWord(word) {
+  let result = "";
+  let max = 0;
+  let splitStr = word.toString().split(" ");
+  for (let i = 0; i < splitStr.length; i++) {
+    if (splitStr[i].length > max) {
+      max = splitStr[i].length;
+      result = splitStr[i];
+    }
+  }
+  return result;
+}
+console.log(findLongestWord("Hello world! javascript"));
+console.log(findLongestWord("good morning to all"));
+
+function countOccurance(str, num) {
+  let max = 0;
+
+  for (let char of str) {
+    if (char === num) {
+      max++;
+    }
+  }
+  return max;
+}
+console.log(countOccurance("javascript", "a"));
+console.log(countOccurance("helllo", "l"));
+
+function countFreq(str) {
+  let obj = {};
+  for (let char of str) {
+    if (obj[char]) {
+      obj[char]++;
+    } else {
+      obj[char] = 1;
+    }
+  }
+  return obj;
+}
+console.log(countFreq("sachinsaine"));
+
+function truncateStr(str, num) {
+  return str.slice(0, num) + "...";
+}
+console.log(truncateStr("hello world!", 5));
+console.log(truncateStr("javascript", 4));
+
+function replaceVowels(str) {
+  str = str.toLowerCase().replace(/\s/g, "");
+  let vowels = "aeiou";
+  let result = "";
+  for (let i = 0; i < str.length; i++) {
+    if (vowels.includes(str[i])) {
+      result += "*";
+    } else {
+      result += str[i];
+    }
+  }
+  return result;
+}
+console.log(replaceVowels("javascript"));
