@@ -221,3 +221,76 @@ function replaceVowels(str) {
   return result;
 }
 console.log(replaceVowels("javascript"));
+
+let printLoading = setTimeout(() => {
+  console.log("Loading...");
+}, 2000);
+
+// let numCount = 1;
+// const countNum = setInterval(() => {
+//   console.log(numCount++);
+// }, 1000);
+
+// setTimeout(() => {
+//   clearInterval(countNum);
+// }, 11000);
+
+// let counts = 10;
+
+// let countDown = setInterval(() => {
+//   console.log(counts);
+
+//   if (counts === 0) {
+//     clearInterval(countDown);
+//   }
+
+//   counts--;
+// }, 1000);
+
+// let count = 0;
+// let stopInterval = setInterval(() => {
+//   console.log(count);
+
+//   if (count === 7) {
+//     clearInterval(stopInterval);
+//   }
+//   count++;
+// }, 1000);
+
+// setInterval(() => {
+//   let temp = new Date();
+//   let hour = temp.getHours();
+//   let minutes = temp.getMinutes();
+//   let sec = temp.getSeconds();
+//   console.log(
+//     `Date: ${temp}, ${hour} Hours: ${minutes} Minutes: ${sec} Seconds`,
+//   );
+// }, 1000);
+
+function getRandomColors() {
+  let temp = Math.floor(Math.random * 16);
+}
+
+// function changeBackgroundColor() {
+//   let initial = "#";
+//   let colorcode = "0123456789ABCDEF";
+//   for (let i = 0; i < 6; i++) {
+//     initial += colorcode[Math.floor(Math.random() * 16)];
+//   }
+//   return initial;
+// }
+
+// setInterval(() => {
+//   console.log(changeBackgroundColor());
+// }, 2000);
+
+// console.log(changeBackgroundColor());
+
+let numOfCount = 1;
+let temp = setInterval(() => {
+  console.log("Happy coding");
+  if (numOfCount === 5) {
+    clearInterval(temp);
+  }
+  numOfCount++;
+}, 1000);
