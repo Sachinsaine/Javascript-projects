@@ -6,383 +6,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .bttns {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-    </style>
-</head>
-
-<body>
-    <h1>Counter App</h1>
-    <h1 id="display">0</h1>
-    <div class="bttns">
-        <button id="dec">Decrement</button>
-        <button id="res">Reset</button>
-        <button id="inc">Increment</button>
-    </div>
-    <script>
-        let display = document.querySelector("#display")
-
-        let count = 0;
-
-        let decrement = document.querySelector("#dec").addEventListener("click", () => {
-            if (count > 0) {
-                count--
-                display.innerHTML = count
-            };
-        });
-        let reset = document.querySelector("#res").addEventListener("click", () => {
-            count = 0;
-            display.innerHTML = count
-        });
-        let increment = document.querySelector("#inc").addEventListener("click", () => {
-            count++;
-            display.innerHTML = count
-        });;
-
-    </script>
-</body>
-
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .cont {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
         .container {
-            width: 100%;
-            max-width: 520px;
-            margin: 4rem auto;
-            padding: 2.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            box-shadow: 0 8px 48px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin: 0px;
-            letter-spacing: -0.5px;
-            /* margin-bottom: 1.75rem; */
-            background: linear-gradient(90deg, #a78bfa, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .todoContainer {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 1.5rem;
-        }
-
-        .todoContainer input[type="text"] {
-            flex: 1;
-            height: 46px;
-            padding: 0 16px;
-            font-size: 15px;
-            color: #f0f0f0;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            outline: none;
-            transition:
-                border-color 0.2s,
-                box-shadow 0.2s;
-        }
-
-        .todoContainer input[type="text"]::placeholder {
-            color: rgba(255, 255, 255, 0.35);
-        }
-
-        .todoContainer input[type="text"]:focus {
-            border-color: #a78bfa;
-            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
-        }
-
-        .todoContainer button {
-            height: 46px;
-            padding: 0 22px;
-            font-size: 15px;
-            font-weight: 600;
-            color: #fff;
-            background: linear-gradient(135deg, #7c3aed, #4f46e5);
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition:
-                transform 0.15s,
-                box-shadow 0.15s,
-                filter 0.15s;
-            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.45);
-        }
-
-        .todoContainer button:hover {
-            filter: brightness(1.15);
-            transform: translateY(-1px);
-        }
-
-        .todoContainer button:active {
-            transform: scale(0.97);
-            filter: brightness(0.95);
-        }
-
-        .lists {
+            max-width: 400px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
             gap: 10px;
         }
 
         .todo-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            transition:
-                background 0.2s,
-                border-color 0.2s,
-                transform 0.15s;
-            animation: fadeSlideIn 0.25s ease;
-        }
-
-        .todo-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(167, 139, 250, 0.4);
-            transform: translateX(3px);
-        }
-
-        @keyframes fadeSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .todo-item span {
-            font-size: 15px;
-            color: #e2e8f0;
-            flex: 1;
-            word-break: break-word;
-        }
-
-        .todo-item button {
-            width: 32px;
-            height: 32px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
+            border: 1px solid gainsboro;
+            padding: 3px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-left: 8px;
-            transition:
-                background 0.15s,
-                transform 0.1s;
-            flex-shrink: 0;
+            gap: 10px;
+            margin: 5px;
         }
 
-        .todo-item button:first-of-type {
-            background: rgba(52, 211, 153, 0.15);
-            color: #34d399;
-        }
-
-        .todo-item button:first-of-type:hover {
-            background: rgba(52, 211, 153, 0.3);
-            transform: scale(1.1);
-        }
-
-        .todo-item button:last-of-type {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-        }
-
-        .todo-item button:last-of-type:hover {
-            background: rgba(239, 68, 68, 0.3);
-            transform: scale(1.1);
+        .todoItemList {
+            width: 100%;
         }
 
         .completed {
-            text-decoration: line-through !important;
-            color: rgba(255, 255, 255, 0.3) !important;
-        }
-
-        /* ── Mobile responsive ── */
-        @media (max-width: 600px) {
-            body {
-                padding: 1rem 0.75rem;
-                align-items: flex-start;
-            }
-
-            .container {
-                padding: 1.25rem 1rem;
-                border-radius: 14px;
-                max-width: 100%;
-            }
-
-            h1 {
-                font-size: 1.3rem;
-                margin-bottom: 1.25rem;
-            }
-
-            .todoContainer {
-                flex-direction: row;
-                gap: 6px;
-            }
-
-            #todo {
-                height: 42px;
-                font-size: 14px;
-                padding: 0 12px;
-            }
-
-            #addtodo {
-                height: 42px;
-                padding: 0 14px;
-                font-size: 13px;
-                white-space: nowrap;
-            }
-
-            .todo-item {
-                padding: 10px 12px;
-                gap: 8px;
-                border-radius: 10px;
-            }
-
-            .todo-item>span {
-                font-size: 13px;
-            }
-
-            .todo-item>button {
-                width: 28px;
-                height: 28px;
-                font-size: 12px;
-                border-radius: 7px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            #addtodo {
-                padding: 0 10px;
-                font-size: 12px;
-            }
-
-            h1 {
-                font-size: 1.1rem;
-            }
+            color: gainsboro;
+            text-decoration: line-through;
         }
     </style>
 </head>
 
 <body>
-    <h1>ToDo List</h1>
-    <h2><span id="complted"></span> <span id="total"></span></h2>
-    <div>
-        <div class="cont">
-            <input type="text" id="todo">
-            <button id="btn">Add</button>
+    <div class="container">
+        <h1>ToDo List</h1>
+        <div class="header">
+            <input type="text" id="inputt">
+            <button id="addBtn">Add</button>
         </div>
-        <div id="listContainers">
+        <div>
+            <span id="completedToDos"></span>/
+            <span id="totalTodos"></span>
+        </div>
+        <div class="todoItemList">
 
         </div>
     </div>
 
     <script>
-        let bttn = document.querySelector("#btn");
-        let inputValue = document.querySelector("#todo")
-        let container = document.querySelector("#listContainers")
-        let totalTodoss = document.querySelector("#total")
-        let compltedd = document.querySelector("#complted")
+        let addBttn = document.querySelector("#addBtn");
+        let inputValue = document.querySelector("#inputt");
+        let todoListItems = document.querySelector(".todoItemList");
+        let completedTodos = document.querySelector("#completedToDos");
+        let totalTodos = document.querySelector("#totalTodos")
 
-        function updateCounts() {
-            let totalTodos = document.querySelector(".todo-item");
-            let completed = document.querySelector(".completed")
+        function update() {
+            let totaltodo = document.querySelectorAll(".todo-item");
+            let completedTodo = document.querySelectorAll(".completed")
 
-            totalTodoss.textContent = totalTodos.length;
-            compltedd.textContent = completed.length;
+            completedTodos.textContent = completedTodo.length;
+            totalTodos.textContent = totaltodo.length
         }
 
-        bttn.addEventListener("click", () => {
-            console.log(inputValue.value);
-            let createDiv = document.createElement("div");
-            createDiv.classList = "todo-item"
+        let todos = JSON.parse(localStorage.getItem("todos")) || []
 
-            let todoValue = document.createElement("span");
-            todoValue.textContent = inputValue.value;
+        function saveLocalStorage() {
+            localStorage.setItem("todos", JSON.stringify(todos))
+        }
+
+        function renderTodos() {
+            todoListItems.innerHTML = ""
+
+            todos.forEach((todo, index) => {
+                let createDiv = document.createElement("div");
+                createDiv.classList.add("todo-item");
+
+                let inputText = document.createElement("span");
+                inputText.textContent = getInput
+            });
+
+            if (todo.completed) {
+                inputText.classList.add("complted")
+            }
 
             let complete = document.createElement("span");
-            complete.innerText = "✔";
+            complete.textContent = "✔"
 
-            let remove = document.createElement("span");
-            remove.innerText = "❌";
+            let remove = document.createElement("span")
+            remove.textContent = "❌";
 
-            createDiv.appendChild(todoValue)
-            createDiv.appendChild(complete)
-            createDiv.appendChild(remove)
-
-            container.appendChild(createDiv)
-
-            inputValue.value = ""
-            updateCounts()
+            
             complete.addEventListener("click", () => {
-                inputValue.classList.toggle(".completed")
-                updateCounts()
+                inputText.classList.toggle("completed");
+                update()
 
             })
 
             remove.addEventListener("click", () => {
                 createDiv.remove()
-                updateCounts()
-
+                update()
             })
+        }
+        addBttn.addEventListener("click", () => {
+            let getInput = inputValue.value;
+            if (!getInput) {
+                alert("Please enter ToDo item")
+                return
+            }
+
+
+
+
+
+            createDiv.appendChild(inputText);
+            createDiv.appendChild(complete);
+            createDiv.appendChild(remove);
+
+            todoListItems.appendChild(createDiv)
+
+
+            update()
+            inputValue.value = ""
+
         })
     </script>
 </body>

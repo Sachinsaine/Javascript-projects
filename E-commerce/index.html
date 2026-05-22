@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maybelline — Maybe She's Born With It</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+
+    <div class="announcement-bar">
+        ✦ Free shipping on orders over $50 &nbsp;·&nbsp; New arrivals every week &nbsp;·&nbsp; Use code
+        <span>MAYBE20</span> for 20% off ✦
+    </div>
+
+    <!-- <div class="top-nav">
+        <a>Store Locator</a>
+        <span class="sep">|</span>
+        <a>Track Order</a>
+        <span class="sep">|</span>
+        <a>Help & FAQ</a>
+        <span class="sep">|</span>
+        <a>Sign In</a>
+    </div> -->
+
+    <header>
+        <nav class="navbar">
+            <a class="logo" href="#">
+                <span class="logo-main">Maybel<span>line</span></span>
+                <span class="logo-tag">Maybe she's born with it</span>
+            </a>
+
+            <ul class="nav-links">
+                <li class="nav-item">
+                    <a class="nav-link active">Face</a>
+                    <div class="dropdown-menu">
+                        <a>Foundation</a>
+                        <a>Bronzer</a>
+                        <a>Blush</a>
+                        <a>Concealer</a>
+                        <a>Primer</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Eyes</a>
+                    <div class="dropdown-menu">
+                        <a>Mascara</a>
+                        <a>Eyeliner</a>
+                        <a>Eyeshadow</a>
+                        <a>Brows</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Lips</a>
+                    <div class="dropdown-menu">
+                        <a>Lipstick</a>
+                        <a>Lip Liner</a>
+                        <a>Lip Gloss</a>
+                        <a>Lip Balm</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Nails</a>
+                    <div class="dropdown-menu">
+                        <a>Nail Polish</a>
+                        <a>Nail Art</a>
+                        <a>Top Coats</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">New Arrivals</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:var(--pink)">Sale 🔥</a>
+                </li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="nav-icon-btn" title="Search" onclick="toggleSearch()">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="7" />
+                        <line x1="16.5" y1="16.5" x2="22" y2="22" />
+                    </svg>
+                </button>
+                <button class="nav-icon-btn" title="Wishlist">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                </button>
+                <button class="nav-icon-btn" title="Account">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </button>
+                <button class="nav-icon-btn" title="Cart" id="cart-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    <span class="badge" id="cart-count">0</span>
+                </button>
+                <button class="nav-cta">Shop Now</button>
+                <button class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="search-bar-wrap" id="search-bar" style="display:none">
+            <div class="search-input">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="16.5" y1="16.5" x2="22" y2="22" />
+                </svg>
+                <input type="text" placeholder="Search for lipstick, mascara, foundation…" id="search-field"
+                    autocomplete="off">
+            </div>
+            <div class="category-chips" id="category-chips">
+                <button class="chip active">All</button>
+                <button class="chip">Bronzer</button>
+                <button class="chip">Blush</button>
+                <button class="chip">Foundation</button>
+                <button class="chip">Eyeliner</button>
+                <button class="chip">Eyeshadow</button>
+                <button class="chip">Mascara</button>
+                <button class="chip">Lipstick</button>
+                <button class="chip">Lip Liner</button>
+                <button class="chip">Nail Polish</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-nav" id="mobile-nav">
+        <div class="mobile-nav-header">
+            <span class="logo-main" style="font-family:'Playfair Display',serif;font-size:1.4rem;">Maybel<span
+                    style="color:var(--pink)">line</span></span>
+            <button class="mobile-close" onclick="toggleMobileNav()">✕</button>
+        </div>
+        <a class="mobile-link">Face</a>
+        <a class="mobile-link">Eyes</a>
+        <a class="mobile-link">Lips</a>
+        <a class="mobile-link">Nails</a>
+        <a class="mobile-link">New Arrivals</a>
+        <a class="mobile-link" style="color:var(--pink)">Sale 🔥</a>
+        <a class="mobile-link">My Account</a>
+        <a class="mobile-link">Wishlist</a>
+        <a class="mobile-link">Track Order</a>
+    </div>
+
+    <main class="demo-body">
+        <p class="demo-label">Powered by Makeup API</p>
+        <h1 class="demo-title">Maybe She's Born<br>With <em>It.</em></h1>
+        <p class="demo-sub">Discover Maybelline's full cosmetics collection — from foundations and mascaras to bold
+            lipsticks and eyeshadows. Your products will render here.</p>
+        <div class="demo-api-pill">GET <span>makeup-api.herokuapp.com</span>/api/v1/products.json?brand=maybelline</div>
+    </main>
+    <div id="productsList"></div>
+    <footer>
+
+        <div class="footer-newsletter">
+            <div class="newsletter-text">
+                <h3>Join the Maybelline Club</h3>
+                <p>Get beauty tips, new arrivals & exclusive offers straight to your inbox</p>
+            </div>
+            <div class="newsletter-form">
+                <input type="email" placeholder="Enter your email address">
+                <button>Subscribe</button>
+            </div>
+        </div>
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+                <span class="logo-main">Maybel<span>line</span></span>
+                <p>Maybelline New York is America's #1 cosmetics brand, delivering accessible, trend-forward makeup
+                    since 1915. Maybe she's born with it. Maybe it's Maybelline.</p>
+                <div class="social-links">
+                    <a class="social-btn" title="Instagram">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" style="stroke-width:2;stroke-linecap:round;"
+                                fill="none" stroke="currentColor" />
+                        </svg>
+                    </a>
+                    <a class="social-btn" title="Facebook">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg>
+                    </a>
+                    <a class="social-btn" title="TikTok">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" />
+                        </svg>
+                    </a>
+                    <a class="social-btn" title="YouTube">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+                            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+                        </svg>
+                    </a>
+                    <a class="social-btn" title="Pinterest">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.19-.77 1.26-5.33 1.26-5.33s-.32-.64-.32-1.59c0-1.49.87-2.6 1.94-2.6.92 0 1.36.69 1.36 1.52 0 .92-.59 2.31-.89 3.59-.25 1.07.53 1.94 1.58 1.94 1.9 0 3.17-2.44 3.17-5.33 0-2.2-1.49-3.74-3.62-3.74-2.47 0-3.92 1.85-3.92 3.77 0 .75.29 1.55.64 1.99.07.09.08.16.06.25-.07.27-.21.86-.24.98-.04.16-.13.19-.29.12-1.06-.5-1.73-2.06-1.73-3.31 0-2.7 1.96-5.17 5.65-5.17 2.96 0 5.27 2.11 5.27 4.93 0 2.94-1.85 5.3-4.42 5.3-.86 0-1.68-.45-1.96-.97l-.53 1.99c-.19.74-.71 1.66-1.06 2.23.8.25 1.64.38 2.52.38 5.52 0 10-4.48 10-10S17.52 2 12 2z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Products</h4>
+                <ul>
+                    <li><a>Face Makeup</a></li>
+                    <li><a>Eye Makeup</a></li>
+                    <li><a>Lip Color</a></li>
+                    <li><a>Nail Polish</a></li>
+                    <li><a>New Arrivals</a></li>
+                    <li><a>Best Sellers</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Help</h4>
+                <ul>
+                    <li><a>FAQ</a></li>
+                    <li><a>Shipping Info</a></li>
+                    <li><a>Returns & Exchanges</a></li>
+                    <li><a>Track My Order</a></li>
+                    <li><a>Contact Us</a></li>
+                    <li><a>Shade Finder</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a>About Maybelline</a></li>
+                    <li><a>Sustainability</a></li>
+                    <li><a>Press Room</a></li>
+                    <li><a>Careers</a></li>
+                    <li><a>Affiliates</a></li>
+                    <li><a>Store Locator</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a>Privacy Policy</a></li>
+                    <li><a>Terms of Use</a></li>
+                    <li><a>Cookie Policy</a></li>
+                    <li><a>Accessibility</a></li>
+                    <li><a>CA Privacy Rights</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p class="footer-bottom-left">
+                © 2026 <span>Maybelline New York</span>. All rights reserved. A L'Oréal Company.
+            </p>
+            <!-- <div class="payment-icons">
+                <span class="payment-icon">Visa</span>
+                <span class="payment-icon">MC</span>
+                <span class="payment-icon">Amex</span>
+                <span class="payment-icon">PayPal</span>
+                <span class="payment-icon">GPay</span>
+            </div> -->
+            <!-- <div class="footer-bottom-links">
+                <a>Privacy</a>
+                <a>Terms</a>
+                <a>Cookies</a>
+                <a>Sitemap</a>
+            </div> -->
+        </div>
+
+    </footer>
+
+
+    <script src="index.js"></script>
+</body>
+
+</html>
