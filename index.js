@@ -129,3 +129,255 @@ function findSum(num) {
   console.log(sum);
 }
 findSum(5);
+
+function findFactorial(num) {
+  if (!Number.isInteger(num) || num === 0) return "invalid input";
+  let sum = 1;
+  for (let i = 1; i <= num; i++) {
+    sum *= i;
+  }
+  console.log(sum);
+}
+findFactorial(5);
+
+function reverseString(str) {
+  // let reverseStr = str.replace(/\s+/g, "").split("").reverse().join("");
+  // console.log(reverseStr);
+  let result = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    result += str[i];
+  }
+  console.log(result);
+}
+reverseString("hello");
+
+function countVowels(str) {
+  let vowels = "aeiou";
+  let count = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (vowels.includes(str[i])) {
+      count++;
+    }
+  }
+  console.log(count);
+}
+countVowels("javascript");
+
+function isPalindrome(str) {
+  // let temp = str.split("").reverse().join("");
+  // return temp === str;
+  let result = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    result += str[i];
+  }
+  return result === str;
+}
+
+console.log(isPalindrome("javascript"));
+console.log(isPalindrome("madam"));
+
+function findLargest(arr) {
+  let largest = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > largest) {
+      largest = arr[i];
+    }
+  }
+  return largest;
+}
+
+console.log(findLargest([4, 7, 1, 9, 2]));
+
+function findSmallest(arr) {
+  let smallest = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < smallest) {
+      smallest = arr[i];
+    }
+  }
+  return smallest;
+}
+
+console.log(findSmallest([4, 7, 1, 9, 2]));
+
+function findSum(arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum;
+}
+
+console.log(findSum([1, 2, 3, 4, 5]));
+
+function reverseArray(arr) {
+  let result = [];
+  for (let i = arr.length - 1; i >= 0; i--) {
+    result.push(arr[i]);
+  }
+  return result;
+}
+
+console.log(reverseArray([1, 2, 3, 4, 5]));
+
+function countEven(arr) {
+  if (arr.length === 0) return [];
+  let count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] % 2 === 0) {
+      count++;
+    }
+  }
+  return count;
+}
+
+console.log(countEven([1, 2, 3, 4, 5, 6]));
+
+function findSecondLargest(arr) {
+  if (arr.length < 2) return "array should contain at least 2 elements";
+  let largest = -Infinity;
+  let secondLargest = -Infinity;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > largest) {
+      secondLargest = largest;
+      largest = arr[i];
+    } else if (arr[i] > secondLargest && arr[i] !== largest) {
+      secondLargest = arr[i];
+    }
+  }
+  return secondLargest === -Infinity
+    ? "no second largest element"
+    : secondLargest;
+}
+
+console.log(findSecondLargest([4, 7, 1, 9, 2]));
+
+function removeDuplicates(arr) {
+  if (arr.length === 0) return 0;
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (!result.includes(arr[i])) {
+      result.push(arr[i]);
+    }
+  }
+  return result;
+}
+
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5]));
+
+function findFrequency(arr) {
+  if (arr.length === 0) return 0;
+  let freq = {};
+
+  for (let char of arr) {
+    if (freq[char]) {
+      freq[char]++;
+    } else {
+      freq[char] = 1;
+    }
+  }
+  return freq;
+}
+
+console.log(findFrequency([1, 2, 2, 3, 1, 4, 2]));
+
+function mostFrequent(arr) {
+  if (arr.length === 0) return "invalid input";
+  let freq = {};
+  let maxCount = 0;
+  let result;
+
+  for (let char of arr) {
+    freq[char] = (freq[char] || 0) + 1;
+
+    if (freq[char] > maxCount) {
+      maxCount = freq[char];
+      result = char;
+    }
+  }
+  return result;
+}
+
+console.log(mostFrequent([1, 2, 2, 3, 1, 4, 2]));
+
+function isAnagram(str1, str2) {
+  let a = str1.toLowerCase().replace(/\s+/g, "").split("").sort().join("");
+  let b = str2.toLowerCase().replace(/\s+/g, "").split("").sort().join("");
+  return a === b;
+}
+
+console.log(isAnagram("listen", "silent"));
+console.log(isAnagram("hello", "world"));
+
+function firstNonRepeating(str) {
+  let freq = {};
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+
+  for (let char of str) {
+    if (freq[char] === 1) {
+      return char;
+    }
+  }
+  return null;
+}
+
+console.log(firstNonRepeating("aabbcddee"));
+
+function findCommon(arr1, arr2) {
+  if (arr1.length === 0 || arr2.length === 0) return [];
+  let result = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr2.includes(arr1[i])) {
+      result.push(arr1[i]);
+    }
+  }
+  return result;
+}
+
+console.log(findCommon([1, 2, 3, 4], [3, 4, 5, 6]));
+
+function countChar(str) {
+  let freq = {};
+
+  for (let char of str) {
+    if (freq[char]) {
+      freq[char]++;
+    } else {
+      freq[char] = 1;
+    }
+  }
+  return freq;
+}
+console.log(countChar("aabbbc"));
+
+function findDuplicate(arr) {
+  let freq = {};
+  let result = [];
+
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+
+    if (freq[num] > 1) {
+      result.push(num);
+    }
+  }
+
+  return result;
+}
+console.log(findDuplicate([1, 2, 2, 3, 1]));
+
+function nonFisrtChar(str) {
+  let freq = {};
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+  for (let char of str) {
+    if (freq[char] === 1) {
+      return char;
+    }
+  }
+}
+console.log(nonFisrtChar("aabbcdde"));
