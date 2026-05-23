@@ -381,3 +381,105 @@ function nonFisrtChar(str) {
   }
 }
 console.log(nonFisrtChar("aabbcdde"));
+
+function rotateRight(arr, num) {
+  if (arr.length === 0) return [];
+  let k = num % arr.length;
+  return [...arr.slice(-k), ...arr.slice(0, -k)];
+}
+
+console.log(rotateRight([1, 2, 3, 4, 5], 1));
+
+function moveZeros(arr) {
+  let getZeros = [];
+  let nonZeros = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === 0) {
+      getZeros.push(arr[i]);
+    } else {
+      nonZeros.push(arr[i]);
+    }
+  }
+  return [...nonZeros, ...getZeros];
+}
+
+console.log(moveZeros([0, 1, 0, 3, 12]));
+
+function isSorted(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] > arr[i + 1]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+console.log(isSorted([1, 2, 3, 4, 5]));
+console.log(isSorted([1, 3, 2, 4, 5]));
+
+function mergeSorted(arr1, arr2) {
+  let sortArr = [...arr1, ...arr2];
+  return sortArr.sort((a, b) => a - b);
+}
+
+console.log(mergeSorted([1, 3, 5], [2, 4, 6]));
+
+function findMissing(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] + 1 !== arr[i + 1]) {
+      return arr[i] + 1;
+    }
+  }
+}
+
+console.log(findMissing([1, 2, 3, 5]));
+
+function findPairs(arr, target) {
+  let result = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        result.push([arr[i], arr[j]]);
+      }
+    }
+  }
+  return result;
+}
+
+console.log(findPairs([1, 2, 3, 4, 5], 5));
+
+function flatten(arr) {
+  return arr.flat();
+}
+
+console.log(flatten([1, [2, 3], 4, [5, 6]]));
+
+function capitalizeWords(str) {
+  let splitStr = str.split(" ");
+  let result = splitStr.map((word) => word[0].toUpperCase() + word.slice(1));
+  return result.join(" ");
+}
+
+console.log(capitalizeWords("hello world javascript"));
+
+function countWords(str) {
+  if (str.length === 0) return 0;
+  let splitStr = str.replace(/\s+/g, " ").split(" ");
+  return splitStr.length;
+}
+
+console.log(countWords("JavaScript is awesome"));
+
+function findLongestWord(str) {
+  let longWord = "";
+  let splitStr = str.replace(/\s+/g, " ").split(" ");
+  for (let i = 0; i < splitStr.length; i++) {
+    if (splitStr[i].length > longWord.length) {
+      longWord = splitStr[i];
+    }
+  }
+  return longWord;
+}
+
+console.log(findLongestWord("JavaScript is very powerful"));
