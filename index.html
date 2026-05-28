@@ -5,135 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
 
-        .header {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .todo-item {
-            border: 1px solid gainsboro;
-            padding: 3px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 5px;
-        }
-
-        .todoItemList {
-            width: 100%;
-        }
-
-        .completed {
-            color: gainsboro;
-            text-decoration: line-through;
-        }
-    </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>ToDo List</h1>
-        <div class="header">
-            <input type="text" id="inputt">
-            <button id="addBtn">Add</button>
+        <div class="inputCont">
+            <input type="text" placeholder="Search items...">
+            <button>Search</button>
         </div>
-        <div>
-            <span id="completedToDos"></span>/
-            <span id="totalTodos"></span>
-        </div>
-        <div class="todoItemList">
+        <div id="products">
 
         </div>
     </div>
 
     <script>
-        let addBttn = document.querySelector("#addBtn");
-        let inputValue = document.querySelector("#inputt");
-        let todoListItems = document.querySelector(".todoItemList");
-        let completedTodos = document.querySelector("#completedToDos");
-        let totalTodos = document.querySelector("#totalTodos")
+        let display = document.querySelector("#products")
+        fetch("https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline").then(res => res.json()
+        ).then(data => data.forEach(item => {
+            console.log(item);
 
-        function update() {
-            let totaltodo = document.querySelectorAll(".todo-item");
-            let completedTodo = document.querySelectorAll(".completed")
+            let card = document.createElement("div")
+            card.innerHTML = `
+             <h2>${item.name}</h2>
 
-            completedTodos.textContent = completedTodo.length;
-            totalTodos.textContent = totaltodo.length
-        }
+            <img src="${item.image_link}" alt="${item.name}" >
+            <h5> ${item.price} </h5>
+            `
 
-        let todos = JSON.parse(localStorage.getItem("todos")) || []
-
-        function saveLocalStorage() {
-            localStorage.setItem("todos", JSON.stringify(todos))
-        }
-
-        function renderTodos() {
-            todoListItems.innerHTML = ""
-
-            todos.forEach((todo, index) => {
-                let createDiv = document.createElement("div");
-                createDiv.classList.add("todo-item");
-
-                let inputText = document.createElement("span");
-                inputText.textContent = getInput
-            });
-
-            if (todo.completed) {
-                inputText.classList.add("complted")
-            }
-
-            let complete = document.createElement("span");
-            complete.textContent = "✔"
-
-            let remove = document.createElement("span")
-            remove.textContent = "❌";
-
-            
-            complete.addEventListener("click", () => {
-                inputText.classList.toggle("completed");
-                update()
-
-            })
-
-            remove.addEventListener("click", () => {
-                createDiv.remove()
-                update()
-            })
-        }
-        addBttn.addEventListener("click", () => {
-            let getInput = inputValue.value;
-            if (!getInput) {
-                alert("Please enter ToDo item")
-                return
-            }
-
-
-
-
-
-            createDiv.appendChild(inputText);
-            createDiv.appendChild(complete);
-            createDiv.appendChild(remove);
-
-            todoListItems.appendChild(createDiv)
-
-
-            update()
-            inputValue.value = ""
-
+            display.appendChild(card)
         })
+        ).catch(err => console.log(err)
+        )
     </script>
 </body>
 
