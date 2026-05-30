@@ -250,7 +250,6 @@ function findSecondLargest(arr) {
     ? "no second largest element"
     : secondLargest;
 }
-
 console.log(findSecondLargest([4, 7, 1, 9, 2]));
 
 function removeDuplicates(arr) {
@@ -263,7 +262,6 @@ function removeDuplicates(arr) {
   }
   return result;
 }
-
 console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5]));
 
 function findFrequency(arr) {
@@ -279,7 +277,6 @@ function findFrequency(arr) {
   }
   return freq;
 }
-
 console.log(findFrequency([1, 2, 2, 3, 1, 4, 2]));
 
 function mostFrequent(arr) {
@@ -298,7 +295,6 @@ function mostFrequent(arr) {
   }
   return result;
 }
-
 console.log(mostFrequent([1, 2, 2, 3, 1, 4, 2]));
 
 function isAnagram(str1, str2) {
@@ -306,7 +302,6 @@ function isAnagram(str1, str2) {
   let b = str2.toLowerCase().replace(/\s+/g, "").split("").sort().join("");
   return a === b;
 }
-
 console.log(isAnagram("listen", "silent"));
 console.log(isAnagram("hello", "world"));
 
@@ -323,7 +318,6 @@ function firstNonRepeating(str) {
   }
   return null;
 }
-
 console.log(firstNonRepeating("aabbcddee"));
 
 function findCommon(arr1, arr2) {
@@ -336,7 +330,6 @@ function findCommon(arr1, arr2) {
   }
   return result;
 }
-
 console.log(findCommon([1, 2, 3, 4], [3, 4, 5, 6]));
 
 function countChar(str) {
@@ -387,7 +380,6 @@ function rotateRight(arr, num) {
   let k = num % arr.length;
   return [...arr.slice(-k), ...arr.slice(0, -k)];
 }
-
 console.log(rotateRight([1, 2, 3, 4, 5], 1));
 
 function moveZeros(arr) {
@@ -402,7 +394,6 @@ function moveZeros(arr) {
   }
   return [...nonZeros, ...getZeros];
 }
-
 console.log(moveZeros([0, 1, 0, 3, 12]));
 
 function isSorted(arr) {
@@ -481,5 +472,70 @@ function findLongestWord(str) {
   }
   return longWord;
 }
-
 console.log(findLongestWord("JavaScript is very powerful"));
+
+function areEqual(arr1, arr2) {
+  if (arr1.length !== arr2.length) return false;
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+console.log(areEqual([1, 2, 3], [1, 2, 3]));
+
+function intersection(arr1, arr2) {
+  let uniqueValues = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr2.includes(arr1[i])) {
+      if (!uniqueValues.includes(arr1[i])) {
+        uniqueValues.push(arr1[i]);
+      }
+    }
+  }
+  return uniqueValues;
+}
+
+console.log(intersection([1, 2, 2, 3], [2, 2, 4]));
+
+function difference(arr1, arr2) {
+  let exist = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (!arr2.includes(arr1[i])) {
+      exist.push(arr1[i]);
+    }
+  }
+  return exist;
+}
+
+console.log(difference([1, 2, 3, 4], [3, 4, 5, 6]));
+
+function firstDuplicateIndex(arr) {
+  let seen = {};
+  for (let i = 0; i < arr.length; i++) {
+    if (seen[arr[i]]) {
+      return i;
+    } else {
+      seen[arr[i]] = 1;
+    }
+  }
+}
+
+console.log(firstDuplicateIndex([1, 2, 3, 2, 4, 5]));
+
+function firstUnique(arr) {
+  let unique = {};
+  for (let num of arr) {
+    unique[num] = (unique[num] || 0) + 1;
+  }
+
+  for (let num of arr) {
+    if (unique[num] === 1) {
+      return num;
+    }
+  }
+}
+
+console.log(firstUnique([4, 5, 1, 2, 1, 4, 5]));

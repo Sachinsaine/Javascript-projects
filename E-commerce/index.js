@@ -1,52 +1,66 @@
 let products = document.querySelector("#productsList");
 let addedProducts = document.querySelector("#cart-count");
-
+let allProducts = [];
 let addedItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 addedProducts.innerHTML = addedItems.length;
 
 fetch("https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline")
   .then((res) => res.json())
-  .then((data) => {
-    data.forEach((item) => {
-      let card = document.createElement("div");
+  .then((data) => renderProducts(data))
+  .catch((err) => console.log("Error", err));
 
-      card.innerHTML = `
+function renderProducts(productss) {
+  productss.forEach((product) => {
+    let card = document.createElement("div");
+
+    card.innerHTML = `
         <div class="card-img">
           <span class="badge">
             ${Math.random() > 0.5 ? "NEW" : "SALE"}
           </span>
-          <img src="${item.image_link}" alt="${item.name}">
+          <img src="${product.image_link}" alt="${product.name}">
         </div>
 
         <div class="card-content">
-          <p class="category">${item.product_type || "makeup"}</p>
-          <h2>${item.name}</h2>
+          <p class="category">${product.product_type || "makeup"}</p>
+          <h2>${product.name}</h2>
 
           <div class="price-row">
-            <p class="price">$${item.price || 20}</p>
+            <p class="price">$${product.price || 20}</p>
           </div>
 
           <button class="addToCart">ADD TO CART</button>
         </div>
       `;
+    let cartBtn = card.querySelector(".addToCart");
 
-      let cartBtn = card.querySelector(".addToCart");
+    cartBtn.addEventListener("click", () => {
+      let existItem = addedItems.some((p) => p.id === product.id);
 
-      cartBtn.addEventListener("click", () => {
-        let existItem = addedItems.some((p) => p.id === item.id);
+      if (existItem) {
+        return Toastify({
+          text: "Already added",
+          duration: 3000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: true,
+          gravity: "top",
+          position: "right",
+          stopOnFocus: true,
+          style: {
+            background: "linear-gradient(to right, #e8004d, #ff3d75)",
+          },
+          onClick: function () {},
+        }).showToast();
+      }
 
-        if (existItem) {
-          return alert("Already Added");
-        }
+      addedItems.push(product);
 
-        addedItems.push(item);
+      localStorage.setItem("cartItems", JSON.stringify(addedItems));
 
-        localStorage.setItem("cartItems", JSON.stringify(addedItems));
-
-        addedProducts.innerHTML = addedItems.length;
-      });
-
-      products.appendChild(card);
+      addedProducts.innerHTML = addedItems.length;
     });
-  })
-  .catch((err) => console.log("Error", err));
+
+    products.appendChild(card);
+  });
+}
