@@ -1,15 +1,20 @@
 let products = document.querySelector("#productsList");
 let addedProducts = document.querySelector("#cart-count");
 let allProducts = [];
+let inputField = document.querySelector("#search-field");
 let addedItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 addedProducts.innerHTML = addedItems.length;
 
 fetch("https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline")
   .then((res) => res.json())
-  .then((data) => renderProducts(data))
+  .then((data) => {
+    allProducts = data;
+    renderProducts(allProducts);
+  })
   .catch((err) => console.log("Error", err));
 
 function renderProducts(productss) {
+  products.innerHTML = "";
   productss.forEach((product) => {
     let card = document.createElement("div");
 
@@ -64,3 +69,11 @@ function renderProducts(productss) {
     products.appendChild(card);
   });
 }
+
+inputField.addEventListener("input", () => {
+  let value = inputField.value.toLowerCase();
+  let filterProducts = allProducts.filter((producutItem) =>
+    producutItem.name.toLowerCase().includes(value),
+  );
+  renderProducts(filterProducts);
+});

@@ -329,6 +329,62 @@ header {
   transform: translateY(-1px);
 }
 
+/* ── Search Input ── */
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 380px;
+  width: 100%;
+}
+
+.search-wrapper .search-icon {
+  position: absolute;
+  left: 14px;
+  pointer-events: none;
+  width: 16px;
+  height: 16px;
+  stroke: var(--gray-mid);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: stroke 0.2s;
+}
+
+.search-wrapper:focus-within .search-icon {
+  stroke: var(--pink);
+}
+
+.search-wrapper input[type="text"] {
+  width: 100%;
+  padding: 0.65rem 1rem 0.65rem 2.6rem;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  color: var(--black);
+  background: var(--white);
+  border: 1.5px solid var(--gray-mid);
+  border-radius: 30px;
+  outline: none;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
+}
+
+.search-wrapper input[type="text"]::placeholder {
+  color: var(--gray-mid);
+  letter-spacing: 0.08em;
+}
+
+.search-wrapper input[type="text"]:hover {
+  border-color: #aaa;
+}
+
+.search-wrapper input[type="text"]:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(232, 0, 77, 0.1);
+}
+
 .search-bar-wrap {
   background: var(--gray);
   border-bottom: 1px solid #ebebeb;
