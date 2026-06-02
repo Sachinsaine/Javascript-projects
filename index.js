@@ -539,3 +539,87 @@ function firstUnique(arr) {
 }
 
 console.log(firstUnique([4, 5, 1, 2, 1, 4, 5]));
+
+function groupFrequency(arr) {
+  let freq = {};
+  for (let num of arr) {
+    if (freq[num]) {
+      freq[num]++;
+    } else {
+      freq[num] = 1;
+    }
+  }
+  return freq;
+}
+
+console.log(groupFrequency([1, 2, 2, 3, 1, 4, 2]));
+
+function maxFrequency(arr) {
+  let max = 0;
+  let fre = {};
+  let result;
+
+  for (let num of arr) {
+    fre[num] = (fre[num] || 0) + 1;
+  }
+
+  for (let num of arr) {
+    if (fre[num] > max) {
+      max = fre[num];
+      result = num;
+    }
+  }
+  return result;
+}
+
+console.log(maxFrequency([1, 2, 2, 3, 1, 4, 2]));
+
+function findDuplicates(arr) {
+  let duplicates = [];
+  let freq = {};
+
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+  }
+
+  for (let num in freq) {
+    if (freq[num] > 1) {
+      duplicates.push(Number(num));
+    }
+  }
+  return duplicates;
+}
+
+console.log(findDuplicates([1, 2, 3, 2, 4, 5, 1, 6]));
+
+function countDuplicates(arr) {
+  let seen = {};
+  let count = 0;
+  for (let num of arr) {
+    seen[num] = (seen[num] || 0) + 1;
+  }
+
+  for (let key in seen) {
+    if (seen[key] > 1) {
+      count++;
+    }
+  }
+
+  return count;
+}
+
+console.log(countDuplicates([1, 2, 3, 2, 4, 5, 1, 6]));
+
+function containsDuplicate(arr) {
+  let seen = {};
+  for (let num of arr) {
+    if (seen[num]) {
+      return true;
+    }
+    seen[num] = true;
+  }
+  return false;
+}
+
+console.log(containsDuplicate([1, 2, 3, 2]));
+console.log(containsDuplicate([1, 2, 3, 4]));

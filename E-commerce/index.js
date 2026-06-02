@@ -15,6 +15,7 @@ fetch("https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline")
 
 function renderProducts(productss) {
   products.innerHTML = "";
+
   productss.forEach((product) => {
     let card = document.createElement("div");
 
@@ -23,7 +24,9 @@ function renderProducts(productss) {
           <span class="badge">
             ${Math.random() > 0.5 ? "NEW" : "SALE"}
           </span>
+          <a href="item-details.html">
           <img src="${product.image_link}" alt="${product.name}">
+          </a>
         </div>
 
         <div class="card-content">
@@ -37,6 +40,13 @@ function renderProducts(productss) {
           <button class="addToCart">ADD TO CART</button>
         </div>
       `;
+
+    let imgLink = card.querySelector("a");
+
+    imgLink.addEventListener("click", () => {
+      localStorage.setItem("selectedProduct", JSON.stringify(product));
+    });
+
     let cartBtn = card.querySelector(".addToCart");
 
     cartBtn.addEventListener("click", () => {

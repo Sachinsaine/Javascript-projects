@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="my-cart.css">
+</head>
+
+<body>
+    <div>
+        <h1>Item details</h1>
+        <div id="productsList">
+
+        </div>
+    </div>
+    <script>
+        let productt = document.querySelector("#productsList")
+        let product = JSON.parse(localStorage.getItem("selectedProduct")) || [];
+        let card = document.createElement("div");
+
+        console.log(product);
+
+        card.innerHTML = `
+        <div class="card-img">
+          <span class="badge">
+            ${Math.random() > 0.5 ? "NEW" : "SALE"}
+          </span>
+          <a href="item-details.html">
+          <img src="${product.image_link}" alt="${product.name}">
+          </a>
+        </div>
+
+        <div class="card-content">
+          <p class="category">${product.product_type || "makeup"}</p>
+          <h2>${product.name}</h2>
+
+          <div class="price-row">
+            <p class="price">$${product.price || 20}</p>
+          </div>
+
+          <div>Product type: ${product.product_type}</div>
+          <p>Description: ${product.description}</p>
+
+          <button class="addToCart">ADD TO CART</button>
+
+        `
+        productt.appendChild(card)
+
+    </script>
+</body>
+
+</html>

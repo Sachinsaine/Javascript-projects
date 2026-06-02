@@ -46,6 +46,7 @@ function renderCart() {
 
     div.querySelector(".removeBtn").addEventListener("click", () => {
       div.classList.add("removing");
+
       setTimeout(() => {
         cartItems.splice(index, 1);
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
