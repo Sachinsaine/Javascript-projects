@@ -2,20 +2,22 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 
 <body>
-    <h1>Product details</h1>
-    <div id="display"></div>
-    <script>
-        let item = JSON.parse(localStorage.getItem("selectedProducts")) || []
-        let dispaly = document.querySelector("#display")
+  <h1>Product details</h1>
+  <div id="display"></div>
+  <script>
+    let item = JSON.parse(localStorage.getItem("selectedProducts")) || []
+    let dispaly = document.querySelector("#display")
 
-        let card = document.createElement("div");
-        card.innerHTML = `
+    function renderProducts() {
+
+      let card = document.createElement("div");
+      card.innerHTML = `
             <div class="cart-img-wrap">
         <img src="${item.image_link}" alt="${item.name}">
       </div>
@@ -24,16 +26,37 @@
         <p class="cart-category">${item.product_type || "makeup"}</p>
         <h3>${item.name}</h3>
         <p class="cart-price">$${item.price || "20.00"}</p>
+        <div>
+          <p>Description: ${item.description} </p>
+          </div>
       </div>
 
       <div class="cart-actions">
-        <button class="add">Add to cart</button>
+        <button class="add" id="addToCartBtn" >Add to cart</button>
         <button class="buyBtn">Buy Now</button>
       </div>
-        `
+        `;
 
-        dispaly.appendChild(card)
-    </script>
+      let toCart = card.querySelector("#addToCartBtn");
+      toCart.addEventListener("click", () => {
+        let cartItems = JSON.parse(localStorage.getItem("cartProducts")) || []
+
+        let exist = cartItems.some(i => i.name === item.name);
+        if (exist) {
+          alert("already added")
+          return
+        }
+        cartItems.push(item);
+        localStorage.setItem("cartProducts", JSON.stringify(cartItems))
+        alert("product added to cart")
+        console.log(cartItems);
+
+      });
+
+      dispaly.appendChild(card)
+    }
+    renderProducts()
+  </script>
 </body>
 
 </html>

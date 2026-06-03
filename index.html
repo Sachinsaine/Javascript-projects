@@ -37,7 +37,7 @@
     </div>
     <div>
         <input type="text" placeholder="Enter your item">
-        <a href="">
+        <a href="cart.html">
             Cart <span id="addedProducts">0</span>
         </a>
         <div id="displayProducts"></div>
@@ -47,7 +47,7 @@
         let loader = document.querySelector("#loader");
         loader.style.display = "block";
         let allProducts = []
-        let myCart = [];
+        let myCart = JSON.parse(localStorage.getItem("cartProducts")) || [];
         let addedProducts = document.querySelector("#addedProducts");
         fetch("https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline")
             .then(res => res.json())
@@ -87,14 +87,14 @@
                 let addToCartBtn = card.querySelector(".addToCart");
 
                 addToCartBtn.addEventListener("click", () => {
-                    let existItem = myCart.some(i => i.id === item.id);
+                    let existItem = myCart.some(i => i.name === item.name);
 
                     if (existItem) {
-                        return alert("added")
-
+                        alert("already added")
+                        return
                     }
                     myCart.push(item)
-
+                    localStorage.setItem("cartProducts", JSON.stringify(myCart))
                     addedProducts.textContent = myCart.length
                 })
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1>
+            My Cart
+        </h1>
+        <div id="products"></div>
+        <div id="empty"></div>
+    </div>
+    <script>
+        let cartItems = document.querySelector("#products");
+        let cart = JSON.parse(localStorage.getItem("cartProducts")) || [];
+        let empty = document.querySelector("#empty")
+        // if (cart.length === 0) {
+        //     empty.innerHTML = `<h1>Your Cart is Empty</h1>`;
+        //     return;
+        // }
+        cart.forEach((item, index) => {
+            let card = document.createElement("div");
+            card.innerHTML = `
+            <div class="cart-img-wrap">
+        <img src="${item.image_link}" alt="${item.name}">
+      </div>
+
+      <div class="cart-info">
+        <p class="cart-category">${item.product_type || "makeup"}</p>
+        <h3>${item.name}</h3>
+        <p class="cart-price">$${item.price || "20.00"}</p>
+      </div>
+
+      <div class="cart-actions">
+        <button class="buyBtn">Buy Now</button>
+        <button class="removeBtn">✕ Remove</button>
+      </div>
+            `
+
+            let remove = card.querySelector(".removeBtn");
+            remove.addEventListener("click", () => {
+                cart.splice(index, 1);
+                localStorage.setItem("cartProducts", JSON.stringify(cart));
+                // location.reload();
+                card.remove()
+            })
+
+            cartItems.appendChild(card);
+        });
+
+
+
+
+
+    </script>
+</body>
+
+</html>
