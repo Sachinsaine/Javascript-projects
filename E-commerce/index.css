@@ -1133,6 +1133,143 @@ footer {
   text-transform: uppercase;
 }
 
+/* ── Loader ── */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  z-index: 9999;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+}
+.loader-overlay.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.loader-logo {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: 0.05em;
+}
+.loader-logo span {
+  color: var(--pink);
+}
+.loader-tagline {
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-top: -1.5rem;
+}
+.lipstick-wrap {
+  position: relative;
+  width: 44px;
+  height: 80px;
+  margin: 0 auto;
+}
+.lipstick-body {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 52px;
+  background: var(--black);
+  border-radius: 3px 3px 2px 2px;
+}
+.lipstick-bullet {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 26px;
+  background: var(--pink);
+  border-radius: 2px 2px 0 0;
+  animation: bulletSlide 1.8s ease-in-out infinite;
+}
+.lipstick-tip {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: var(--pink-light);
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+.lipstick-collar {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 6px;
+  background: #999;
+  border-radius: 1px;
+}
+@keyframes bulletSlide {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40%,
+  60% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+.loader-bar-wrap {
+  width: 180px;
+  height: 2px;
+  background: #f0f0f0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.loader-bar {
+  height: 100%;
+  background: var(--pink);
+  animation: barFill 2.4s ease-in-out infinite;
+}
+@keyframes barFill {
+  0% {
+    width: 0%;
+  }
+  60% {
+    width: 85%;
+  }
+  90% {
+    width: 95%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+.loader-text {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #bbb;
+  text-align: center;
+  animation: textFade 2.4s ease-in-out infinite;
+}
+@keyframes textFade {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 1024px) {
   #productsList {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

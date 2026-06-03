@@ -123,3 +123,21 @@ document.getElementById("contactForm").addEventListener("submit", function (e) {
       alert("Failed to send email.");
     });
 });
+
+const loaderMsgs = [
+  "Loading your beauty...",
+  "Fetching products...",
+  "Almost ready...",
+  "Getting your glam on...",
+];
+let loaderIdx = 0;
+const loaderInterval = setInterval(() => {
+  const el = document.getElementById("loader-text");
+  loaderIdx = (loaderIdx + 1) % loaderMsgs.length;
+  el.textContent = loaderMsgs[loaderIdx];
+}, 800);
+
+window.addEventListener("load", () => {
+  clearInterval(loaderInterval);
+  document.getElementById("loader").classList.add("hide");
+});
