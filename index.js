@@ -623,3 +623,147 @@ function containsDuplicate(arr) {
 
 console.log(containsDuplicate([1, 2, 3, 2]));
 console.log(containsDuplicate([1, 2, 3, 4]));
+
+function singleNumber(arr) {
+  let freq = {};
+  let result;
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+  }
+  for (let key in freq) {
+    if (freq[key] === 1) {
+      result = Number(key);
+    }
+  }
+  return result;
+}
+
+console.log(singleNumber([2, 1, 4, 5, 2, 4, 1]));
+
+function union(arr1, arr2) {
+  let result = [];
+  let temp = [...arr1, ...arr2];
+  for (let num of temp) {
+    if (!result.includes(num)) {
+      result.push(num);
+      // console.log(num);
+    }
+  }
+  // for (let i = 0; i < temp.length; i++) {
+  //   if (!result.includes(temp[i])) {
+  //     result.push(temp[i]);
+  //   }
+  // }
+  return result;
+}
+
+console.log(union([1, 2, 3], [3, 4, 5]));
+
+function commonPrefix(arr) {
+  let prefix = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    while (!arr[i].startsWith(prefix)) {
+      prefix = prefix.slice(0, -1);
+    }
+
+    if (prefix === "") {
+      return "";
+    }
+  }
+  return prefix;
+}
+
+console.log(commonPrefix(["flower", "flow", "flight"]));
+
+function findMissingLetter(arr) {
+  if (arr.length === "" || arr.length < 0) return "";
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i + 1].charCodeAt(0) !== arr[i].charCodeAt(0) + 1) {
+      return String.fromCharCode(arr[i].charCodeAt(0) + 1);
+    }
+  }
+}
+
+console.log(findMissingLetter(["a", "b", "c", "e"]));
+
+function hasUniqueChars(str) {
+  let seen = {};
+  // for (let i = 0; i < str.length; i++) {
+  //   if (seen[str[i]]) {
+  //     return true;
+  //   }
+  //   seen[str[i]] = true;
+  // }
+  for (let char of str) {
+    if (seen[char]) {
+      return false;
+    }
+    seen[char] = true;
+  }
+  return true;
+}
+
+console.log(hasUniqueChars("hello"));
+console.log(hasUniqueChars("abcdef"));
+
+function charFrequency(str) {
+  if (str.length === "") return "invalid input";
+  let fre = {};
+  for (let char of str) {
+    fre[char] = (fre[char] || 0) + 1;
+  }
+  return fre;
+}
+
+console.log(charFrequency("javascript"));
+
+function reverseWords(str) {
+  if (str.length === "") return "invalid input";
+
+  let temp = str.split(" ").reverse().join(" ");
+  return temp;
+}
+
+console.log(reverseWords("JavaScript is awesome"));
+
+function arePermutations(a, b) {
+  let temp1 = [...a].sort().join("");
+  let temp2 = [...b].sort().join("");
+
+  return temp1 === temp2;
+}
+console.log(arePermutations("listen", "silent"));
+
+function lastNonRepeating(str) {
+  let freq = {};
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+  for (let i = str.length - 1; i >= 0; i--) {
+    if (freq[str[i]] === 1) {
+      return str[i];
+    }
+  }
+  // for (let key in freq) {
+  //   if (freq[key] === 1) {
+  //     return key;
+  //   }
+  // }
+}
+console.log(lastNonRepeating("aabbcdde"));
+
+function longestConsecutive(arr) {
+  let currentStreak = 1;
+  let longestStreak = 1;
+  let temp = [...arr].sort((a, b) => a - b);
+  for (let i = 1; i < temp.length; i++) {
+    if (temp[i] === temp[i - 1] + 1) {
+      currentStreak++;
+      longestStreak = Math.max(longestStreak, currentStreak);
+    } else {
+      currentStreak = 1;
+    }
+  }
+  return longestStreak;
+}
+console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));
