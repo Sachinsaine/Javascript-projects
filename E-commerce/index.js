@@ -87,3 +87,39 @@ inputField.addEventListener("input", () => {
   );
   renderProducts(filterProducts);
 });
+
+emailjs.init({
+  publicKey: "tyzhmdXGXZAYGNGH8",
+});
+
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const templateParams = {
+    email: document.getElementById("email").value,
+  };
+
+  emailjs
+    .send("service_oji45uh", "template_49s317x", templateParams)
+    .then(() => {
+      Toastify({
+        text: "Message Sent Successfully!",
+        duration: 3000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #e8004d, #ff3d75)",
+        },
+      }).showToast();
+
+      this.reset();
+    })
+    .catch((error) => {
+      console.log("FAILED...", error);
+      alert("Failed to send email.");
+    });
+});

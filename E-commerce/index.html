@@ -113,7 +113,9 @@
         <h1 class="demo-title">Maybe She's Born<br>With <em>It.</em></h1>
         <p class="demo-sub">Discover Maybelline's full cosmetics collection — from foundations and mascaras to bold
             lipsticks and eyeshadows. Your products will render here.</p>
-        <div class="demo-api-pill">GET <span>makeup-api.herokuapp.com</span>/api/v1/products.json?brand=maybelline</div>
+        <div class="demo-api-pill">
+            GET <span> ✦ Premium Cosmetics ✦ Trending Collections ✦ Exclusive Deals</span>
+        </div>
     </main>
     <div id="productsList"></div>
     <footer>
@@ -124,8 +126,10 @@
                 <p>Get beauty tips, new arrivals & exclusive offers straight to your inbox</p>
             </div>
             <div class="newsletter-form">
-                <input type="email" placeholder="Enter your email address">
-                <button>Subscribe</button>
+                <form id="contactForm">
+                    <input type="email" id="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
             </div>
         </div>
 
@@ -228,7 +232,7 @@
         </div>
 
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <script src="index.js"></script>
