@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #displayProducts {
+            display: grid;
+            grid-template-rows: 1fr;
+            grid-template-columns: repeat(4, 1fr);
+
+        }
+
+        #loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ddd;
+            border-top: 5px solid #e8004d;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 50px auto;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader">
+        <!-- Loading Products... -->
+    </div>
+    <div>
+        <input type="text" placeholder="Enter your item">
+        <a href="">
+            Cart <span id="addedProducts">0</span>
+        </a>
+        <div id="displayProducts"></div>
+    </div>
+    <script>
+        let display = document.querySelector("#displayProducts");
+        let loader = document.querySelector("#loader");
+        loader.style.display = "block";
+        let allProducts = []
+        let myCart = [];
+        let addedProducts = document.querySelector("#addedProducts");
+        fetch("https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline")
+            .then(res => res.json())
+            .then(data => {
+                allProducts = data
+                loader.style.display = "none";
+                renderProducts(allProducts)
+
+            }
+            ).catch(err => {
+                loader.style.display = "none";
+                console.log("ERROR", err)
+            }
+            )
+
+        function renderProducts(product) {
+            product.forEach(item => {
+                let card = document.createElement("div");
+                card.innerHTML = `
+                <a href="details.html">
+                    <img src="${item.image_link}" alt="img">
+                    </a>
+                    <p class="category">${item.product_type || "makeup"}</p>
+          <h2>${item.name}</h2>
+
+          <div class="price-row">
+            <p class="price">$${item.price || 20}</p>
+          </div>
+
+          <button class="addToCart">ADD TO CART</button>
+                `;
+
+                let productDetails = card.querySelector("a");
+                productDetails.addEventListener("click", () => {
+                    localStorage.setItem("selectedProducts", JSON.stringify(item))
+                })
+                let addToCartBtn = card.querySelector(".addToCart");
+
+                addToCartBtn.addEventListener("click", () => {
+                    let existItem = myCart.some(i => i.id === item.id);
+
+                    if (existItem) {
+                        return alert("added")
+
+                    }
+                    myCart.push(item)
+
+                    addedProducts.textContent = myCart.length
+                })
+
+
+                display.appendChild(card)
+
+
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>
