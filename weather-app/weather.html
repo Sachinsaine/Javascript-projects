@@ -15,7 +15,7 @@
 
         <div class="search-box">
             <input type="text" id="cityInput" placeholder="Enter city name..." />
-            <button onclick="getWeather()">Search</button>
+            <button id="searchBtn">Search</button>
         </div>
 
         <div class="weather-box" id="weatherBox">
@@ -28,23 +28,37 @@
     </div>
 
     <script>
-        let apiKey = "b3942fc757252dfaaffbd1c63889ca6a";
-        let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=bangalore";
+
         let city = document.querySelector("#city");
         let temprature = document.querySelector("#temp");
         let humidity = document.querySelector("#humidity")
-        let wind = document.querySelector("#wind")
+        let wind = document.querySelector("#wind");
+        let input = document.querySelector("#cityInput");
+        let searchBttn = document.querySelector("#searchBtn");
 
-        async function checkWeather() {
-            const res = await fetch(apiUrl + `&appid=${apiKey}`)
+
+        async function checkWeather(cityName) {
+            let apiKey = "b3942fc757252dfaaffbd1c63889ca6a";
+            let apiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${cityName}&appid=${apiKey}`;
+            const res = await fetch(apiUrl)
             let data = await res.json();
-            console.log(data);
             city.innerHTML = data.name;
             temprature.innerHTML = Math.round(data.main.temp) + "°C";
             humidity.innerHTML = data.main.humidity + "Humidity%";
             wind.innerHTML = data.wind.speed + "km/h"
         }
-        checkWeather()
+
+        searchBttn.addEventListener("click", () => {
+            let cityName = input.value;
+            input.value = ""
+
+            if (!cityName) {
+                alert("Please enter a city name")
+            }
+
+            checkWeather(cityName)
+        })
+        checkWeather("Germany")
     </script>
     <script src="weather.js"></script>
 </body>
