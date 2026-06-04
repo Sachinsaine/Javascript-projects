@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="weather.css" />
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🌦️ Weather App</h1>
+
+        <div class="search-box">
+            <input type="text" id="cityInput" placeholder="Enter city name..." />
+            <button onclick="getWeather()">Search</button>
+        </div>
+
+        <div class="weather-box" id="weatherBox">
+            <h2 id="city"></h2>
+            <p id="temp"></p>
+            <p id="humidity"></p>
+            <p id="wind"></p>
+        </div>
+
+    </div>
+
+    <script>
+        let apiKey = "b3942fc757252dfaaffbd1c63889ca6a";
+        let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=bangalore";
+        let city = document.querySelector("#city");
+        let temprature = document.querySelector("#temp");
+        let humidity = document.querySelector("#humidity")
+        let wind = document.querySelector("#wind")
+
+        async function checkWeather() {
+            const res = await fetch(apiUrl + `&appid=${apiKey}`)
+            let data = await res.json();
+            console.log(data);
+            city.innerHTML = data.name;
+            temprature.innerHTML = Math.round(data.main.temp) + "°C";
+            humidity.innerHTML = data.main.humidity + "Humidity%";
+            wind.innerHTML = data.wind.speed + "km/h"
+        }
+        checkWeather()
+    </script>
+    <script src="weather.js"></script>
+</body>
+
+</html>
