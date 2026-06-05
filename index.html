@@ -4,108 +4,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Password Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Outfit:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <style>
-        #displayProducts {
-            display: grid;
-            grid-template-rows: 1fr;
-            grid-template-columns: repeat(4, 1fr);
-
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        #loader {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #ddd;
-            border-top: 5px solid #e8004d;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 50px auto;
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0d0d14;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes spin {
-            100% {
-                transform: rotate(360deg);
+        /* Background glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 500px;
+            background: radial-gradient(ellipse, rgba(139, 92, 246, 0.15) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        /* Wrapper div — the card */
+        body>div {
+            position: relative;
+            z-index: 1;
+            background: #16161f;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        /* Top glow line on card */
+        body>div::before {
+            content: '🔐 Password Generator';
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f0eeff;
+            letter-spacing: -0.02em;
+            text-align: center;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        body>div::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+            border-radius: 1px;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Inner row — input + copy button */
+        body>div>div {
+            display: flex;
+            gap: 0;
+            background: #0d0d14;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        body>div>div:focus-within {
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+        }
+
+        /* Password input */
+        #display {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 1rem 1.1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #a78bfa;
+            letter-spacing: 0.06em;
+            min-width: 0;
+        }
+
+        #display::selection {
+            background: rgba(139, 92, 246, 0.3);
+        }
+
+        /* Copy button */
+        body>div>div>button {
+            background: rgba(139, 92, 246, 0.12);
+            border: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.07);
+            color: #a78bfa;
+            padding: 0.9rem 1.1rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            white-space: nowrap;
+            letter-spacing: 0.04em;
+        }
+
+        body>div>div>button:hover {
+            background: rgba(139, 92, 246, 0.25);
+            color: #c4b5fd;
+        }
+
+        body>div>div>button:active {
+            background: rgba(139, 92, 246, 0.35);
+        }
+
+        /* Generate button */
+        #copyPassword {
+            width: 100%;
+            padding: 0.9rem;
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+            transition: transform 0.15s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #copyPassword::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent);
+            pointer-events: none;
+        }
+
+        #copyPassword:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(124, 58, 237, 0.5);
+        }
+
+        #copyPassword:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 400px) {
+            body>div {
+                padding: 2rem 1.2rem;
+            }
+
+            #display {
+                font-size: 0.82rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <div id="loader">
-        <!-- Loading Products... -->
-    </div>
     <div>
-        <input type="text" placeholder="Enter your item">
-        <a href="cart.html">
-            Cart <span id="addedProducts">0</span>
-        </a>
-        <div id="displayProducts"></div>
+        <div>
+            <input id="display"></input>
+            <button onclick="copyPaaword()">Copy</button>
+        </div>
+        <button id="copyPassword" onclick="generatePassword()">Generate password</button>
     </div>
     <script>
-        let display = document.querySelector("#displayProducts");
-        let loader = document.querySelector("#loader");
-        loader.style.display = "block";
-        let allProducts = []
-        let myCart = JSON.parse(localStorage.getItem("cartProducts")) || [];
-        let addedProducts = document.querySelector("#addedProducts");
-        fetch("https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline")
-            .then(res => res.json())
-            .then(data => {
-                allProducts = data
-                loader.style.display = "none";
-                renderProducts(allProducts)
+        let num = "0123456789";
+        let lowerText = "abcdefghijklmnopqrstuvwxyz";
+        let upperText = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let specialChar = "!@#$%^&*()_~+><?|[]/="
 
+        let password = document.querySelector("#display");
+        const allChar = lowerText + upperText + num + specialChar;
+        let max = 8;
+
+
+
+        function generatePassword() {
+            let random = "";
+            random += lowerText[Math.floor(Math.random() * lowerText.length)];
+            random += upperText[Math.floor(Math.random() * upperText.length)]
+            random += num[Math.floor(Math.random() * num.length)]
+            random += specialChar[Math.floor(Math.random() * specialChar.length)]
+
+            while (max > random.length) {
+                random += allChar[Math.floor(Math.random() * allChar.length)]
             }
-            ).catch(err => {
-                loader.style.display = "none";
-                console.log("ERROR", err)
-            }
-            )
+            password.value = random
 
-        function renderProducts(product) {
-            product.forEach(item => {
-                let card = document.createElement("div");
-                card.innerHTML = `
-                <a href="details.html">
-                    <img src="${item.image_link}" alt="img">
-                    </a>
-                    <p class="category">${item.product_type || "makeup"}</p>
-          <h2>${item.name}</h2>
-
-          <div class="price-row">
-            <p class="price">$${item.price || 20}</p>
-          </div>
-
-          <button class="addToCart">ADD TO CART</button>
-                `;
-
-                let productDetails = card.querySelector("a");
-                productDetails.addEventListener("click", () => {
-                    localStorage.setItem("selectedProducts", JSON.stringify(item))
-                })
-                let addToCartBtn = card.querySelector(".addToCart");
-
-                addToCartBtn.addEventListener("click", () => {
-                    let existItem = myCart.some(i => i.name === item.name);
-
-                    if (existItem) {
-                        alert("already added")
-                        return
-                    }
-                    myCart.push(item)
-                    localStorage.setItem("cartProducts", JSON.stringify(myCart))
-                    addedProducts.textContent = myCart.length
-                })
-
-
-                display.appendChild(card)
-
-
-            });
         }
-
-
+        function copyPaaword(data) {
+            password.select();
+            document.execCommand("copy")
+        }
+        generatePassword()
     </script>
 </body>
 

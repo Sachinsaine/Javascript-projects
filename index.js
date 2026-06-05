@@ -387,3 +387,120 @@ function longestConsecutive(arr) {
 }
 
 console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));
+
+function findMissingNumber(arr) {
+  let n = arr.length + 1;
+  let expected = (n * (n + 1)) / 2;
+
+  let actual = 0;
+  for (let num of arr) {
+    actual += num;
+  }
+  return expected - actual;
+}
+
+console.log(findMissingNumber([1, 2, 4, 5]));
+console.log(findMissingNumber([2, 3, 1, 5]));
+
+function moveZeros(arr) {
+  let zeros = [];
+  let nonZeros = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === 0) {
+      zeros.push(arr[i]);
+    } else {
+      nonZeros.push(arr[i]);
+    }
+  }
+  return [...nonZeros, ...zeros];
+}
+
+console.log(moveZeros([0, 1, 0, 3, 12]));
+console.log(moveZeros([1, 2, 0, 4, 0]));
+
+function secondLargest(arr) {
+  let largest = -Infinity;
+  let secondLargest = -Infinity;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > largest) {
+      secondLargest = largest;
+      largest = arr[i];
+    } else if (arr[i] > secondLargest && arr[i] !== largest) {
+      secondLargest = arr[i];
+    }
+  }
+  return secondLargest === -Infinity ? null : secondLargest;
+}
+
+console.log(secondLargest([10, 5, 20, 8]));
+console.log(secondLargest([5, 5, 3, 2]));
+console.log(secondLargest([7]));
+
+function rotateRight(arr) {
+  if (arr.length <= 1) return arr;
+  let last = arr.pop();
+  arr.unshift(last);
+  return arr;
+}
+
+console.log(rotateRight([1, 2, 3, 4]));
+console.log(rotateRight([10]));
+
+function intersection(arr1, arr2) {
+  let result = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr2.includes(arr1[i])) {
+      if (!result.includes(arr1[i])) {
+        result.push(arr1[i]);
+      }
+    }
+  }
+  return result;
+}
+
+console.log(intersection([1, 2, 2, 3], [2, 2, 4]));
+console.log(intersection([1, 2, 3], [4, 5, 6]));
+
+function firstDuplicateIndex(arr) {
+  let seen = {};
+  // for (let num of arr) {
+  //   seen[num] = (seen[num] || 0) + 1;
+  // }
+
+  for (let i = 0; i < arr.length; i++) {
+    if (seen[arr[i]]) {
+      return i;
+    }
+    seen[arr[i]] = true;
+  }
+  return -1;
+}
+
+console.log(firstDuplicateIndex([1, 2, 3, 2, 4]));
+console.log(firstDuplicateIndex([1, 2, 3, 4]));
+
+function twoSum(arr, target) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        result.push(i, j);
+      }
+    }
+  }
+  return result;
+}
+
+console.log(twoSum([2, 7, 11, 15], 9));
+console.log(twoSum([3, 2, 4], 6));
+console.log(twoSum([2, 3, 10, 6, 8, 5], 7));
+
+function rotateRight(arr, num) {
+  if (arr.length === 0) return [];
+  let k = num % arr.length;
+
+  return [...arr.slice(-k), ...arr.slice(0, -k)];
+}
+
+console.log(rotateRight([1, 2, 3, 4, 5], 1));
