@@ -4,316 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap"
-        rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: #f5f0e8;
-            min-height: 100vh;
-            padding: 2.5rem 1.5rem;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Subtle grid background */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-            background-size: 32px 32px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ── Outer wrapper ── */
-        body>div {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* ── Header ── */
-        h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 2.8rem;
-            font-weight: 600;
-            color: #2d2a26;
-            letter-spacing: -0.01em;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        h1::before {
-            content: '📝';
-            font-size: 2.2rem;
-        }
-
-        /* ── Inner div (button + notes container) ── */
-        body>div>div {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        /* ── Create button ── */
-        button[onclick="createNote()"] {
-            align-self: flex-start;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #2d2a26;
-            color: #f5f0e8;
-            border: none;
-            border-radius: 10px;
-            padding: 0.75rem 1.4rem;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            letter-spacing: 0.02em;
-            box-shadow: 0 4px 12px rgba(45, 42, 38, 0.25);
-            transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
-            margin-bottom: 2rem;
-        }
-
-        button[onclick="createNote()"]::before {
-            content: '+';
-            font-size: 1.2rem;
-            font-weight: 400;
-            line-height: 1;
-        }
-
-        button[onclick="createNote()"]:hover {
-            background: #1a1815;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(45, 42, 38, 0.3);
-        }
-
-        button[onclick="createNote()"]:active {
-            transform: scale(0.97);
-        }
-
-        /* ── Notes container ── */
-        .NotesCont {
-            max-width: 100%;
-            position: relative;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.2rem;
-            align-items: start;
-        }
-
-        .NotesCont span {
-            position: absolute;
-            right: 0%;
-        }
-
-        /* ── Each note wrapper (createDiv) ── */
-        .NotesCont>div {
-            animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        }
-
-        @keyframes popIn {
-            from {
-                opacity: 0;
-                transform: scale(0.85) translateY(12px);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        /* ── Note card ── */
-        .note-card {
-            width: 100%;
-            min-height: 160px;
-            background: #fff9c4;
-            border-radius: 4px 16px 16px 16px;
-            padding: 1.1rem 1.1rem 3rem;
-            position: relative;
-            box-shadow:
-                0 2px 4px rgba(0, 0, 0, 0.06),
-                0 8px 24px rgba(0, 0, 0, 0.08),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.05);
-            margin: 0;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        /* Tape effect on top */
-        .note-card::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 20px;
-            background: rgba(255, 235, 100, 0.7);
-            border-radius: 3px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Folded corner effect */
-        .note-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 0 20px 20px;
-            border-color: transparent transparent rgba(0, 0, 0, 0.08) transparent;
-            border-radius: 0 0 16px 0;
-        }
-
-        .note-card:hover {
-            transform: rotate(-1deg) translateY(-4px);
-            box-shadow:
-                0 4px 8px rgba(0, 0, 0, 0.08),
-                0 16px 40px rgba(0, 0, 0, 0.12),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        /* Alternate card colors */
-        .NotesCont>div:nth-child(3n+1) .note-card {
-            background: #fff9c4;
-        }
-
-        /* yellow */
-        .NotesCont>div:nth-child(3n+2) .note-card {
-            background: #c8f7c5;
-        }
-
-        /* green */
-        .NotesCont>div:nth-child(3n) .note-card {
-            background: #c5e8f7;
-        }
-
-        /* blue  */
-
-        .NotesCont>div:nth-child(3n+1) .note-card::before {
-            background: rgba(255, 235, 100, 0.7);
-        }
-
-        .NotesCont>div:nth-child(3n+2) .note-card::before {
-            background: rgba(150, 230, 150, 0.7);
-        }
-
-        .NotesCont>div:nth-child(3n) .note-card::before {
-            background: rgba(150, 210, 240, 0.7);
-        }
-
-        /* ── Textarea ── */
-        .text {
-            width: 100%;
-            min-height: 100px;
-            border: none;
-            outline: none;
-            resize: none;
-            font-size: 0.95rem;
-            font-family: 'Caveat', cursive;
-            font-weight: 500;
-            font-size: 1.05rem;
-            color: #3a3630;
-            background: transparent;
-            line-height: 1.6;
-            letter-spacing: 0.01em;
-        }
-
-        .text::placeholder {
-            color: rgba(58, 54, 48, 0.35);
-            font-style: italic;
-        }
-
-        /* ── Delete button ── */
-        .remove {
-            position: absolute;
-            bottom: 10px;
-            right: 12px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: transform 0.2s ease, opacity 0.2s;
-            opacity: 0.4;
-            line-height: 1;
-            padding: 4px;
-            border-radius: 6px;
-        }
-
-        .remove:hover {
-            transform: scale(1.25);
-            opacity: 1;
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 480px) {
-            body {
-                padding: 1.5rem 1rem;
-            }
-
-            h1 {
-                font-size: 2.2rem;
-            }
-
-            .NotesCont {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>Document</title>
 </head>
 
 <body>
     <div>
-        <h1>NOTES</h1>
-        <div>
-            <button onclick="createNote()">Create Notes</button>
-            <div class="NotesCont">
-
-            </div>
-        </div>
+        <input type="date" id="date" placeholder="">
+        <button onclick="handleCalculate()">Calculate</button>
     </div>
 
     <script>
+        let myDate = document.querySelector("#date");
 
-        let displayNotes = document.querySelector(".NotesCont");
-        function createNote() {
-            let createDiv = document.createElement("div")
-            createDiv.innerHTML = `
-                <div class="note-card">
-                <textarea class="text" placeholder="Write a note..."></textarea>
-                <span class="remove">🗑️</span>
-                </div>
-                `;
+        // Prevent selecting future dates
+        myDate.max = new Date().toISOString().split("T")[0];
 
-            let remove = createDiv.querySelector(".remove");
-            remove.addEventListener("click", () => {
-                createDiv.remove()
-            })
+        function handleCalculate() {
 
-            displayNotes.appendChild(createDiv)
+            let birthDate = new Date(myDate.value);
+            let currDate = new Date();
+
+            let birthYear = birthDate.getFullYear();
+            let birthMonth = birthDate.getMonth() + 1;
+            let birthDay = birthDate.getDate();
+
+            let currentYear = currDate.getFullYear();
+            let currentMonth = currDate.getMonth() + 1;
+            let currentDay = currDate.getDate();
+
+            console.log("Birth Date:", birthDay, birthMonth, birthYear);
+            console.log("Current Date:", currentDay, currentMonth, currentYear);
+
+            let age = currentYear - birthYear;
+
+            // Adjust age if birthday hasn't occurred yet this year
+            if (
+                currentMonth < birthMonth ||
+                (currentMonth === birthMonth && currentDay < birthDay)
+            ) {
+                age--;
+            }
+
+            console.log("Age:", age);
         }
-
-
     </script>
 </body>
 
