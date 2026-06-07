@@ -268,43 +268,43 @@
         <button onclick="handleCalculate()">Calculate</button>
         <div id="display"></div>
     </div>
-
     <script>
-        let myDate = document.querySelector("#date");
-        myDate.max = new Date().toISOString().split("T")[0];
-        let displayDate = document.querySelector("#display")
-        function handleCalculate() {
+        let input = document.querySelector("#date");
+        let display = document.querySelector("#display");
 
-            if (!myDate.value) {
-                displayDate.textContent = "Please select a date"
+        function handleCalculate() {
+            if (!input.value) {
+                display.textContent = "Please select date"
                 return
             }
+            let today = new Date();
+            let birthday = new Date(input.value)
+            console.log(birthday);
 
-            let birthdayDate = new Date(myDate.value);
-            let today = new Date()
+            let day = today.getDate() - birthday.getDate();
+            let month = today.getMonth() - birthday.getMonth();
+            let year = today.getFullYear() - birthday.getFullYear();
 
-            let years = today.getFullYear() - birthdayDate.getFullYear()
-            let months = today.getMonth() - birthdayDate.getMonth()
-            let days = today.getDate() - birthdayDate.getDate()
-
-            if (days < 0) {
-                --months;
+            if (day < 0) {
+                --month;
                 let preDays = new Date(
                     today.getFullYear(),
                     today.getMonth(), 0
                 ).getDate()
 
-                days += preDays
+                day += preDays
             }
 
-            if (months < 0) {
-                years--;
-                months += 12
+            if (month < 0) {
+                --year;
+                month += 12
             }
-            displayDate.textContent =
-                `You are ${years} years, ${months} months and ${days} days old`;
+
+            return display.textContent = `You are ${year} years, ${month} months and ${day} days old`;
+
         }
         handleCalculate()
+
     </script>
 </body>
 
