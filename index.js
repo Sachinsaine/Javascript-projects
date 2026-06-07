@@ -504,3 +504,170 @@ function rotateRight(arr, num) {
 }
 
 console.log(rotateRight([1, 2, 3, 4, 5], 1));
+
+function left(arr, n) {
+  let k = n % arr.length;
+  return [...arr.slice(k), ...arr.slice(0, k)];
+}
+console.log(left([4, 3, 5, 6, 3, 2], 2));
+
+function isValid(str) {
+  let stack = [];
+  let pairs = {
+    ")": "(",
+    "}": "{",
+    "]": "[",
+  };
+
+  for (let char of str) {
+    if (char === "(" || char === "{" || char === "[") {
+      stack.push(char);
+    } else {
+      let top = stack.pop();
+
+      if (top !== pairs[char]) {
+        return false;
+      }
+    }
+  }
+  return stack.length === 0;
+}
+
+console.log(isValid("()"));
+console.log(isValid("()[]{}"));
+console.log(isValid("(]"));
+console.log(isValid("([)]"));
+
+function longestCommonPrefix(arr) {
+  let prefix = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    while (!arr[i].startsWith(prefix)) {
+      prefix = prefix.slice(0, -1);
+
+      if (prefix === "") {
+        return "";
+      }
+    }
+  }
+  return prefix;
+}
+
+console.log(longestCommonPrefix(["flower", "flow", "flight"]));
+console.log(longestCommonPrefix(["dog", "racecar", "car"]));
+console.log(longestCommonPrefix(["interview", "internet", "internal"]));
+
+function groupAnagrams(arr) {
+  let groups = {};
+  for (let i = 0; i < arr.length; i++) {
+    let key = arr[i].split("").sort().join("");
+    if (!groups[key]) {
+      groups[key] = [];
+    }
+    groups[key].push(arr[i]);
+  }
+  return Object.values(groups);
+}
+
+console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
+
+function topKFrequent(arr, k) {
+  let seen = {};
+  for (let num of arr) {
+    seen[num] = (seen[num] || 0) + 1;
+  }
+
+  return Object.entries(seen)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, k)
+    .map(([num]) => Number(num));
+}
+
+console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2));
+console.log(topKFrequent([4, 4, 4, 6, 6, 7], 1));
+
+function productExceptSelf(arr) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    let product = 1;
+    for (let j = 0; j < arr.length; j++) {
+      // console.log(i === j);
+
+      if (i !== j) {
+        product *= arr[j];
+      }
+    }
+    result.push(product);
+  }
+  return result;
+}
+
+console.log(productExceptSelf([1, 2, 3, 4]));
+// console.log(productExceptSelf([2, 3, 4]));
+
+function majorityElement(arr) {
+  let freq = {};
+  let n = arr.length / 2;
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+  }
+  for (let key in freq) {
+    if (freq[key] > n) {
+      return Number(key);
+    }
+  }
+  return null;
+}
+
+console.log(majorityElement([3, 2, 3]));
+// console.log(majorityElement([2, 2, 1, 1, 1, 2, 2]));
+// console.log(majorityElement([5, 5, 5, 2, 5]));
+
+function mergeSorted(arr1, arr2) {
+  let result = [...arr1, ...arr2].sort((a, b) => a - b);
+  return result;
+}
+
+console.log(mergeSorted([1, 3, 5], [2, 4, 6]));
+console.log(mergeSorted([1, 2, 7], [3, 4, 5]));
+console.log(mergeSorted([], [1, 2, 3]));
+
+function findFirstNegative(arr) {
+  if (arr.length === 0) return [];
+  for (let num of arr) {
+    if (num < 0) {
+      return num;
+    }
+  }
+  return null;
+}
+
+console.log(findFirstNegative([5, 3, -2, 7, -1]));
+console.log(findFirstNegative([1, 2, 3]));
+console.log(findFirstNegative([-5, 2, 3]));
+
+function flatten(arr) {
+  return arr.flat();
+}
+
+console.log(flatten([1, [2, 3], 4, [5, 6]]));
+console.log(
+  flatten([
+    [1, 2],
+    [3, 4],
+  ]),
+);
+
+function findLongestWord(str) {
+  let longest = "";
+  let temp = str.split(" ");
+  for (let char of temp) {
+    if (char.length > longest.length) {
+      longest = char;
+    }
+  }
+  return longest;
+}
+
+console.log(findLongestWord("JavaScript is awesome"));
+console.log(findLongestWord("I love coding"));
+console.log(findLongestWord("React Node MongoDB"));
