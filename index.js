@@ -671,3 +671,51 @@ function findLongestWord(str) {
 console.log(findLongestWord("JavaScript is awesome"));
 console.log(findLongestWord("I love coding"));
 console.log(findLongestWord("React Node MongoDB"));
+
+function hasPair(arr, target) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+console.log(hasPair([2, 7, 11, 15], 9));
+console.log(hasPair([1, 2, 3, 4], 8));
+console.log(hasPair([3, 5, 1, 7], 8));
+
+function hasConsecutive(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i + 1] - arr[i] === 1) {
+      return true;
+    }
+  }
+  return false;
+}
+
+hasConsecutive([4, 5, 9, 12]);
+hasConsecutive([10, 20, 30]);
+hasConsecutive([7, 8]);
+
+function mostFrequentChar(str) {
+  let freq = {};
+  let freqChar = "";
+  let max = 0;
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+  for (let key in freq) {
+    if (freq[key] > max) {
+      max = freq[key];
+      freqChar = key;
+    }
+  }
+  return freqChar;
+}
+console.log(mostFrequentChar("javascript"));
+console.log(mostFrequentChar("hello"));
+console.log(mostFrequentChar("aabbbcccc"));
+console.log(mostFrequentChar("sachin saine"));
