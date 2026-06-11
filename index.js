@@ -719,3 +719,8 @@ console.log(mostFrequentChar("javascript"));
 console.log(mostFrequentChar("hello"));
 console.log(mostFrequentChar("aabbbcccc"));
 console.log(mostFrequentChar("sachin saine"));
+
+const arr = [1, 2, 3];
+const newArr = [...arr, 4];
+
+console.log(newArr);
