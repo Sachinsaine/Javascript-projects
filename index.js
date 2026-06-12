@@ -724,3 +724,37 @@ const arr = [1, 2, 3];
 const newArr = [...arr, 4];
 
 console.log(newArr);
+
+function firstRepeatingChar(str) {
+  let seen = {};
+  for (let char of str) {
+    seen[char] = (seen[char] || 0) + 1;
+  }
+  for (let key of str) {
+    if (seen[key] > 1) {
+      return key;
+    }
+  }
+}
+console.log(firstRepeatingChar("abca"));
+
+function firstEven(arr) {
+  // let result = [];
+  // for (let i = 0; i < arr.length; i++) {
+  //   if (arr[i] % 2 === 0) {
+  //     result.push(arr[i]);
+  //   }
+  // }
+  // return result.length === 0 ? "not find" : result[0];
+
+  for (let num of arr) {
+    if (num % 2 === 0) {
+      return num;
+    }
+  }
+  return null;
+}
+
+console.log(firstEven([1, 3, 4, 6]));
+console.log(firstEven([1, 5, 7]));
+console.log(firstEven([2, 4, 6]));
