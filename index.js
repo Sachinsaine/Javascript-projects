@@ -600,9 +600,8 @@ function productExceptSelf(arr) {
   }
   return result;
 }
-
 console.log(productExceptSelf([1, 2, 3, 4]));
-// console.log(productExceptSelf([2, 3, 4]));
+console.log(productExceptSelf([2, 3, 4]));
 
 function majorityElement(arr) {
   let freq = {};
@@ -619,8 +618,8 @@ function majorityElement(arr) {
 }
 
 console.log(majorityElement([3, 2, 3]));
-// console.log(majorityElement([2, 2, 1, 1, 1, 2, 2]));
-// console.log(majorityElement([5, 5, 5, 2, 5]));
+console.log(majorityElement([2, 2, 1, 1, 1, 2, 2]));
+console.log(majorityElement([5, 5, 5, 2, 5]));
 
 function mergeSorted(arr1, arr2) {
   let result = [...arr1, ...arr2].sort((a, b) => a - b);
@@ -758,3 +757,105 @@ function firstEven(arr) {
 console.log(firstEven([1, 3, 4, 6]));
 console.log(firstEven([1, 5, 7]));
 console.log(firstEven([2, 4, 6]));
+
+function secondSmallestt(arr) {
+  let smallest = Infinity;
+  let secondSmallest = Infinity;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < smallest) {
+      secondSmallest = smallest;
+      smallest = arr[i];
+    } else if (arr[i] < secondSmallest && arr[i] !== smallest) {
+      secondSmallest = arr[i];
+    }
+  }
+  return secondSmallest === Infinity ? null : secondSmallest;
+}
+
+console.log(secondSmallestt([10, 5, 20, 8]));
+console.log(secondSmallestt([5, 5, 3, 2]));
+console.log(secondSmallestt([7]));
+console.log(secondSmallestt([2, 2, 2]));
+
+function lastUniqueChar(str) {
+  let seen = {};
+  let unique = [];
+
+  for (let char of str) {
+    seen[char] = (seen[char] || 0) + 1;
+  }
+  for (let key in seen) {
+    if (seen[key] === 1) {
+      unique.push(key);
+    }
+  }
+  return unique.length === 0 ? null : unique.at(-1);
+}
+
+console.log(lastUniqueChar("aabbcdde"));
+console.log(lastUniqueChar("javascript"));
+console.log(lastUniqueChar("aabbcc"));
+
+function smallestDifference(arr) {
+  if (arr.length < 2) return null;
+  let result = [];
+  let minDiff = Infinity;
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      let diff = Math.abs(arr[i] - arr[j]);
+
+      if (diff < minDiff) {
+        minDiff = diff;
+        result = [arr[i], arr[j]];
+      }
+    }
+  }
+  return result;
+}
+
+console.log(smallestDifference([4, 2, 1, 3]));
+console.log(smallestDifference([10, 20, 15, 18]));
+console.log(smallestDifference([5]));
+
+function groupEvenOdd(arr) {
+  let result = {
+    even: [],
+    odd: [],
+  };
+  for (let num of arr) {
+    if (num % 2 === 0) {
+      result.even.push(num);
+    } else {
+      result.odd.push(num);
+    }
+  }
+  return result;
+}
+
+console.log(groupEvenOdd([1, 2, 3, 4, 5]));
+console.log(groupEvenOdd([2, 4, 6]));
+console.log(groupEvenOdd([1, 3, 5]));
+
+function mostFrequentNumberr(arr) {
+  if (arr.length === 0) return null;
+  let seen = {};
+  let max = 0;
+  let result;
+  for (let num of arr) {
+    seen[num] = (seen[num] || 0) + 1;
+  }
+  for (let key of arr) {
+    if (seen[key] > max) {
+      max = seen[key];
+      result = key;
+    }
+  }
+  return result;
+}
+
+console.log(mostFrequentNumberr([1, 2, 2, 3, 3, 3]));
+console.log(mostFrequentNumberr([4, 4, 2, 2, 1]));
+console.log(mostFrequentNumberr([5]));
+console.log(mostFrequentNumberr([]));
