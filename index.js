@@ -1,76 +1,31 @@
-function leastFrequentChar(str) {
-  if (str.length === 0) return null;
-  let freq = {};
-  let minFreq = Infinity;
-  let result;
-
-  for (let char of str) {
-    freq[char] = (freq[char] || 0) + 1;
-  }
-  for (let key in freq) {
-    if (freq[key] < minFreq) {
-      minFreq = freq[key];
+function isIncreasing(arr) {
+  if (arr.length === 0) return false;
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] >= arr[i + 1]) {
+      return false;
     }
   }
-
-  for (let num of str) {
-    if (freq[num] === minFreq) {
-      return num;
-    }
-  }
-  return null;
-}
-console.log(leastFrequentChar("javascript"));
-console.log(leastFrequentChar("aabbccc"));
-console.log(leastFrequentChar("zzzz"));
-
-function lastOdd(arr) {
-  if (arr.length === 0) return null;
-  let oddNum = [];
-  for (let num of arr) {
-    if (num % 2 !== 0) {
-      oddNum.push(num);
-    }
-  }
-  return oddNum.length > 0 ? oddNum.pop() : null;
+  return true;
 }
 
-console.log(lastOdd([2, 4, 7, 8, 9]));
-console.log(lastOdd([2, 4, 6]));
-console.log(lastOdd([1, 2, 3]));
-console.log(lastOdd([5]));
+console.log(isIncreasing([1, 2, 3, 4]));
+console.log(isIncreasing([1, 3, 2]));
+console.log(isIncreasing([5]));
+console.log(isIncreasing([2, 2, 3]));
 
-function groupByLength(arr) {
-  let group = {};
+function thirdLargest(arr) {
+  let result = [];
 
-  for (let char of arr) {
-    let charLength = char.length;
-
-    if (!group[charLength]) {
-      group[charLength] = [];
-    }
-    group[charLength].push(char);
-  }
-
-  return group;
-}
-
-console.log(groupByLength(["cat", "dog", "elephant", "bat"]));
-console.log(groupByLength(["hi", "hello", "hey"]));
-console.log(groupByLength([]));
-
-function hasPairDifference(arr, k) {
   for (let i = 0; i < arr.length; i++) {
-    for (let j = i + 1; j < arr.length; j++) {
-      if (Math.abs(arr[i] - arr[j]) === k) {
-        return true;
-      }
+    if (!result.includes(arr[i])) {
+      result.push(arr[i]);
     }
   }
-  return false;
+  let temp = result.sort((a, b) => a - b).reverse();
+  return temp[2] === undefined ? null : temp[2];
 }
 
-console.log(hasPairDifference([1, 5, 3, 4, 2], 2));
-console.log(hasPairDifference([1, 2, 3], 5));
-console.log(hasPairDifference([8, 12, 16, 4], 4));
-console.log(hasPairDifference([10], 2));
+console.log(thirdLargest([5, 5, 3, 2]));
+console.log(thirdLargest([10, 5, 20, 8, 15]));
+console.log(thirdLargest([1, 2]));
+console.log(thirdLargest([7, 7, 7]));
