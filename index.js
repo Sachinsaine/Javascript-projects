@@ -132,13 +132,41 @@ console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
 console.log(removeDuplicates([1, 1, 2]));
 
 function sortedSquares(arr) {
-  let initial = 1;
-  let result = [];
-  for (let i = 0; i < arr.length; i++) {
-    initial = arr[i] * arr[i];
-    // console.log(initial);
-    result.push(initial);
-    console.log(initial);
-  }
+  if (arr.length === 0) return null;
+
+  let temp = arr.map((num) => num * num);
+  return temp.sort((a, b) => a - b);
 }
 console.log(sortedSquares([3, 10]));
+console.log(sortedSquares([-4, -1, 0, 3, 10]));
+
+function merge(nums1, m, nums2, n) {
+  let temp = [...nums1.slice(0, m), ...nums2].sort((a, b) => a - b);
+  console.log(temp);
+
+  for (let i = 0; i < temp.length; i++) {
+    nums1[i] = temp[i];
+  }
+  return nums1;
+}
+console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+
+function palindrome(num) {
+  let temp = String(num);
+  let result = temp.split("").reverse().join("");
+  return num === Number(result);
+  console.log(temp);
+}
+console.log(palindrome(121));
+
+function twoSum(l1, l2) {
+  // let temp = [...l1, ...l2];
+  let temp = [];
+  for (let i = 0; i < l1.length; i++) {
+    if (l1[0] === l2[0]) {
+      temp.push(l1[i]);
+    }
+  }
+  return temp;
+}
+console.log(twoSum([2, 4, 3], [5, 6, 4]));
