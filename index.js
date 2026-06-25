@@ -248,3 +248,6 @@ function mergeTwoSortedArr(a, b) {
   return temp.sort((a, b) => a - b);
 }
 console.log(mergeTwoSortedArr([1, 2, 4], [1, 3, 4]));
+
+function findAverage(arr) {}
+console.log(findAverage([1, 2, 3, 4, 5]));
