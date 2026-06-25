@@ -249,5 +249,13 @@ function mergeTwoSortedArr(a, b) {
 }
 console.log(mergeTwoSortedArr([1, 2, 4], [1, 3, 4]));
 
-function findAverage(arr) {}
+function findAverage(arr) {
+  if (arr.length === 0) return null;
+  let num = arr.length;
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum / num;
+}
 console.log(findAverage([1, 2, 3, 4, 5]));
