@@ -320,8 +320,60 @@ console.log(findUnion([1, 2, 3], [2, 3, 4]));
 console.log(findUnion([1, 2], [3, 4]));
 
 function rotateArr(arr, k) {
-  for (let i = 0; i < k; i++) {
-    let first = arr[0];
-  }
+  if (arr.length === 0) return null;
+  k = k % arr.length;
+  const result = arr.slice(-k).concat(arr.slice(0, -k));
+  return result;
 }
 console.log(rotateArr([1, 2, 3, 4, 5], 2));
+
+function arrIntoGrp(arr, n) {
+  let result = [];
+  for (let i = 0; i < arr.length; i += n) {
+    result.push(arr.slice(i, i + n));
+  }
+  return result;
+}
+console.log(arrIntoGrp([1, 2, 3, 4, 5], 2));
+
+function checkSorted(arr) {
+  if (arr.length === 0) return null;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > arr[i + 1]) {
+      return false;
+    }
+  }
+  return true;
+}
+console.log(checkSorted([1, 2, 3, 4, 5]));
+console.log(checkSorted([1, 3, 2, 4]));
+
+function removeZerosToEnd(arr) {
+  if (arr.length === 0) return null;
+  let zeros = [];
+  let nonZeros = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === 0) {
+      zeros.push(arr[i]);
+    } else {
+      nonZeros.push(arr[i]);
+    }
+  }
+  return [...nonZeros, ...zeros];
+}
+console.log(removeZerosToEnd([1, 0, 2, 0, 3]));
+
+function findPairs(arr, n) {
+  if (arr.length === 0) return null;
+  let pairs = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === n) {
+        pairs.push([arr[i], arr[j]]);
+      }
+    }
+  }
+  return pairs;
+}
+console.log(findPairs([1, 2, 3, 4, 5], 5));
+console.log(findPairs([1, 2, 3, 4], 6));
