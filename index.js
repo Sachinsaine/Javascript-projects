@@ -259,3 +259,69 @@ function findAverage(arr) {
   return sum / num;
 }
 console.log(findAverage([1, 2, 3, 4, 5]));
+
+function findSecondSmallestNum(arr) {
+  if (arr.length === 0) return null;
+  let smallest = Infinity;
+  let secondSmallest = Infinity;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < smallest) {
+      secondSmallest = smallest;
+      smallest = arr[i];
+    } else if (arr[i] < secondSmallest && arr[i] !== smallest) {
+      secondSmallest = arr[i];
+    }
+  }
+  return secondSmallest;
+}
+console.log(findSecondSmallestNum([5, 1, 9, 3]));
+console.log(findSecondSmallestNum([58, 61, 90, 113]));
+
+function mergeTwoArrWithoutDuplicate(a, b) {
+  if (a.length === 0 || b.length === 0) return null;
+  let arr = [...new Set([...a, ...b])];
+  let duplicate = [];
+  for (let num of arr) {
+    if (!duplicate.includes(num)) {
+      duplicate.push(num);
+    }
+  }
+  return duplicate;
+}
+console.log(mergeTwoArrWithoutDuplicate([1, 2, 3], [2, 3, 4]));
+console.log(mergeTwoArrWithoutDuplicate([1, 2], [2, 3, 4, 5]));
+
+function findInteraction(a, b) {
+  if (a.length === 0 || b.length === 0) {
+    return [];
+  }
+  let result = [];
+  for (let i = 0; i < a.length; i++) {
+    if (b.includes(a[i])) {
+      result.push(a[i]);
+    }
+  }
+  return result;
+}
+console.log(findInteraction([1, 2, 3, 4], [2, 4, 6]));
+console.log(findInteraction([1, 2, 3], [4, 5, 6]));
+
+function findUnion(a, b) {
+  let union = [];
+  let arr = [...a, ...b];
+  for (let i = 0; i < arr.length; i++) {
+    if (!union.includes(arr[i])) {
+      union.push(arr[i]);
+    }
+  }
+  return union;
+}
+console.log(findUnion([1, 2, 3], [2, 3, 4]));
+console.log(findUnion([1, 2], [3, 4]));
+
+function rotateArr(arr, k) {
+  for (let i = 0; i < k; i++) {
+    let first = arr[0];
+  }
+}
+console.log(rotateArr([1, 2, 3, 4, 5], 2));
