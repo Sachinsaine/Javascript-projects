@@ -322,7 +322,7 @@ console.log(findUnion([1, 2], [3, 4]));
 function rotateArr(arr, k) {
   if (arr.length === 0) return null;
   k = k % arr.length;
-  const result = arr.slice(-k).concat(arr.slice(0, -k));
+  const result = arr.slice(k).concat(arr.slice(0, k));
   return result;
 }
 console.log(rotateArr([1, 2, 3, 4, 5], 2));
@@ -377,3 +377,133 @@ function findPairs(arr, n) {
 }
 console.log(findPairs([1, 2, 3, 4, 5], 5));
 console.log(findPairs([1, 2, 3, 4], 6));
+
+function printTable(num) {
+  if (!Number.isInteger(num)) return false;
+  let table = "";
+  for (let i = 1; i <= 10; i++) {
+    table += `${num} x ${i} = ${num * i}\n`;
+  }
+  return table;
+}
+console.log(printTable(3));
+
+function printStars(num) {
+  if (!Number.isInteger(num)) return false;
+  let star = "";
+  for (let i = 1; i <= num; i++) {
+    for (let j = 1; j <= i; j++) {
+      star += "*";
+    }
+    star += `\n`;
+  }
+  return star;
+}
+console.log(printStars(4));
+
+function fibonacciSeries(num) {
+  if (!Number.isInteger(num)) return null;
+  let n1 = 0;
+  let n2 = 1;
+
+  let result = [n1, n2];
+  for (let i = 3; i <= num; i++) {
+    let nextNum = n1 + n2;
+    result.push(nextNum);
+    n1 = n2;
+    n2 = nextNum;
+  }
+  return result;
+}
+console.log(fibonacciSeries(8));
+
+function findLCM(a, b) {
+  let max = Math.max(a, b);
+  while (true) {
+    if (max % a === 0 && max % b === 0) {
+      return max;
+    }
+    max++;
+  }
+}
+console.log(findLCM(4, 6));
+
+function findGCD(a, b) {
+  let gcd = 1;
+  for (let i = 0; i <= Math.min(a, b); i++) {
+    if (a % i === 0 && b % i === 0) {
+      gcd = i;
+    }
+  }
+  return gcd;
+}
+console.log(findGCD(12, 8));
+console.log(findGCD(15, 10));
+
+function sumOfEvenNum(num) {
+  let sum = 0;
+  for (let i = 1; i <= num; i++) {
+    if (i % 2 === 0) {
+      sum += i;
+    }
+  }
+  return sum;
+}
+console.log(sumOfEvenNum(10));
+console.log(sumOfEvenNum(6));
+
+function sumOfOddNum(num) {
+  let sum = 0;
+  for (let i = 0; i <= num; i++) {
+    if (i % 2 !== 0) {
+      sum += i;
+    }
+  }
+  return sum;
+}
+console.log(sumOfOddNum(7));
+console.log(sumOfOddNum(10));
+
+function printNumBy(num) {
+  if (!Number.isInteger(num)) return null;
+  let result = [];
+  for (let i = 1; i <= num; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      result.push(i);
+    }
+  }
+  return result;
+}
+console.log(printNumBy(20));
+console.log(printNumBy(100));
+
+function findPrimeNum(num) {
+  if (!Number.isInteger(num)) return false;
+  let result = [];
+  if (num < 2 || num <= 2) return false;
+  for (let i = 2; i <= num; i++) {
+    let isPrime = true;
+    for (let j = 2; j <= Math.sqrt(i); j++) {
+      if (i % j === 0) {
+        isPrime = false;
+      }
+    }
+    if (isPrime) {
+      result.push(i);
+    }
+  }
+  return result;
+}
+console.log(findPrimeNum(20));
+
+function reverseNumber(num) {
+  let reverse = 0;
+
+  while (num > 0) {
+    let digit = num % 10;
+    reverse = reverse * 10 + digit;
+    num = Math.floor(num / 10);
+  }
+  return reverse;
+}
+console.log(reverseNumber(1234));
