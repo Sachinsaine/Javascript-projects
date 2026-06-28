@@ -507,3 +507,9 @@ function reverseNumber(num) {
   return reverse;
 }
 console.log(reverseNumber(1234));
+
+function countKeys(obj) {
+  return Object.keys(obj).length;
+}
+console.log(countKeys({ a: 1, b: 2, c: 3 }));
+console.log(countKeys({ name: "John", age: 25 }));
