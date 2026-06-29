@@ -513,3 +513,65 @@ function countKeys(obj) {
 }
 console.log(countKeys({ a: 1, b: 2, c: 3 }));
 console.log(countKeys({ name: "John", age: 25 }));
+
+function mergeObj(obj1, obj2) {
+  let merge = { ...obj1, ...obj2 };
+  return merge;
+}
+console.log(mergeObj({ a: 1, b: 2 }, { c: 3, d: 4 }));
+
+function keyExist(obj, n) {
+  // return n in obj;
+  return Object.hasOwn(obj, n);
+}
+console.log(keyExist({ a: 1, b: 2 }, "a"));
+console.log(keyExist({ a: 1, b: 2 }, "c"));
+
+function getAllKeys(obj) {
+  return Object.keys(obj);
+}
+console.log(getAllKeys({ a: 1, b: 2, c: 3 }));
+
+function getAllValues(obj) {
+  return Object.values(obj);
+}
+console.log(getAllValues({ a: 1, b: 2, c: 3 }));
+
+function invertKeyValue(obj) {
+  const result = {};
+  let input = obj;
+  for (const key in input) {
+    if (Object.hasOwn(input, key)) {
+      result[input[key]] = key;
+    }
+  }
+  return result;
+}
+console.log(invertKeyValue({ a: 1, b: 2, c: 3 }));
+
+function removeKey(obj, n) {
+  delete obj[n];
+  return obj;
+}
+console.log(removeKey({ a: 1, b: 2, c: 3 }, "b"));
+
+function highestValue(obj) {
+  return Math.max(...Object.values(obj));
+}
+console.log(highestValue({ a: 10, b: 30, c: 20 }));
+
+function singleObj(arr) {
+  let result = {};
+  let temp = arr;
+
+  for (let char of temp) {
+    result[char.key] = char.value;
+  }
+  return result;
+}
+console.log(
+  singleObj([
+    { key: "a", value: 1 },
+    { key: "b", value: 2 },
+  ]),
+);
