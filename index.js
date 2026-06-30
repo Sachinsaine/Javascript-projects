@@ -575,3 +575,85 @@ console.log(
     { key: "b", value: 2 },
   ]),
 );
+
+function findAge(obj, n) {
+  let temp = obj;
+  let result = {};
+  return Object.groupBy(temp, (item) => item.age);
+}
+console.log(
+  findAge(
+    [
+      { name: "John", age: 25 },
+      { name: "Jane", age: 25 },
+      { name: "Bob", age: 30 },
+    ],
+    "age",
+  ),
+);
+
+// function findFactorial(num) {
+//   if (!Number.isInteger(num)) return null;
+//   let sum = 1;
+//   for (let i = 1; i <= num; i++) {
+//     sum *= i;
+//   }
+//   return sum;
+// }
+// console.log(findFactorial(5));
+// console.log(findFactorial(6));
+
+function findFactorial(num) {
+  if (!Number.isInteger(num)) return null;
+
+  if (num === 0 || num === 1) return 1;
+
+  return num * findFactorial(num - 1);
+}
+console.log(findFactorial(5));
+console.log(findFactorial(6));
+
+function fibonacciWithRecursion(num) {
+  if (!Number.isInteger(num)) return null;
+  if (num === 0) return 0;
+  if (num === 1) return 1;
+
+  return fibonacciWithRecursion(num - 1) + fibonacciWithRecursion(num - 2);
+}
+console.log(fibonacciWithRecursion(6));
+
+function sumOfArrWithRecursion(arr) {
+  if (arr.length === 0) return 0;
+
+  return arr[0] + sumOfArrWithRecursion(arr.slice(1));
+}
+console.log(sumOfArrWithRecursion([1, 2, 3, 4]));
+
+function reverseStrWithRecursion(str) {
+  if (str.length <= 1) return str;
+  return reverseStrWithRecursion(str.slice(1)) + str[0];
+}
+console.log(reverseStrWithRecursion("hello"));
+
+function palindromeWithRecurstion(str) {
+  if (str.length <= 1) return true;
+
+  if (str[0] !== str[str.length - 1]) return false;
+
+  return palindromeWithRecurstion(str.slice(1, str.length - 1));
+}
+console.log(palindromeWithRecurstion("madam"));
+console.log(palindromeWithRecurstion("hello"));
+
+function powerUsingRecursion(num, power) {
+  if (power === 0) return 1;
+
+  return num * powerUsingRecursion(num, power - 1);
+}
+console.log(powerUsingRecursion(2, 10));
+
+function countDigitsRecursion(num) {
+  if (num === 0) return 0;
+  return 1 + countDigitsRecursion(Math.floor(num / 10));
+}
+console.log(countDigitsRecursion(1234));
