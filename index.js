@@ -657,3 +657,128 @@ function countDigitsRecursion(num) {
   return 1 + countDigitsRecursion(Math.floor(num / 10));
 }
 console.log(countDigitsRecursion(1234));
+
+function bubbleSort(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = 0; j < arr.length - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+  return arr;
+}
+console.log(bubbleSort([5, 3, 8, 1, 2]));
+
+function linearSearch(arr, n) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === n) {
+      return i;
+    }
+  }
+  return -1;
+}
+console.log(linearSearch([1, 2, 3, 4, 5], 3));
+
+function binarySearch(arr, n) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+
+    if (arr[mid] === n) {
+      return mid;
+    }
+
+    if (n < arr[mid]) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+  return -1;
+}
+console.log(binarySearch([1, 2, 3, 4, 5], 4));
+
+function findFirstOcc(arr, n) {
+  if (arr.length === 0) return null;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === n) {
+      return i;
+    }
+  }
+}
+console.log(findFirstOcc([1, 2, 2, 3, 2], 2));
+
+function findLastOcc(arr, n) {
+  for (let i = arr.length - 1; i >= 0; i--) {
+    if (arr[i] === n) {
+      return i;
+    }
+  }
+  return -1;
+}
+console.log(findLastOcc([1, 2, 2, 3, 2], 2));
+
+function findAllOcc(arr, n) {
+  if (arr.length === 0) return null;
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === n) {
+      result.push(i);
+    }
+  }
+  return result;
+}
+console.log(findAllOcc([1, 2, 2, 3, 2], 2));
+
+function findClosestElement(arr, n) {
+  let closest = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    if (Math.abs(arr[i] - n) < Math.abs(closest - n)) {
+      closest = arr[i];
+    }
+  }
+  return closest;
+}
+console.log(findClosestElement([1, 3, 5, 7, 9], 6));
+
+function countGreaterEle(arr, n) {
+  if (arr.length === 0) return null;
+  let count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > n) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countGreaterEle([1, 2, 3, 4, 5], 3));
+console.log(countGreaterEle([10, 20, 30, 40], 15));
+
+function findMaxIndex(arr) {
+  if (arr.length === 0) return null;
+
+  let num = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > arr[num]) {
+      num = i;
+    }
+  }
+  return num;
+}
+console.log(findMaxIndex([1, 5, 3, 9, 2]));
+
+function findMinIndex(arr) {
+  let min = 0;
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < arr[min]) {
+      min = arr[i];
+    }
+  }
+  return min;
+}
+console.log(findMinIndex([1, 5, 3, 9, 2]));
