@@ -782,3 +782,104 @@ function findMinIndex(arr) {
   return min;
 }
 console.log(findMinIndex([1, 5, 3, 9, 2]));
+
+function longestSubStr(str) {
+  let longest = 0;
+  for (let i = 0; i < str.length; i++) {
+    let temp = "";
+    for (let j = i; j < str.length; j++) {
+      if (temp.includes(str[j])) {
+        break;
+      }
+      temp += str[j];
+      longest = Math.max(longest, temp.length);
+    }
+  }
+  return longest;
+}
+console.log(longestSubStr("abcabcbb"));
+
+function balancedParentheses(str) {
+  let stack = [];
+  for (let char of str) {
+    if (char === "(" || char === "[" || char === "{") {
+      stack.push(char);
+    } else {
+      let temp = stack.pop();
+
+      if (
+        (char === ")" && temp !== "(") ||
+        (char === "]" && temp !== "[") ||
+        (char === "}" && temp !== "{")
+      ) {
+        return false;
+      }
+    }
+  }
+  return stack.length === 0;
+}
+console.log(balancedParentheses("({[})"));
+console.log(balancedParentheses("({[]})"));
+
+function twoSumIndex(arr, n) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === n) {
+        result.push(i, j);
+      }
+    }
+  }
+  return result;
+}
+console.log(twoSumIndex([2, 7, 11, 15], 9));
+
+function duplicate(arr) {
+  let freq = {};
+
+  for (let key of arr) {
+    if (freq[key]) {
+      return key;
+    }
+    freq[key] = true;
+  }
+  return -1;
+  // for (let i = 0; i < arr.length; i++) {
+  //   for (let j = i + 1; j < arr.length; j++) {
+  //     if (arr[i] === arr[j]) {
+  //       return arr[i];
+  //     }
+  //   }
+  // }
+  // return -1;
+}
+console.log(duplicate([1, 2, 3, 2, 4]));
+
+function findAll(arr) {
+  if (arr.length === 0) return null;
+  // let result = [];
+  // for (let i = 0; i < arr.length; i++) {
+  //   for (let j = i + 1; j < arr.length; j++) {
+  //     if (arr[i] === arr[j]) {
+  //       if (!result.includes(arr[i])) {
+  //         result.push(arr[i]);
+  //       }
+  //     }
+  //   }
+  // }
+  // return result;
+
+  let freq = {};
+  let result = [];
+  for (let char of arr) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+
+  for (let num in freq) {
+    if (freq[num] > 1) {
+      result.push(Number(num));
+    }
+  }
+  return result;
+}
+console.log(findAll([1, 2, 3, 2, 4, 3]));
