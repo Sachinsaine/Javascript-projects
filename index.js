@@ -883,3 +883,51 @@ function findAll(arr) {
   return result;
 }
 console.log(findAll([1, 2, 3, 2, 4, 3]));
+
+function matrixTrans(matrix) {
+  let result = [];
+
+  for (let i = 0; i < matrix[0].length; i++) {
+    result[i] = [];
+
+    for (let j = 0; j < matrix.length; j++) {
+      result[i].push(matrix[j][i]);
+    }
+  }
+  return result;
+}
+console.log(
+  matrixTrans([
+    [1, 2, 3],
+    [4, 5, 6],
+  ]),
+);
+
+function arrayEqual(a, b) {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) {
+    if (!b.includes(a[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+console.log(arrayEqual([1, 2, 3], [1, 2, 3]));
+console.log(arrayEqual([1, 2], [1, 2, 3]));
+
+function findCommonEle(a, b, c) {
+  let result = [];
+  for (let i = 0; i < a.length; i++) {
+    if (b.includes(a[i]) && c.includes(a[i])) {
+      result.push(a[i]);
+    }
+  }
+  return result;
+}
+console.log(findCommonEle([1, 2, 3], [2, 3, 4], [3, 4, 5]));
+
+function decodeRunLength(str) {
+  
+}
+console.log(decodeRunLength("a3b2c1"));
