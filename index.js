@@ -927,76 +927,117 @@
 // }
 // console.log(findCommonEle([1, 2, 3], [2, 3, 4], [3, 4, 5]));
 
-function secondLargestNum(arr) {
-  if (arr.length <= 1 && arr.length === 0) return null;
-  let largest = -Infinity;
-  let secondLargest = -Infinity;
+function validParantheses(str) {
+  const stack = [];
+  let pairs = {
+    ")": "(",
+    "}": "{",
+    "]": "[",
+  };
 
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > largest) {
-      secondLargest = largest;
-      largest = arr[i];
-    } else if (arr[i] > secondLargest && arr[i] !== largest) {
-      secondLargest = arr[i];
+  for (let char of str) {
+    if (char === "(" || char === "[" || char === "{") {
+      stack.push(char);
+    } else {
+      if (stack.pop() !== pairs[char]) {
+        return false;
+      }
     }
   }
-  return secondLargest === -Infinity ? null : secondLargest;
+
+  return stack.length === 0;
 }
-console.log(secondLargestNum([10, 5, 20, 8, 15]));
-console.log(secondLargestNum([2]));
-console.log(secondLargestNum([7, 7, 7]));
+console.log(validParantheses("([)]"));
+console.log(validParantheses("({[]})"));
 
-function removeDuplicateChars(str) {
-  if (str.length === 0) return null;
-  // let result = [];
-  // for (let i = 0; i < str.length; i++) {
-  //   if (!result.includes(str[i])) {
-  //     result.push(str[i]);
-  //   }
+function duplicates(arr) {
+  let freq = {};
+  // for (let num of arr) {
+  //   freq[num] = (freq[num] || 0) + 1;
   // }
-  // return result.join("");
 
-  let seen = {};
-  let result = "";
-  for (let char of str) {
-    if (!seen[char]) {
-      seen[char] = true;
-      result += char;
+  for (let key of arr) {
+    if (freq[key]) {
+      return true;
+    }
+    freq[key] = 1;
+  }
+  return false;
+}
+console.log(duplicates([1, 2, 3, 1]));
+console.log(duplicates([1, 2, 3, 4]));
+
+function intersection(a, b) {
+  let result = [];
+  for (let i = 0; i < a.length; i++) {
+    if (b.includes(a[i]) && !result.includes(a[i])) {
+      result.push(a[i]);
     }
   }
   return result;
 }
-console.log(removeDuplicateChars("programming"));
-console.log(removeDuplicateChars("hello"));
+console.log(intersection([1, 2, 2, 1], [2, 2]));
 
-function rotateArray(arr, k) {
-  if (arr.length === 0 || k === 0) return null;
+function singleNum(arr) {
+  // let freq = {};
+  // for (let num of arr) {
+  //   freq[num] = (freq[num] || 0) + 1;
+  // }
 
-  let n = k % arr.length;
-  let temp = arr.slice(-n).concat(arr.slice(0, -n));
+  // for (let key of arr) {
+  //   if (freq[key] === 1) {
+  //     return Number(key);
+  //   }
+  // }
+
+  let result = 0;
+  for (let num of arr) {
+    result ^= num;
+  }
+  return result;
+}
+console.log(singleNum([4, 1, 2, 1, 2]));
+
+function bySell(arr) {
+  if (arr.length === 0) return null;
+  let minPrice = Infinity;
+  let maxProfit = 0;
+
+  for (let num of arr) {
+    if (num < minPrice) {
+      minPrice = num;
+    }
+
+    let profit = num - minPrice;
+    if (profit > maxProfit) {
+      maxProfit = profit;
+    }
+  }
+  return maxProfit;
+}
+console.log(bySell([7, 1, 5, 3, 6, 4]));
+
+function rotateArr(arr, n) {
+  if (arr.length === 0) return null;
+  n = n % arr.length;
+  let temp = arr.slice(n).concat(arr.slice(0, n));
   return temp;
 }
-console.log(rotateArray([1, 2, 3, 4, 5], 2));
+console.log(rotateArr([1, 2, 3, 4, 5, 6, 7], 3));
 
-function findMissingNum(arr) {
+function majorityEle(arr) {
   if (arr.length === 0) return null;
-  const n = arr.length + 1;
-  let aceptedSum = (n * (n + 1)) / 2;
-  let currentSum = 0;
-  for (let num of arr) {
-    currentSum += num;
-  }
-  return aceptedSum - currentSum;
-}
-console.log(findMissingNum([1, 2, 3, 5]));
-
-function charFrequency(str) {
-  if (str.length === 0) return null;
   let freq = {};
-  for (let char of str) {
-    freq[char] = (freq[char] || 0) + 1;
+  let temp = arr.length / 2;
+
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
   }
 
-  return freq;
+  for (let key of arr) {
+    if (freq[key] > temp) {
+      return key;
+    }
+  }
 }
-console.log(charFrequency("javascript"));
+console.log(majorityEle([2, 2, 1, 1, 1, 2, 2]));
