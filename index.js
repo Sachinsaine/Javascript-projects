@@ -927,137 +927,21 @@
 // }
 // console.log(findCommonEle([1, 2, 3], [2, 3, 4], [3, 4, 5]));
 
-function validParantheses(str) {
-  const stack = [];
-  let pairs = {
-    ")": "(",
-    "}": "{",
-    "]": "[",
-  };
-
-  for (let char of str) {
-    if (char === "(" || char === "[" || char === "{") {
-      stack.push(char);
-    } else {
-      if (stack.pop() !== pairs[char]) {
-        return false;
-      }
-    }
-  }
-
-  return stack.length === 0;
-}
-console.log(validParantheses("([)]"));
-console.log(validParantheses("({[]})"));
-
-function duplicates(arr) {
-  let freq = {};
-  // for (let num of arr) {
-  //   freq[num] = (freq[num] || 0) + 1;
-  // }
-
-  for (let key of arr) {
-    if (freq[key]) {
-      return true;
-    }
-    freq[key] = 1;
-  }
-  return false;
-}
-console.log(duplicates([1, 2, 3, 1]));
-console.log(duplicates([1, 2, 3, 4]));
-
-function intersection(a, b) {
-  let result = [];
-  for (let i = 0; i < a.length; i++) {
-    if (b.includes(a[i]) && !result.includes(a[i])) {
-      result.push(a[i]);
-    }
-  }
-  return result;
-}
-console.log(intersection([1, 2, 2, 1], [2, 2]));
-
-function singleNum(arr) {
-  // let freq = {};
-  // for (let num of arr) {
-  //   freq[num] = (freq[num] || 0) + 1;
-  // }
-
-  // for (let key of arr) {
-  //   if (freq[key] === 1) {
-  //     return Number(key);
-  //   }
-  // }
-
-  let result = 0;
-  for (let num of arr) {
-    result ^= num;
-  }
-  return result;
-}
-console.log(singleNum([4, 1, 2, 1, 2]));
-
-function bySell(arr) {
+function maxProfit(arr) {
   if (arr.length === 0) return null;
   let minPrice = Infinity;
   let maxProfit = 0;
 
-  for (let num of arr) {
-    if (num < minPrice) {
-      minPrice = num;
-    }
-
-    let profit = num - minPrice;
-    if (profit > maxProfit) {
-      maxProfit = profit;
+  for (let price of arr) {
+    if (price < minPrice) {
+      minPrice = price;
+    } else {
+      let profit = price - minPrice;
+      if (profit > maxProfit) {
+        maxProfit = profit;
+      }
     }
   }
   return maxProfit;
 }
-console.log(bySell([7, 1, 5, 3, 6, 4]));
-
-function rotateArr(arr, n) {
-  if (arr.length === 0) return null;
-  n = n % arr.length;
-  let temp = arr.slice(n).concat(arr.slice(0, n));
-  return temp;
-}
-console.log(rotateArr([1, 2, 3, 4, 5, 6, 7], 3));
-
-function majorityEle(arr) {
-  if (arr.length === 0) return null;
-  let freq = {};
-  let temp = arr.length / 2;
-
-  for (let num of arr) {
-    freq[num] = (freq[num] || 0) + 1;
-  }
-
-  for (let key of arr) {
-    if (freq[key] > temp) {
-      return key;
-    }
-  }
-}
-console.log(majorityEle([2, 2, 1, 1, 1, 2, 2]));
-
-function productOfArr(arr) {
-  const n = arr.length;
-  const result = new Array(n).fill(1);
-
-  let prefix = 1;
-  for (let i = 0; i < n.length; i++) {
-    result[i] = prefix;
-    prefix *= arr[i];
-  }
-
-  let sufix = 1;
-  for (let i = n - 1; i >= 0; i--) {
-    result[i] *= sufix;
-    sufix *= arr[i];
-  }
-
-  return result;
-}
-console.log(productOfArr([1, 2, 3, 4]));
+console.log(maxProfit([7, 1, 5, 3, 6, 4]));
