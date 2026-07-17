@@ -1071,3 +1071,141 @@ console.log(rotateArray([1, 2, 3, 4, 5, 6, 7], 3));
 console.log(rotateArray([1, 2, 3], 1));
 console.log(rotateArray([1, 2], 5));
 console.log(rotateArray([], 2));
+
+function missingNumber(arr) {
+  let n = arr.length;
+  let formula = (n * (n + 1)) / 2;
+  let sum = 0;
+  for (let num of arr) {
+    sum += num;
+  }
+  return formula - sum;
+}
+console.log(missingNumber([3, 0, 1]));
+
+function twoSum(arr, target) {
+  if (arr.length === 0) return null;
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        result.push(i, j);
+      }
+    }
+  }
+  return result;
+}
+console.log(twoSum([2, 7, 11, 15], 9));
+console.log(twoSum([3, 2, 4], 6));
+
+function findDuplicates(arr) {
+  if (arr.length === 0) return [];
+  let duplicates = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] === arr[j]) {
+        if (!duplicates.includes(arr[i])) {
+          duplicates.push(arr[i]);
+        }
+      }
+    }
+  }
+  return duplicates;
+}
+console.log(findDuplicates([1, 2, 3, 2, 4, 5, 1, 6, 3]));
+console.log(findDuplicates([1, 2, 3]));
+console.log(findDuplicates([5, 5, 5, 5]));
+
+function removeDuplicates(arr) {
+  if (arr.length === 0) return [];
+
+  let result = [];
+  for (let num of arr) {
+    if (!result.includes(num)) {
+      result.push(num);
+    }
+  }
+  return result;
+}
+console.log(removeDuplicates([1, 2, 3, 2, 4, 5, 1, 6, 3]));
+console.log(removeDuplicates([5, 5, 5, 5]));
+console.log(removeDuplicates([]));
+
+function commerElements(a, b) {
+  if (a.length === 0) return [];
+
+  let result = [];
+  for (let i = 0; i < a.length; i++) {
+    if (b.includes(a[i])) {
+      if (!result.includes(a[i])) {
+        result.push(a[i]);
+      }
+    }
+  }
+  return result;
+}
+console.log(commerElements([1, 2, 2, 3, 4], [2, 2, 4, 6]));
+
+function mergeArrays(arr1, arr2) {
+  if (arr1.length === 0 && arr2.length === 0) return [];
+  let result = [];
+  for (let num of arr1) {
+    result.push(num);
+  }
+  for (let num of arr2) {
+    result.push(num);
+  }
+  return result;
+}
+console.log(mergeArrays([1, 2], [3, 4]));
+console.log(mergeArrays([], [1, 2]));
+console.log(mergeArrays([], []));
+console.log(mergeArrays([1, 2], []));
+
+function transposeMatrix(arr) {
+  let result = [];
+  for (let i = 0; i < arr[0].length; i++) {
+    result[i] = [];
+    for (let j = 0; j < arr.length; j++) {
+      result[i].push(arr[j][i]);
+    }
+  }
+  return result;
+}
+console.log(
+  transposeMatrix([
+    [1, 2, 3],
+    [4, 5, 6],
+  ]),
+);
+
+function arrayEquality(a, b) {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+console.log(arrayEquality([1, 2, 3], [1, 2, 3]));
+console.log(arrayEquality([1, 2, 3], [3, 2, 1]));
+console.log(arrayEquality([1, 2], [1, 2, 3]));
+console.log(arrayEquality([], []));
+
+function maxProfit(prices) {
+  let minPrice = prices[0];
+  let max = 0;
+  for (let num of prices) {
+    if (num < minPrice) {
+      minPrice = num;
+    } else {
+      let profit = num - minPrice;
+      if (profit > max) {
+        max = profit;
+      }
+    }
+  }
+  return max;
+}
+console.log(maxProfit([7, 1, 5, 3, 6, 4]));

@@ -1,35 +1,37 @@
-function first() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      console.log("1st function");
-    }, 1000);
-    resolve();
-  });
-}
-function second() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      console.log("2st function");
-    });
-    resolve();
+function greet(name) {
+  setTimeout(() => {
+    console.log(`Hello, ${name}`);
   }, 2000);
 }
-function third(callback) {
-  setTimeout(() => {
-    console.log("3st function");
-    callback();
-  }, 1000);
+let result = greet("Ronnie");
+console.log(result);
+
+function demo(a, b, c) {
+  return a + b + c;
 }
-function four(callback) {
-  setTimeout(() => {
-    console.log("4st function");
-    callback();
-  }, 2000);
+console.log(demo(1, 2, 3));
+
+function add(x) {
+  return x + 5;
 }
 
-function main() {
-  console.log("Other requests processing...");
-
-  first().then(second);
+function multiple(y) {
+  return y * 2;
 }
-main();
+
+let temp = multiple(add(10));
+console.log(temp);
+
+function* generateId() {
+  let id = 1;
+
+  while (true) {
+    yield id++;
+  }
+}
+
+const ids = generateId();
+
+console.log(ids.next().value); // 1
+console.log(ids.next().value); // 2
+console.log(ids.next().value); // 3
