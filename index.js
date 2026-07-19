@@ -1209,3 +1209,110 @@ function maxProfit(prices) {
   return max;
 }
 console.log(maxProfit([7, 1, 5, 3, 6, 4]));
+
+function mergeSortedArrays(arr1, arr2) {
+  let result = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] <= arr2[j]) {
+      result.push(arr1[i]);
+      i++;
+    } else {
+      result.push(arr2[j]);
+      j++;
+    }
+  }
+
+  while (i < arr1.length) {
+    result.push(arr1[i]);
+    i++;
+  }
+
+  while (j < arr2.length) {
+    result.push(arr2[j]);
+    j++;
+  }
+
+  return result;
+}
+console.log(mergeSortedArrays([1, 2, 4], [2, 3, 5]));
+
+function moveZerosToEnd(arr) {
+  let result = [];
+  let zeros = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === 0) {
+      zeros.push(arr[i]);
+    } else {
+      result.push(arr[i]);
+    }
+  }
+  return [...result, ...zeros];
+}
+console.log(moveZerosToEnd([0, 1, 0, 3, 12]));
+
+function leaders(arr) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    let bigger = true;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] < arr[j]) {
+        bigger = false;
+        break;
+      }
+    }
+
+    if (bigger) {
+      result.push(arr[i]);
+    }
+  }
+  return result;
+}
+console.log(leaders([16, 17, 4, 3, 5, 2]));
+
+function rearrangePositiveNegative(arr) {
+  let result = [];
+  let positive = [];
+  let negative = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < 0) {
+      negative.push(arr[i]);
+    } else {
+      positive.push(arr[i]);
+    }
+  }
+
+  for (let i = 0; i < positive.length; i++) {
+    result.push(positive[i]);
+    result.push(negative[i]);
+  }
+  return result;
+}
+console.log(rearrangePositiveNegative([-1, 2, -3, 4]));
+
+function intersection(arr1, arr2) {
+  let result = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr2.includes(arr1[i])) {
+      if (!result.includes(arr1[i])) {
+        result.push(arr1[i]);
+      }
+    }
+  }
+  return result;
+}
+console.log(intersection([1, 2, 2, 3, 4], [2, 2, 4, 6]));
+
+function union(arr1, arr2) {
+  let result = [];
+  let temp = [...arr1, ...arr2];
+  for (let i = 0; i < temp.length; i++) {
+    if (!result.includes(temp[i])) {
+      result.push(temp[i]);
+    }
+  }
+  return result;
+}
+console.log(union([1, 1, 2], [2, 3, 3]));
