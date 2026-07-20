@@ -1316,3 +1316,36 @@ function union(arr1, arr2) {
   return result;
 }
 console.log(union([1, 1, 2], [2, 3, 3]));
+
+function longestConsecutive(arr) {
+  if (arr.length === 0) return [];
+  let sortArr = arr.sort((a, b) => a - b);
+  let current = 1;
+  let max = 1;
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] === arr[i - 1]) continue;
+
+    if (arr[i] === arr[i - 1] + 1) {
+      current++;
+    } else {
+      current = 1;
+    }
+    max = Math.max(current, max);
+  }
+  return max;
+}
+console.log(longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]));
+
+function spiralMatrix(matrix) {
+  // for (let i = 0; i < matrix.length; i++) {
+  //   console.log(matrix[i]);
+  // }
+  return matrix.flat();
+}
+console.log(
+  spiralMatrix([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+  ]),
+);
