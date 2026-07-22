@@ -1336,16 +1336,76 @@ function longestConsecutive(arr) {
 }
 console.log(longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]));
 
-function spiralMatrix(matrix) {
-  // for (let i = 0; i < matrix.length; i++) {
-  //   console.log(matrix[i]);
-  // }
-  return matrix.flat();
+function reverseString(str) {
+  if (str.length === 0) return "";
+  str = str.split("");
+  let result = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    result += str[i];
+  }
+  return result;
 }
-console.log(
-  spiralMatrix([
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-  ]),
-);
+console.log(reverseString("hello"));
+
+function reverseWords(str) {
+  str = str.split(" ");
+  let result = [];
+  for (let i = str.length - 1; i >= 0; i--) {
+    result.push(str[i]);
+  }
+  return result.join(" ");
+}
+console.log(reverseWords("Hello World"));
+
+function longestWord(str) {
+  str = str.split(" ");
+  let longest = "";
+  for (let i = 0; i < str.length; i++) {
+    if (str[i].length > longest.length) {
+      longest = str[i];
+    }
+  }
+  return longest;
+}
+console.log(longestWord("I love JavaScript programming"));
+console.log(longestWord("The quick brown fox"));
+
+function countVowels(str) {
+  str = str.toLowerCase();
+  let vowels = "aeiou";
+  let count = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (vowels.includes(str[i])) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countVowels("Hello"));
+console.log(countVowels("javascript"));
+
+function characterFrequency(str) {
+  if (str.length === 0) return null;
+  let freq = {};
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+  return freq;
+}
+console.log(characterFrequency("hello"));
+
+function isPalindrome(str) {
+  let left = 0;
+  let right = str.length - 1;
+  while (left < right) {
+    if (str[left] !== str[right]) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+  return true;
+}
+console.log(isPalindrome("madam"));
+console.log(isPalindrome("hello"));
+console.log(isPalindrome("racecar"));
