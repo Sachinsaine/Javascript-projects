@@ -1409,3 +1409,47 @@ function isPalindrome(str) {
 console.log(isPalindrome("madam"));
 console.log(isPalindrome("hello"));
 console.log(isPalindrome("racecar"));
+
+function removeDuplicateCharacters(str) {
+  let result = "";
+
+  for (let key of str) {
+    if (!result.includes(key)) {
+      result += key;
+    }
+  }
+  return result;
+}
+console.log(removeDuplicateCharacters("hello"));
+
+function countWords(str) {
+  if (str.length === 0) return 0;
+  return (temp = str.split(" ").length);
+}
+console.log(countWords("I love JavaScript"));
+
+function countOccurrences(str, char) {
+  if (str.length === 0) return 0;
+  let count = 0;
+  let freq = {};
+
+  for (let key of str) {
+    if (key === char) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countOccurrences("javascript", "a"));
+
+function removeSpaces(str) {
+  let result = "";
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === " ") {
+      continue;
+    }
+    result += str[i];
+  }
+  return result;
+}
+console.log(removeSpaces("hello world"));
