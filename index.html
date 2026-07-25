@@ -4,307 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: #080810;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Ambient glows */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -200px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 700px;
-            height: 500px;
-            background: radial-gradient(ellipse, rgba(99, 102, 241, 0.18) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -150px;
-            right: -100px;
-            width: 500px;
-            height: 400px;
-            background: radial-gradient(ellipse, rgba(236, 72, 153, 0.1) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        /* ── Card ── */
-        body>div {
-            position: relative;
-            z-index: 1;
-            background: #0f0f1a;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 28px;
-            padding: 3rem 2.5rem;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            animation: rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        /* Top glow line */
-        body>div::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 12%;
-            right: 12%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #6366f1, #ec4899, transparent);
-            border-radius: 1px;
-        }
-
-        /* Title via pseudo */
-        body>div::after {
-            content: '🎂 Age Calculator';
-            position: absolute;
-            top: -1.6rem;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #e8e4ff;
-            letter-spacing: -0.02em;
-        }
-
-        @keyframes rise {
-            from {
-                opacity: 0;
-                transform: translateY(28px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ── Label above input ── */
-        body>div::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 12%;
-            right: 12%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #6366f1, #ec4899, transparent);
-        }
-
-        /* ── Date input ── */
-        #date {
-            width: 100%;
-            background: #080810;
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            border-radius: 14px;
-            padding: 0.9rem 1.1rem;
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #e8e4ff;
-            outline: none;
-            cursor: pointer;
-            transition: border-color 0.25s, box-shadow 0.25s;
-            color-scheme: dark;
-            margin-top: 1.5rem;
-        }
-
-        #date:focus,
-        #date:hover {
-            border-color: rgba(99, 102, 241, 0.5);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
-        }
-
-        /* ── Calculate button ── */
-        button[onclick="handleCalculate()"] {
-            width: 100%;
-            padding: 0.95rem;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed, #ec4899);
-            background-size: 200% 200%;
-            border: none;
-            border-radius: 14px;
-            color: #fff;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
-            transition: transform 0.15s, box-shadow 0.2s, background-position 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        button[onclick="handleCalculate()"]::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-            pointer-events: none;
-        }
-
-        button[onclick="handleCalculate()"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 14px 32px rgba(99, 102, 241, 0.5);
-            background-position: right center;
-        }
-
-        button[onclick="handleCalculate()"]:active {
-            transform: scale(0.97);
-        }
-
-        /* ── Result display ── */
-        #display {
-            min-height: 48px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: rgba(200, 195, 255, 0.5);
-            font-style: italic;
-            transition: all 0.4s ease;
-        }
-
-        /* When it has content */
-        #display:not(:empty) {
-            background: rgba(99, 102, 241, 0.07);
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            border-radius: 16px;
-            padding: 1.5rem 1.2rem;
-            font-style: normal;
-            color: #e8e4ff;
-            font-size: 1rem;
-            line-height: 1.6;
-            animation: fadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Highlight the numbers inside the result */
-        #display:not(:empty) {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(236, 72, 153, 0.06));
-        }
-
-        /* ── Stats row (decorative) ── */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-        }
-
-        .stat-box {
-            background: #080810;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            padding: 0.8rem 0.5rem;
-            text-align: center;
-        }
-
-        .stat-num {
-            font-size: 1.4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #818cf8, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
-            margin-bottom: 2px;
-        }
-
-        .stat-label {
-            font-size: 0.62rem;
-            color: rgba(200, 195, 255, 0.4);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        @media (max-width: 400px) {
-            body>div {
-                padding: 2.5rem 1.4rem;
-            }
-        }
-    </style>
+    <title>Document</title>
 </head>
 
 <body>
-    <div>
-        <input type="date" id="date" placeholder="">
-        <button onclick="handleCalculate()">Calculate</button>
-        <div id="display"></div>
+    <div class="job-card">
+        <h2 class="job-title">React Developer</h2>
+        <p class="company-name">Tech Solutions Ltd</p>
+    </div>
+
+    <div class="job-card">
+        <h2 class="job-title">Java Developer</h2>
+        <p class="company-name">ABC Solutions</p>
+    </div>
+
+    <div class="job-card">
+        <h2 class="job-title">Angular Developer</h2>
+        <p class="company-name">XYZ Technologies</p>
     </div>
 
     <script>
-        let myDate = document.querySelector("#date");
-        myDate.max = new Date().toISOString().split("T")[0];
-        let displayDate = document.querySelector("#display")
-        function handleCalculate() {
+        const allcards = document.querySelectorAll(".job-card");
+        allcards.forEach((job) => {
+            const result = job.querySelector(".job-card .job-title").textContent;
+            console.log(result);
 
-            if (!myDate.value) {
-                displayDate.textContent = "Please select a date"
-                return
-            }
+        })
 
-            let birthdayDate = new Date(myDate.value);
-            let today = new Date()
-
-            let years = today.getFullYear() - birthdayDate.getFullYear()
-            let months = today.getMonth() - birthdayDate.getMonth()
-            let days = today.getDate() - birthdayDate.getDate()
-
-            if (days < 0) {
-                --months;
-                let preDays = new Date(
-                    today.getFullYear(),
-                    today.getMonth(), 0
-                ).getDate()
-
-                days += preDays
-            }
-
-            if (months < 0) {
-                years--;
-                months += 12
-            }
-            displayDate.textContent =
-                `You are ${years} years, ${months} months and ${days} days old`;
-        }
-        handleCalculate()
     </script>
 </body>
 
