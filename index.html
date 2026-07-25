@@ -26,8 +26,15 @@
     <script>
         const allcards = document.querySelectorAll(".job-card");
         allcards.forEach((job) => {
-            const result = job.querySelector(".job-card .job-title").textContent;
-            console.log(result);
+            const tile = job.querySelector(".job-title").textContent;
+            const company = job.querySelector(".company-name").textContent;
+
+            const obj = {
+                title: tile,
+                comp: company
+            }
+
+            console.log(obj);
 
         })
 
