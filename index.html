@@ -8,35 +8,19 @@
 </head>
 
 <body>
-    <div class="job-card">
-        <h2 class="job-title">React Developer</h2>
-        <p class="company-name">Tech Solutions Ltd</p>
+    <div class="job-card" style="opacity: 0;">
+        <h2 class="job-title">Frontend Developer</h2>
+        <p class="company">Cognizant</p>
+        <span class="salary">₹8 LPA</span>
     </div>
-
-    <div class="job-card">
-        <h2 class="job-title">Java Developer</h2>
-        <p class="company-name">ABC Solutions</p>
-    </div>
-
-    <div class="job-card">
-        <h2 class="job-title">Angular Developer</h2>
-        <p class="company-name">XYZ Technologies</p>
-    </div>
+    <h1>javascript</h1>
 
     <script>
-        const allcards = document.querySelectorAll(".job-card");
-        allcards.forEach((job) => {
-            const tile = job.querySelector(".job-title").textContent;
-            const company = job.querySelector(".company-name").textContent;
-
-            const obj = {
-                title: tile,
-                comp: company
-            }
-
-            console.log(obj);
-
-        })
+        let temp = document.querySelector(".job-card");
+        const title = temp.querySelector(".job-title").innerText;
+        const company = temp.querySelector(".company").innerText
+        const salary = temp.querySelector(".salary").innerText
+        console.log(title, company, salary);
 
     </script>
 </body>
