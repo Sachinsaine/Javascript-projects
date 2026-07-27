@@ -1454,3 +1454,16 @@ function removeSpaces(str) {
 }
 console.log(removeSpaces("hello world"));
 
+function closure() {
+  let count = 0;
+
+  function inner() {
+    count++;
+    console.log(count);
+  }
+  return inner;
+}
+const counter = closure();
+
+counter();
+counter();
