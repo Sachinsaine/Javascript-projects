@@ -1453,3 +1453,4 @@ function removeSpaces(str) {
   return result;
 }
 console.log(removeSpaces("hello world"));
+
