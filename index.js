@@ -1454,16 +1454,48 @@ function removeSpaces(str) {
 }
 console.log(removeSpaces("hello world"));
 
-function closure() {
-  let count = 0;
-
-  function inner() {
-    count++;
-    console.log(count);
+function isAnagram(str1, str2) {
+  let freq = {};
+  for (let char of str1) {
+    freq[char] = (freq[char] || 0) + 1;
   }
-  return inner;
-}
-const counter = closure();
 
-counter();
-counter();
+  for (let key of str2) {
+    if (!freq[key]) {
+      return false;
+    }
+    freq[key]--;
+  }
+  return true;
+}
+console.log(isAnagram("listen", "silent"));
+console.log(isAnagram("triangle", "iternal"));
+console.log(isAnagram("rat", "car"));
+
+function firstNonRepeatingCharacter(str) {
+  let freq = {};
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+
+  for (let key of str) {
+    if (freq[key] === 1) {
+      return key;
+    }
+  }
+  return null;
+}
+console.log(firstNonRepeatingCharacter("aabbcdd"));
+console.log(firstNonRepeatingCharacter("leetcode"));
+
+function firstRepeatingCharacter(str) {
+  let seen = {};
+  for (let char of str) {
+    if (seen[char]) {
+      return char;
+    }
+    seen[char] = true;
+  }
+  return null;
+}
+console.log(firstRepeatingCharacter("abcdca"));
