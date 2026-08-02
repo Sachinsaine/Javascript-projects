@@ -139,3 +139,89 @@ console.log(findMinOdd([2, 4, 6]));
 console.log(findMinOdd([7]));
 console.log(findMinOdd([-5, -3, -8]));
 console.log(findMinOdd([]));
+
+function reverseArray(arr) {
+  if (arr.length === 0) return null;
+  const result = [];
+  for (let i = arr.length - 1; i >= 0; i--) {
+    result.push(arr[i]);
+  }
+  return result;
+}
+console.log(reverseArray([1, 2, 3, 4, 5]));
+
+function isSorted(arr) {
+  if (arr.length === 0) return false;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > arr[i + 1]) {
+      return false;
+    }
+  }
+  return true;
+}
+console.log(isSorted([1, 2, 3, 4, 5]));
+console.log(isSorted([1, 2, 5, 4]));
+
+function moveZeros(arr) {
+  const nonZeros = [];
+  const zeros = [];
+  for (let num of arr) {
+    if (num !== 0) {
+      nonZeros.push(num);
+    } else {
+      zeros.push(num);
+    }
+  }
+  return [...nonZeros, ...zeros];
+}
+console.log(moveZeros([0, 0, 1]));
+
+function removeDuplicates(arr) {
+  if (arr.length === 0) return [];
+  const unique = [];
+  for (let num of arr) {
+    if (!unique.includes(num)) {
+      unique.push(num);
+    }
+  }
+  return unique;
+}
+console.log(removeDuplicates(removeDuplicates([1, 2, 2, 3, 1, 4])));
+
+function findFirstDuplicate(arr) {
+  const duplicate = [];
+  for (let num of arr) {
+    if (duplicate.includes(num)) {
+      return num;
+    }
+    duplicate.push(num);
+  }
+  return null;
+}
+console.log(findFirstDuplicate([2, 5, 1, 3, 5, 2]));
+
+function findFrequency(arr) {
+  const freq = {};
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+  }
+  return freq;
+}
+console.log(findFrequency([1, 2, 2, 3, 1, 2]));
+
+function twoSum(arr, target) {
+  if (arr.length === 0) return null;
+  const obj = {};
+  for (let i = 0; i < arr.length; i++) {
+    let complement = target - arr[i];
+
+    if (obj[complement] !== undefined) {
+      return [obj[complement], i];
+    }
+    obj[arr[i]] = i;
+  }
+  return null;
+}
+console.log(twoSum([2, 7, 11, 15], 9));
+// console.log(twoSum([3, 3], 6));
+// console.log(twoSum([1, 2, 3], 10));
