@@ -223,5 +223,75 @@ function twoSum(arr, target) {
   return null;
 }
 console.log(twoSum([2, 7, 11, 15], 9));
-// console.log(twoSum([3, 3], 6));
-// console.log(twoSum([1, 2, 3], 10));
+
+function containsDuplicate(arr) {
+  if (arr.length === 0) return false;
+  let seen = {};
+  // for (let num of arr) {
+  //   freq[num] = (freq[num] || 0) + 1;
+  // }
+
+  for (let key of arr) {
+    if (seen[key]) {
+      return true;
+    }
+    seen[key] = 1;
+  }
+  return false;
+}
+console.log(containsDuplicate([1, 2, 3, 1]));
+console.log(containsDuplicate([1, 2, 3]));
+
+function findFirstUnique(arr) {
+  let obj = {};
+  for (let num of arr) {
+    obj[num] = (obj[num] || 0) + 1;
+  }
+  for (let num of arr) {
+    if (obj[num] === 1) {
+      return num;
+    }
+  }
+  return null;
+}
+console.log(findFirstUnique([2, 3, 2, 4, 3, 5]));
+
+function intersection(arr1, arr2) {
+  let obj = {};
+  const result = [];
+
+  for (let num of arr1) {
+    obj[num] = true;
+  }
+
+  for (let num of arr2) {
+    if (obj[num]) {
+      result.push(num);
+      obj[num] = false;
+    }
+  }
+  return result;
+}
+console.log(intersection([1, 2, 3, 4], [3, 4, 5, 6]));
+console.log(intersection([1, 2, 2, 3], [2, 2, 4]));
+console.log(intersection([1, 2, 3], [2, 2, 2]));
+
+function isAnagram(a, b) {
+  if (a.length !== b.length) return false;
+  const freq = {};
+  for (let char of a) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+
+  for (let char of b) {
+    if (!freq[char]) {
+      return false;
+    }
+    freq[char]--;
+  }
+  return true;
+}
+console.log(isAnagram("listen", "silent"));
+console.log(isAnagram("race", "care"));
+console.log(isAnagram("hello", "world"));
+console.log(isAnagram("rat", "car"));
