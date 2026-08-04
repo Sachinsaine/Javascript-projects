@@ -136,7 +136,6 @@ function findMinOdd(arr) {
 }
 console.log(findMinOdd([8, 3, 12, 5, 9, 20, 1]));
 console.log(findMinOdd([2, 4, 6]));
-console.log(findMinOdd([7]));
 console.log(findMinOdd([-5, -3, -8]));
 console.log(findMinOdd([]));
 
@@ -292,6 +291,3 @@ function isAnagram(a, b) {
   return true;
 }
 console.log(isAnagram("listen", "silent"));
-console.log(isAnagram("race", "care"));
-console.log(isAnagram("hello", "world"));
-console.log(isAnagram("rat", "car"));
