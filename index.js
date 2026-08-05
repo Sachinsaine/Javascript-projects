@@ -325,6 +325,53 @@ function missingNumber(arr) {
 console.log(missingNumber([3, 0, 1]));
 
 function singleNumber(arr) {
-  
+  let freq = {};
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+  }
+
+  for (let num of arr) {
+    if (freq[num] === 1) {
+      return num;
+    }
+  }
+  return null;
 }
 console.log(singleNumber([2, 2, 1]));
+console.log(singleNumber([4, 1, 2, 1, 2]));
+
+function findTheDifference(str1, str2) {
+  let freq = {};
+
+  for (let char of str1) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+
+  for (let char of str2) {
+    if (!freq[char]) {
+      return char;
+    }
+    freq[char]--;
+  }
+}
+console.log(findTheDifference("abcd", "abcde"));
+console.log(findTheDifference("", "y"));
+console.log(findTheDifference("aabb", "abacb"));
+
+function isPalindrome(str) {
+  let left = 0;
+  let right = str.length - 1;
+
+  while (left < right) {
+    if (str[left] !== str[right]) {
+      return false;
+    }
+
+    left++;
+    right--;
+  }
+
+  return true;
+}
+console.log(isPalindrome("madam"));
+console.log(isPalindrome("maagm"));
