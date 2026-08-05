@@ -291,3 +291,40 @@ function isAnagram(a, b) {
   return true;
 }
 console.log(isAnagram("listen", "silent"));
+
+function majorityElement(arr) {
+  const arrLength = arr.length / 2;
+  let freq = {};
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+  }
+
+  for (let num of arr) {
+    if (freq[num] > arrLength) {
+      return num;
+    }
+  }
+  return null;
+}
+console.log(majorityElement([2, 2, 1, 1, 1, 2, 2]));
+console.log(majorityElement([5, 5, 5, 2, 5]));
+
+function missingNumber(arr) {
+  let obj = {};
+  for (let num of arr) {
+    obj[num] = (obj[num] || 0) + 1;
+  }
+
+  for (let i = 0; i <= arr.length; i++) {
+    if (!obj[i]) {
+      return i;
+    }
+  }
+  return null;
+}
+console.log(missingNumber([3, 0, 1]));
+
+function singleNumber(arr) {
+  
+}
+console.log(singleNumber([2, 2, 1]));
