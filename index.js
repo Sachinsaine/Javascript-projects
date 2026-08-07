@@ -1,3 +1,5 @@
+const { log } = require("node:console");
+
 function findLargestNum(arr) {
   if (arr.length === 0) return null;
   let largest = arr[0];
@@ -353,12 +355,14 @@ function findTheDifference(str1, str2) {
     }
     freq[char]--;
   }
+  return null;
 }
 console.log(findTheDifference("abcd", "abcde"));
 console.log(findTheDifference("", "y"));
 console.log(findTheDifference("aabb", "abacb"));
 
 function isPalindrome(str) {
+  str = str.replace(/[\s,:]+/g, "").toLowerCase();
   let left = 0;
   let right = str.length - 1;
 
@@ -375,3 +379,87 @@ function isPalindrome(str) {
 }
 console.log(isPalindrome("madam"));
 console.log(isPalindrome("maagm"));
+console.log(isPalindrome("A man, a plan, a canal: Panama"));
+
+function twoSum(arr, target) {
+  if (arr.length <= 1) return null;
+  let left = 0;
+  let right = arr.length - 1;
+  while (left < right) {
+    let sum = arr[left] + arr[right];
+    if (sum === target) {
+      return [left, right];
+    } else if (sum < target) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+  return null;
+}
+console.log(twoSum([2, 7, 11, 15], 9));
+
+function moveZerosEnd(arr) {
+  let left = 0;
+
+  let result = [];
+  for (let right = 0; right < arr.length; right++) {
+    if (arr[right] !== 0) {
+      [arr[left], arr[right]] = [arr[right], arr[left]];
+      left++;
+    }
+  }
+  return arr;
+}
+console.log(moveZerosEnd([0, 1, 0, 3, 12]));
+
+function removeDuplicates(arr) {
+  if (arr.length === 0) return null;
+  let left = 0;
+  for (let right = 0; right < arr.length; right++) {
+    if (arr[left] !== arr[right]) {
+      left++;
+      arr[left] = arr[right];
+    }
+  }
+  return arr.slice(0, left + 1);
+}
+
+console.log(removeDuplicates([0, 0, 1, 1, 2, 2, 3]));
+
+function moveNegatives(arr) {
+  if (arr.length === 0) return null;
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    if (arr[left] < 0) {
+      left++;
+    } else if (arr[right] >= 0) {
+      right--;
+    } else {
+      [arr[left], arr[right]] = [arr[right], arr[left]];
+      left++;
+      right--;
+    }
+  }
+  return arr;
+}
+console.log(moveNegatives([-1, 2, -3, 4, -5, 6]));
+
+function validPalindrome(str) {
+  let left = 0;
+  let right = str.length - 1;
+
+  let char = [];
+  while (left < right) {
+    if (str[left] !== str[right]) {
+      char.push(str[left]);
+    }
+
+    left++;
+    right--;
+  }
+  console.log(char);
+}
+console.log(validPalindrome("abca"));
