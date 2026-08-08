@@ -1,4 +1,5 @@
 const { log } = require("node:console");
+const { escape } = require("node:querystring");
 
 function findLargestNum(arr) {
   if (arr.length === 0) return null;
@@ -463,3 +464,71 @@ function validPalindrome(str) {
   console.log(char);
 }
 console.log(validPalindrome("abca"));
+
+function reverseArray(arr) {
+  if (arr.length === 0) return null;
+  let left = 0;
+  let right = arr.length - 1;
+  while (left < right) {
+    [arr[left], arr[right]] = [arr[right], arr[left]];
+    left++;
+    right--;
+  }
+  return arr;
+}
+console.log(reverseArray([1, 2, 3, 4, 5]));
+
+function reverseString(str) {
+  if (str.length === 0) return null;
+  str = str.split("");
+
+  let left = 0;
+  let right = str.length - 1;
+  while (left < right) {
+    [str[left], str[right]] = [str[right], str[left]];
+    left++;
+    right--;
+  }
+  return str.join("");
+}
+console.log(reverseString("hello"));
+
+function mergeSorted(a, b) {
+  let left = 0;
+  let right = 0;
+
+  const result = [];
+  while (left < a.length && right < b.length) {
+    if (a[left] < b[right]) {
+      result.push(a[left]);
+      left++;
+    } else {
+      result.push(b[right]);
+      right++;
+    }
+  }
+  return result;
+}
+console.log(mergeSorted([1, 2, 7], [3, 4, 5]));
+
+function hasPairWithDifference(arr, target) {
+  let left = 0;
+  let right = 1;
+  arr = arr.sort((a, b) => a - b);
+  while (left < right) {
+    let difference = arr[right] - arr[left];
+    if (difference === target) {
+      return true;
+    } else if (difference < target) {
+      right++;
+    } else {
+      left++;
+    }
+
+    if (difference === right) {
+      right++;
+    }
+  }
+  return false;
+}
+console.log(hasPairWithDifference([1, 5, 3, 4, 2], 2));
