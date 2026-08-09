@@ -1,4 +1,3 @@
-
 function findLargestNum(arr) {
   if (arr.length === 0) return null;
   let largest = arr[0];
@@ -530,3 +529,4 @@ function hasPairWithDifference(arr, target) {
   return false;
 }
 console.log(hasPairWithDifference([1, 5, 3, 4, 2], 2));
+console.log(hasPairWithDifference([2, 3, 5, 4]));
