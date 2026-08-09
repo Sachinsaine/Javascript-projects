@@ -1,5 +1,3 @@
-const { log } = require("node:console");
-const { escape } = require("node:querystring");
 
 function findLargestNum(arr) {
   if (arr.length === 0) return null;
