@@ -58,7 +58,6 @@ function countPairs(arr, target) {
   let count = 0;
   for (let i = 0; i < arr.length; i++) {
     let result = target - arr[i];
-    console.log(result);
 
     if (seen[result] !== undefined) {
       count += seen[result];
@@ -69,3 +68,58 @@ function countPairs(arr, target) {
   return count;
 }
 console.log(countPairs([1, 5, 7, -1, 5], 6));
+
+function commonElements(arr1, arr2) {
+  let seen = {};
+  for (let num of arr1) {
+    seen[num] = (seen[num] || 0) + 1;
+  }
+
+  for (let num of arr2) {
+    if (seen[num]) {
+      console.log(num);
+      delete seen[num];
+    }
+  }
+}
+console.log(commonElements([1, 2, 3, 4], [3, 4, 5, 6]));
+
+function findMissingChar(str1, str2) {
+  let seen = {};
+  for (let char of str1) {
+    seen[char] = (seen[char] || 0) + 1;
+  }
+
+  for (let char of str2) {
+    if (!seen[char]) {
+      return char;
+    }
+    seen[char]--;
+  }
+  return null;
+}
+
+console.log(findMissingChar("abcd", "abcde"));
+console.log(findMissingChar("aabb", "abacb"));
+console.log(findMissingChar("", "y"));
+
+function mostFrequent(arr) {
+  let seen = {};
+  let max = 0;
+  let result = null;
+
+  for (let num of arr) {
+    seen[num] = (seen[num] || 0) + 1;
+  }
+
+  for (let num of arr) {
+    if (seen[num] > max) {
+      max = seen[num];
+      result = num;
+    }
+  }
+  return result;
+}
+
+console.log(mostFrequent([1, 3, 2, 1, 4, 1, 3]));
+console.log(mostFrequent([5, 5, 2, 2, 2, 3]));
