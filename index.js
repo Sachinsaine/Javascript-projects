@@ -275,3 +275,60 @@ function reverseArray(arr) {
 }
 
 console.log(reverseArray([1, 2, 3, 4, 5]));
+
+function isPalindrome(str) {
+  let left = 0;
+  let right = str.length - 1;
+
+  while (left < right) {
+    if (str[left] !== str[right]) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+  return true;
+}
+console.log(isPalindrome("madam"));
+console.log(isPalindrome("hello"));
+console.log(isPalindrome("racecar"));
+
+function moveZeros(arr) {
+  if (arr.length === 0) return [];
+  let left = 0;
+  let right = 0;
+  while (left < arr.length) {
+    if (arr[left] !== 0) {
+      [arr[left], arr[right]] = [arr[right], arr[left]];
+      right++;
+    }
+    left++;
+  }
+  return arr;
+}
+
+console.log(moveZeros([0, 1, 0, 3, 12]));
+console.log(moveZeros([1, 0, 2, 0, 4]));
+
+function removeDuplicates(arr) {
+  let left = 0;
+  let right = 1;
+
+  while (right < arr.length) {
+    if (arr[right] !== arr[left]) {
+      left++;
+      arr[left] = arr[right];
+    }
+    right++;
+  }
+  return left + 1;
+}
+
+console.log(removeDuplicates([1, 1, 2, 2, 3]));
+// 3
+
+console.log(removeDuplicates([1, 1, 1, 2, 3, 3]));
+// 3
+
+console.log(removeDuplicates([1, 1, 1, 1]));
+// 1
