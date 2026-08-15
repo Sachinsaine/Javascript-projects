@@ -40,3 +40,18 @@ function maxWater(arr) {
 
 console.log(maxWater([1, 8, 6, 2, 5, 4, 8, 3, 7]));
 console.log(maxWater([1, 1]));
+
+function isPalindrome(str) {
+  str = str.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+  let left = 0;
+  let right = str.length - 1;
+  while (left < right) {
+    if (str[left] !== str[right]) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+  return true;
+}
+console.log(isPalindrome("A man, a plan, a canal: Panama"));
