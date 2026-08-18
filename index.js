@@ -123,37 +123,3 @@ console.log(palindrome("racecar"));
 console.log(palindrome("madam"));
 console.log(palindrome("hello"));
 
-function maxSubarraySum(arr, k) {
-  if (arr.length < k || k <= 0) return 0;
-
-  let left = 0;
-  let right = 0;
-  let sum = 0;
-
-  // Create the first window
-  while (right < k) {
-    sum += arr[right];
-    right++;
-  }
-
-  let max = sum;
-
-  // Slide the window
-  while (right < arr.length) {
-    sum -= arr[left];
-    left++;
-
-    sum += arr[right];
-    right++;
-
-    max = Math.max(max, sum);
-  }
-
-  return max;
-}
-
-console.log(maxSubarraySum([2, 1, 5, 1, 3, 2], 3));
-// 9
-
-console.log(maxSubarraySum([2, 3, 4, 1, 5], 2));
-// 7
