@@ -45,3 +45,47 @@ function longestUniqueSubstring(str) {
 console.log(longestUniqueSubstring("abcabcbb"));
 console.log(longestUniqueSubstring("bbbbb"));
 console.log(longestUniqueSubstring("pwwkew"));
+
+function longestSubarray(arr, k) {
+  let left = 0;
+  let right = 0;
+  let sum = 0;
+  let max = 0;
+
+  while (right < arr.length) {
+    sum += arr[right];
+    if (sum > k) {
+      sum -= arr[left];
+      left++;
+    }
+
+    max = Math.max(max, right - left + 1);
+    right++;
+  }
+  return max;
+}
+console.log(longestSubarray([1, 2, 1, 0, 1, 1, 0], 4));
+console.log(longestSubarray([2, 1, 5, 1, 1, 3], 5));
+
+function minSubarrayLength(arr, target) {
+  let left = 0;
+  let right = 0;
+  let sum = 0;
+  let min = Infinity;
+
+  while (right < arr.length) {
+    sum += arr[right];
+
+    while (sum >= target) {
+      min = Math.min(min, right - left + 1);
+      sum -= arr[left];
+      left++;
+    }
+
+    right++;
+  }
+  return min;
+}
+
+console.log(minSubarrayLength([2, 3, 1, 2, 4, 3], 7));
+console.log(minSubarrayLength([1, 4, 4], 4));
