@@ -89,3 +89,21 @@ function minSubarrayLength(arr, target) {
 
 console.log(minSubarrayLength([2, 3, 1, 2, 4, 3], 7));
 console.log(minSubarrayLength([1, 4, 4], 4));
+
+function firstDuplicate(arr) {
+  if (arr.length === 0) return null;
+  let seen = {};
+  for (let num of arr) {
+    if (seen[num]) {
+      return num;
+    }
+    seen[num] = 1;
+  }
+  return null;
+}
+console.log(firstDuplicate([2, 5, 1, 2, 3, 5, 1]));
+
+function firstNonRepeatingNum(arr) {
+  
+}
+console.log(firstNonRepeatingNum([4, 5, 1, 2, 0, 4, 1, 2]));
