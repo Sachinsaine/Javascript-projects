@@ -83,3 +83,97 @@ function firstDuplicateNum(arr) {
   return null;
 }
 console.log(firstDuplicateNum([2, 5, 1, 2, 3, 5]));
+
+function firstUniqueNum(arr) {
+  if (arr.length === 0) return null;
+
+  let freq = {};
+
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+  }
+
+  for (let num of arr) {
+    if (freq[num] === 1) {
+      return num;
+    }
+  }
+  return null;
+}
+console.log(firstUniqueNum([4, 5, 1, 2, 0, 4, 1, 2]));
+
+function findMissingNum(arr) {
+  if (arr.length === 0) return null;
+
+  let n = arr.length + 1;
+  let temp = (n * (n + 1)) / 2;
+  let sum = 0;
+
+  for (let num of arr) {
+    sum += num;
+  }
+  return temp - sum;
+}
+console.log(findMissingNum([1, 2, 3, 5, 6]));
+console.log(findMissingNum([1, 2, 3, 4, 6, 7]));
+
+function findSecondLargestNum(arr) {
+  if (arr.length === 0) return null;
+  let largest = -Infinity;
+  let secondLargest = -Infinity;
+
+  for (let num of arr) {
+    if (num > largest) {
+      secondLargest = largest;
+      largest = num;
+    } else if (num > secondLargest && num !== largest) {
+      secondLargest = num;
+    }
+  }
+  return secondLargest === -Infinity ? "Not found" : secondLargest;
+}
+console.log(findSecondLargestNum([10, 5, 8, 20, 15]));
+console.log(findSecondLargestNum([10, 10, 8, 5]));
+
+function firstRepeatedChar(str) {
+  if (str.length === 0) return null;
+  let freq = {};
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+
+  for (let char of str) {
+    if (freq[char] > 1) {
+      return char;
+    }
+  }
+
+  return null;
+}
+console.log(firstRepeatedChar("javascript"));
+
+function removeDuplicates(arr) {
+  let result = [];
+  for (let num of arr) {
+    if (!result.includes(num)) {
+      result.push(num);
+    }
+  }
+  return result;
+}
+console.log(removeDuplicates([1, 2, 2, 3, 1, 4]));
+
+function firstNonRepeatingChar(str) {
+  let freq = {};
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+
+  for (let char of str) {
+    if (freq[char] === 1) {
+      return char;
+    }
+  }
+  return null;
+}
+console.log(firstNonRepeatingChar("swiss"));
