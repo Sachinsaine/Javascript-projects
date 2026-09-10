@@ -177,3 +177,39 @@ function firstNonRepeatingChar(str) {
   return null;
 }
 console.log(firstNonRepeatingChar("swiss"));
+
+function findLargestWord(str) {
+  if (str.length === 0) return null;
+  let result = "";
+  let temp = str.split(" ");
+  for (let word of temp) {
+    if (word.length > result.length) {
+      result = word;
+    }
+  }
+  return result;
+}
+console.log(findLargestWord("I love JavaScript programming"));
+
+function totalSum(arr) {
+  if (arr.length === 0) return null;
+
+  let sum = 0;
+  for (let num of arr) {
+    sum += num;
+  }
+  return sum;
+}
+console.log(totalSum([10, 20, 5, 15]));
+
+function findAverage(arr) {
+  if (arr.length === 0) return null;
+
+  let sum = 0;
+  for (let num of arr) {
+    sum += num;
+  }
+
+  return sum / arr.length;
+}
+console.log(findAverage([10, 20, 30]));
