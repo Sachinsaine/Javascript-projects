@@ -213,3 +213,117 @@ function findAverage(arr) {
   return sum / arr.length;
 }
 console.log(findAverage([10, 20, 30]));
+
+function countPositiveNum(arr) {
+  if (arr.length === 0) return null;
+
+  let count = 0;
+  for (let num of arr) {
+    if (num > 0) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countPositiveNum([-2, 5, 0, 8, -1, 3]));
+
+function countNegativeNum(arr) {
+  if (arr.length === 0) return null;
+
+  let count = 0;
+  for (let num of arr) {
+    if (num < 0) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countNegativeNum([5, -2, -7, 8, -1]));
+
+function countDivisibleNum(arr) {
+  if (arr.length === 0) return null;
+
+  let count = 0;
+  for (let num of arr) {
+    if (num % 3 === 0) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countDivisibleNum([3, 5, 6, 10, 12, 14]));
+
+function findSmallestNum(arr) {
+  if (arr.length === 0) return null;
+  let temp = arr[0];
+  for (let num of arr) {
+    if (num < temp) {
+      temp = num;
+    }
+  }
+  return temp;
+}
+console.log(findSmallestNum([25, 10, 8, 42, 3, 17]));
+
+function largestNumDividedByThree(arr) {
+  if (arr.length === 0) return null;
+  let largest = 0;
+  for (let num of arr) {
+    if (num % 3 === 0) {
+      if (num > largest) {
+        largest = num;
+      }
+    }
+  }
+  return largest;
+}
+console.log(largestNumDividedByThree([10, 15, 7, 21, 18, 5]));
+
+function sumOfEvenNum(arr) {
+  let sum = 0;
+  for (let num of arr) {
+    if (num % 2 === 0) {
+      sum += num;
+    }
+  }
+  return sum;
+}
+console.log(sumOfEvenNum([2, 5, 8, 11, 14, 7]));
+
+function sumOfOddNum(arr) {
+  let sum = 0;
+  for (let num of arr) {
+    if (num % 2 !== 0) {
+      sum += num;
+    }
+  }
+  return sum;
+}
+console.log(sumOfOddNum([2, 5, 8, 11, 14, 7]));
+
+function findFirstNum(arr) {
+  for (let num of arr) {
+    if (num > 10) {
+      return num;
+    }
+  }
+}
+console.log(findFirstNum([3, 7, 12, 5, 20]));
+
+function firstEvenNum(arr) {
+  for (let num of arr) {
+    if (num % 2 === 0) {
+      return num;
+    }
+  }
+}
+console.log(firstEvenNum([3, 7, 11, 8, 14]));
+
+function firstDivisibleNum(arr) {
+  for (let num of arr) {
+    if (num % 5 === 0) {
+      return num;
+    }
+  }
+}
+console.log(firstDivisibleNum([3, 7, 12, 18, 20, 25]));
