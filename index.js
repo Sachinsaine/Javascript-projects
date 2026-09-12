@@ -327,3 +327,53 @@ function firstDivisibleNum(arr) {
   }
 }
 console.log(firstDivisibleNum([3, 7, 12, 18, 20, 25]));
+
+function countGreaterThan(arr, target) {
+  let count = 0;
+  for (let num of arr) {
+    if (num > target) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countGreaterThan([5, 12, 8, 20, 3, 15], 10));
+
+function countNumberLessThan(arr, target) {
+  let count = 0;
+  for (let num of arr) {
+    if (num < target) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countNumberLessThan([10, 4, 7, 15, 2, 9], 10));
+
+function findTwoSum(arr, target) {
+  if (arr.length === 0) return null;
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        return [i, j];
+      }
+    }
+  }
+  return null;
+}
+console.log(findTwoSum([2, 7, 11, 15], 9));
+
+function findFirstUnique(arr) {
+  let freq = {};
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+  }
+
+  for (let num of arr) {
+    if (freq[num] === 1) {
+      return num;
+    }
+  }
+  return null;
+}
+console.log(findFirstUnique([4, 5, 1, 2, 0, 4, 1, 2]));
