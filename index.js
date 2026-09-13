@@ -397,4 +397,25 @@ function longestConsecutive(arr) {
   }
   return longest;
 }
-console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));
+console.log(longestConsecutive([5, 2, 99, 3, 1, 4, 100, 6]));
+
+function longestSubarraySum(arr, k) {
+  let longest = 0;
+  for (let i = 0; i < arr.length; i++) {
+    let sum = 0;
+    let current = i;
+    let count = 0;
+    while (current < arr.length) {
+      sum += arr[current];
+
+      count++;
+
+      if (sum === k) {
+        longest = Math.max(longest, count);
+      }
+      current++;
+    }
+  }
+  return longest;
+}
+console.log(longestSubarraySum([2, 3, 5, 1, 2], 6));
