@@ -434,3 +434,18 @@ function zerosToEnd(arr) {
   return [...nonZeros, ...zeros];
 }
 console.log(zerosToEnd([0, 1, 0, 3, 12]));
+
+function productofArray(arr) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    let product = 1;
+    for (let j = 0; j < arr.length; j++) {
+      if (i !== j) {
+        product *= arr[j];
+      }
+    }
+    result.push(product);
+  }
+  return result;
+}
+console.log(productofArray([1, 2, 3, 4]));
