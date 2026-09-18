@@ -436,6 +436,7 @@ function zerosToEnd(arr) {
 console.log(zerosToEnd([0, 1, 0, 3, 12]));
 
 function productofArray(arr) {
+  if (arr.length === 0) return null;
   let result = [];
   for (let i = 0; i < arr.length; i++) {
     let product = 1;
@@ -449,3 +450,32 @@ function productofArray(arr) {
   return result;
 }
 console.log(productofArray([1, 2, 3, 4]));
+
+function longestWord(str) {
+  let result = "";
+  str = str.split(" ");
+  for (let word of str) {
+    if (word.length > result.length) {
+      result = word;
+    }
+  }
+  return result;
+}
+console.log(longestWord("JavaScript is very powerful"));
+
+function findDuplicates(arr) {
+  let duplicate = [];
+  let freq = {};
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+  }
+  for (let num of arr) {
+    if (freq[num] > 1) {
+      if (!duplicate.includes(num)) {
+        duplicate.push(num);
+      }
+    }
+  }
+  return duplicate;
+}
+console.log(findDuplicates([1, 2, 3, 2, 4, 1, 5]));
