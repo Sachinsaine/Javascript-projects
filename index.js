@@ -479,3 +479,16 @@ function findDuplicates(arr) {
   return duplicate;
 }
 console.log(findDuplicates([1, 2, 3, 2, 4, 1, 5]));
+
+function interSection(a, b) {
+  let result = [];
+  for (let num of a) {
+    if (b.includes(num)) {
+      result.push(num);
+    }
+  }
+  return result;
+}
+console.log(interSection([1, 2, 3, 4, 5], [3, 4, 5, 6, 7]));
+
+
